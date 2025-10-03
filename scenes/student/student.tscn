@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://47ncokraoa05"]
+[gd_scene load_steps=43 format=3 uid="uid://47ncokraoa05"]
 
 [ext_resource type="Texture2D" uid="uid://2uqfbcxk7nic" path="res://assets/characters/Idle_KG_1.png" id="1_btdwm"]
 [ext_resource type="Script" uid="uid://cysgq1ipirhk6" path="res://scenes/student/student.gd" id="1_vpnha"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://clx6va4wufvvo" path="res://assets/characters/Fall_KG_1.png" id="2_wfd6u"]
 [ext_resource type="Texture2D" uid="uid://be5vm8f3gkuk8" path="res://assets/characters/Attack_KG_2.png" id="3_7wd77"]
 [ext_resource type="Texture2D" uid="uid://duqqxvsqc8xpx" path="res://assets/characters/Jump_KG_1.png" id="4_1l4k3"]
+[ext_resource type="AudioStream" uid="uid://d3a6fhbvkrld7" path="res://sounds/sfx/sword_sfx.mp3" id="8_7wd77"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sphjv"]
 atlas = ExtResource("2_umfa7")
@@ -282,5 +283,8 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 4)
 shape = SubResource("CapsuleShape2D_fpbla")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_7wd77")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

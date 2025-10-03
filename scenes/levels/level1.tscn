@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=4 uid="uid://dn2iip6chtt3v"]
+[gd_scene load_steps=17 format=4 uid="uid://dn2iip6chtt3v"]
 
+[ext_resource type="Script" uid="uid://5ay6h2nbwbpe" path="res://scenes/levels/level_1.gd" id="1_2r1tl"]
 [ext_resource type="Texture2D" uid="uid://d3tdq286ch3xq" path="res://assets/scenery/Background/Purple.png" id="1_x6ivy"]
 [ext_resource type="Texture2D" uid="uid://cglmv04xdl7rf" path="res://assets/scenery/Items/Boxes/Box1/Idle.png" id="2_1seuy"]
+[ext_resource type="AudioStream" uid="uid://dlc2clrobpo7x" path="res://sounds/music/Fun Background.ogg" id="2_plydf"]
 [ext_resource type="Texture2D" uid="uid://baqq4kem7gct2" path="res://assets/scenery/Items/Boxes/Box3/Idle.png" id="3_2r1tl"]
 [ext_resource type="Texture2D" uid="uid://b54qxk1xdwo24" path="res://assets/scenery/Items/Boxes/Box2/Idle.png" id="4_8a7m2"]
 [ext_resource type="Texture2D" uid="uid://bb7muciy1amnc" path="res://assets/scenery/Terrain/Terrain (16x16).png" id="5_plydf"]
@@ -263,6 +265,12 @@ sources/5 = SubResource("TileSetAtlasSource_lgguw")
 sources/8 = SubResource("TileSetAtlasSource_jprdt")
 
 [node name="level1" type="Node2D"]
+script = ExtResource("1_2r1tl")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_plydf")
+autoplay = true
+bus = &"Music"
 
 [node name="tiles" type="Node2D" parent="."]
 

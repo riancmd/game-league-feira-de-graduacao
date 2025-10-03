@@ -45,15 +45,18 @@ func move(delta: float):
 
 # lida com o ataque
 func handleAttack():
+	# verifica botão e variável de ataque
 	if Input.is_action_just_pressed("attack") && !attacking:
 		attacking = true
+		# troca entre duas diferentes animações aleatoriamente
 		var RNG = RandomNumberGenerator.new()
 		if RNG.randi_range(1,2) == 1:
 			$AnimatedSprite2D.play("attack")
 		else:
 			$AnimatedSprite2D.play("attack_2")
-		await get_tree().create_timer(0.6).timeout
-		attacking = false
+		$AudioStreamPlayer2D.play(0)
+		await get_tree().create_timer(0.6).timeout # garante minimamente que 
+		attacking = false						   # animação não seja substituida
 		
 # troca movimentação
 func switch_animation(direction):
