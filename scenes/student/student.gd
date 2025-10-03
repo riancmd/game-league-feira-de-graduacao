@@ -3,15 +3,26 @@ extends CharacterBody2D
 @export var speed = 200
 @export var gravity = 1000
 var jump_velocity = -500
+var attacking = false
 @export var screen_size = Vector2(0,0)
+
+var atkCD : Timer
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 func _physics_process(delta: float) -> void:
+	move(delta)
+	handleAttack()
+	
+	# se caiu, reinicia
+	if position.y > screen_size.y:
+		get_tree().reload_current_scene()
+	
+func move(delta: float):
 	if !is_on_floor():
 		velocity.y += gravity * delta
-
+		
 	# pulo
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
@@ -23,21 +34,28 @@ func _physics_process(delta: float) -> void:
 	
 	# troca o sentido do sprite
 	if direction != 0:
-		$AnimatedSprite2D.flip_h = (direction == -1)
-		
-	# ataca
-	if Input.is_action_just_pressed("attack"):
-		$AnimatedSprite2D.play("attack")
+			$AnimatedSprite2D.flip_h = (direction == -1)
 	velocity.x = direction * speed
+			
 	move_and_slide()
 	switch_animation(direction)
 	
+	# limita movimentação pela tela
 	position.x = clamp(position.x, 25, screen_size.x - 25)
-	
-	# se caiu, reinicia
-	if position.y > screen_size.y:
-		get_tree().reload_current_scene()
-	
+
+# lida com o ataque
+func handleAttack():
+	if Input.is_action_just_pressed("attack") && !attacking:
+		attacking = true
+		var RNG = RandomNumberGenerator.new()
+		if RNG.randi_range(1,2) == 1:
+			$AnimatedSprite2D.play("attack")
+		else:
+			$AnimatedSprite2D.play("attack_2")
+		await get_tree().create_timer(0.6).timeout
+		attacking = false
+		
+# troca movimentação
 func switch_animation(direction):
 	if !is_on_floor():
 		if velocity.y < 0:
@@ -45,7 +63,10 @@ func switch_animation(direction):
 		else: 
 			$AnimatedSprite2D.play("jump")
 	else:
-		if direction != 0:
-			$AnimatedSprite2D.play("walking")
+		if attacking:
+			pass
 		else:
-			$AnimatedSprite2D.play("idle")
+			if direction != 0:
+				$AnimatedSprite2D.play("walking")
+			else:
+				$AnimatedSprite2D.play("idle")

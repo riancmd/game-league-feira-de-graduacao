@@ -157,7 +157,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tmsqf")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -180,7 +180,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_64o0d")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_2",
 "speed": 10.0
 }, {
@@ -276,10 +276,11 @@ script = ExtResource("1_vpnha")
 position = Vector2(0, -1.19209e-07)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_1l4k3")
-animation = &"attack_2"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.561854
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 4)
 shape = SubResource("CapsuleShape2D_fpbla")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
