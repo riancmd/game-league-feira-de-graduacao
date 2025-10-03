@@ -28,6 +28,10 @@ func _physics_process(delta: float) -> void:
 	
 	position.x = clamp(position.x, 25, screen_size.x - 25)
 	
+	# se caiu, reinicia
+	if position.y > screen_size.y:
+		get_tree().reload_current_scene()
+	
 func switch_animation(direction):
 	if !is_on_floor():
 		if velocity.y < 0:
