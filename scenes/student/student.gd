@@ -20,8 +20,14 @@ func _physics_process(delta: float) -> void:
 	
 	# andar
 	var direction = Input.get_axis("left", "right")
+	
+	# troca o sentido do sprite
 	if direction != 0:
 		$AnimatedSprite2D.flip_h = (direction == -1)
+		
+	# ataca
+	if Input.is_action_just_pressed("attack"):
+		$AnimatedSprite2D.play("attack")
 	velocity.x = direction * speed
 	move_and_slide()
 	switch_animation(direction)
