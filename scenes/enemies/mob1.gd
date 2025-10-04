@@ -20,4 +20,10 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h
 		
 	move_and_slide()
-	
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if $"../student".attacking:
+		$AnimatedSprite2D.play("hit")
+		await get_tree().create_timer(0.5).timeout
+		queue_free()
