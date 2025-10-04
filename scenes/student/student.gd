@@ -1,22 +1,27 @@
 extends CharacterBody2D
 
+# movimento
 @export var speed = 200
 @export var gravity = 1000
 var jump_velocity = -500
-var attacking = false
+
+# gerais
 @export var screen_size = Vector2(0,0)
 
-var atkCD : Timer
+# estados do jogador
+@export var attacking = false
+var hurting = false # estado = se morrendo ou não
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	hurting = false
 
 func _physics_process(delta: float) -> void:
 	move(delta)
 	handleAttack()
 	
-	# se caiu, reinicia
-	if position.y > screen_size.y:
+	# se caiu ou está machucada, reinicia
+	if position.y > screen_size.y || hurting:
 		get_tree().reload_current_scene()
 	
 func move(delta: float):
@@ -73,3 +78,10 @@ func switch_animation(direction):
 				$AnimatedSprite2D.play("walking")
 			else:
 				$AnimatedSprite2D.play("idle")
+				
+# verifica se mob tocou
+
+# verifica se algum mob entrou na hurtbox
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.name == "slime":
+		hurting = true

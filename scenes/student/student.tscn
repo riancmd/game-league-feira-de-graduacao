@@ -267,12 +267,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fpbla"]
-radius = 32.0
+radius = 51.0
 height = 154.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7wd77"]
 radius = 82.0
-height = 240.0
+height = 224.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_vpnha")
@@ -298,7 +298,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(10, -1)
+position = Vector2(1, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_7wd77")
 
@@ -310,4 +310,4 @@ position = Vector2(1, 4)
 shape = SubResource("CapsuleShape2D_fpbla")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
