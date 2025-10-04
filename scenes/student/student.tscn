@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://47ncokraoa05"]
+[gd_scene load_steps=54 format=3 uid="uid://47ncokraoa05"]
 
 [ext_resource type="Texture2D" uid="uid://2uqfbcxk7nic" path="res://assets/characters/Idle_KG_1.png" id="1_btdwm"]
 [ext_resource type="Script" uid="uid://cysgq1ipirhk6" path="res://scenes/student/student.gd" id="1_vpnha"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://clx6va4wufvvo" path="res://assets/characters/Fall_KG_1.png" id="2_wfd6u"]
 [ext_resource type="Texture2D" uid="uid://be5vm8f3gkuk8" path="res://assets/characters/Attack_KG_2.png" id="3_7wd77"]
 [ext_resource type="Texture2D" uid="uid://duqqxvsqc8xpx" path="res://assets/characters/Jump_KG_1.png" id="4_1l4k3"]
-[ext_resource type="AudioStream" uid="uid://d3a6fhbvkrld7" path="res://sounds/sfx/sword_sfx.mp3" id="8_7wd77"]
 [ext_resource type="Script" uid="uid://ccmvhqoso0q8a" path="res://scenes/student/StateMachine/state_machine.gd" id="9_u0ogy"]
 [ext_resource type="Script" uid="uid://dbanb4afe6r4g" path="res://scenes/student/StateMachine/idle.gd" id="10_j4epp"]
 [ext_resource type="Script" uid="uid://dmj8njdc05emg" path="res://scenes/student/StateMachine/walk.gd" id="11_3fm6e"]
@@ -282,6 +281,21 @@ height = 154.0
 radius = 82.0
 height = 224.0
 
+[sub_resource type="Animation" id="Animation_1o6i5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.5, 2.5)]
+}
+
 [sub_resource type="Animation" id="Animation_lrylf"]
 resource_name = "squash"
 length = 0.25
@@ -299,28 +313,13 @@ tracks/0/keys = {
 "values": [Vector2(2.5, 2.5), Vector2(2.2, 2.8), Vector2(2.8, 2.2), Vector2(2.5, 2.5)]
 }
 
-[sub_resource type="Animation" id="Animation_1o6i5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2.5, 2.5)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0nlq"]
 _data = {
 &"RESET": SubResource("Animation_1o6i5"),
 &"squash": SubResource("Animation_lrylf")
 }
 
-[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "state_machine")]
+[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "attack_buffer_timer", "state_machine")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_vpnha")
@@ -335,6 +334,7 @@ coyote_timer = NodePath("Timers/Coyote_Timer")
 jump_buffer_timer = NodePath("Timers/Jump_Buffer_Timer")
 anim = NodePath("AnimatedSprite2D")
 animation_player = NodePath("AnimationPlayer")
+attack_buffer_timer = NodePath("Timers/Attack_Buffer_Timer")
 state_machine = NodePath("StateMachine")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -349,13 +349,9 @@ offset = Vector2(-0.4, -32.4)
 position = Vector2(1, 4)
 shape = SubResource("CapsuleShape2D_fpbla")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_7wd77")
-bus = &"SFX"
-
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(1, -1)
@@ -364,6 +360,7 @@ shape = SubResource("CapsuleShape2D_7wd77")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(1, 4)
@@ -402,6 +399,10 @@ one_shot = true
 
 [node name="Jump_Buffer_Timer" type="Timer" parent="Timers"]
 wait_time = 0.15
+one_shot = true
+
+[node name="Attack_Buffer_Timer" type="Timer" parent="Timers"]
+wait_time = 0.5
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
