@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var speed = 200
 @export var gravity = 1000
 var jump_velocity = -500
+var score = 0
 
 # gerais
 @export var screen_size = Vector2(0,0)
@@ -85,3 +86,9 @@ func switch_animation(direction):
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.name == "slime":
 		hurting = true
+
+func getScore():
+	return score
+	
+func setScore(s):
+	score += s
