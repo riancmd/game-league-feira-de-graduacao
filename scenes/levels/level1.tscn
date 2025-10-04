@@ -375,9 +375,9 @@ bus = &"Music"
 
 [node name="tiles" type="Node2D" parent="."]
 
-[node name="bg" type="Sprite2D" parent="tiles"]
-position = Vector2(320, 451)
-scale = Vector2(2.76042, 2.77469)
+[node name="bg3" type="Sprite2D" parent="tiles"]
+position = Vector2(435, 235)
+scale = Vector2(4.25, 4.294)
 texture = ExtResource("3_lgguw")
 flip_h = true
 
@@ -391,23 +391,28 @@ tile_map_data = PackedByteArray("AAAoAC0ACAAGAAAAAAApAC0ACAAHAAAAAAAqAC0ACAAHAAA
 tile_set = SubResource("TileSet_ps2vj")
 
 [node name="student" parent="." instance=ExtResource("6_5ntmo")]
-position = Vector2(35, 813)
+position = Vector2(29, 816)
 scale = Vector2(0.6, 0.6)
 
-[node name="slime" parent="." instance=ExtResource("7_2r1tl")]
+[node name="Camera2D" type="Camera2D" parent="student"]
+position = Vector2(31.6667, 41.6666)
+zoom = Vector2(1.5, 1.5)
+limit_left = 0
+limit_top = 0
+limit_right = 900
+limit_bottom = 900
+limit_smoothed = true
+
+[node name="mobs" type="Node2D" parent="."]
+
+[node name="slime" parent="mobs" instance=ExtResource("7_2r1tl")]
 position = Vector2(75, 405)
 speed = 200.0
 
-[node name="slime2" parent="." instance=ExtResource("7_2r1tl")]
+[node name="slime2" parent="mobs" instance=ExtResource("7_2r1tl")]
 position = Vector2(438, 150)
 speed = 180.0
 walkLen = 375
-
-[node name="finish" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="finish"]
-position = Vector2(870.25, 88.25)
-shape = SubResource("RectangleShape2D_plydf")
 
 [node name="collectibles" type="Node2D" parent="."]
 
@@ -432,5 +437,11 @@ position = Vector2(618, 454)
 [node name="kitten" parent="." instance=ExtResource("12_nfihu")]
 position = Vector2(872, 694)
 scale = Vector2(0.77, 0.77)
+
+[node name="finish" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="finish"]
+position = Vector2(870.25, 88.25)
+shape = SubResource("RectangleShape2D_plydf")
 
 [connection signal="body_entered" from="finish" to="." method="_on_finish_body_entered"]
