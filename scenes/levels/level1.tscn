@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://dn2iip6chtt3v"]
+[gd_scene load_steps=22 format=4 uid="uid://dn2iip6chtt3v"]
 
 [ext_resource type="Script" uid="uid://b00qidvp6thcn" path="res://scenes/levels/level_1.gd" id="1_2r1tl"]
 [ext_resource type="Texture2D" uid="uid://d3tdq286ch3xq" path="res://assets/scenery/Background/Purple.png" id="1_x6ivy"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://47ncokraoa05" path="res://scenes/student/student.tscn" id="6_5ntmo"]
 [ext_resource type="PackedScene" uid="uid://cstxmmd7y76qu" path="res://scenes/enemies/mob1.tscn" id="7_2r1tl"]
 [ext_resource type="PackedScene" uid="uid://daff8as35mwaa" path="res://scenes/collectible.tscn" id="11_nkeig"]
+[ext_resource type="PackedScene" uid="uid://b06wgmivcy6hk" path="res://scenes/npcs/kitten.tscn" id="12_nfihu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tcl0"]
 texture = ExtResource("1_x6ivy")
@@ -391,12 +392,16 @@ position = Vector2(423, 794)
 position = Vector2(483, 794)
 
 [node name="apple4" parent="collectibles" instance=ExtResource("11_nkeig")]
-position = Vector2(706, 696)
+position = Vector2(756, 696)
 
 [node name="apple5" parent="collectibles" instance=ExtResource("11_nkeig")]
 position = Vector2(810, 696)
 
 [node name="apple6" parent="collectibles" instance=ExtResource("11_nkeig")]
 position = Vector2(618, 454)
+
+[node name="kitten" parent="." instance=ExtResource("12_nfihu")]
+position = Vector2(872, 694)
+scale = Vector2(0.77, 0.77)
 
 [connection signal="body_entered" from="finish" to="." method="_on_finish_body_entered"]
