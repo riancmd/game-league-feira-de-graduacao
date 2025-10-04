@@ -28,6 +28,12 @@ signal dead
 @export var animation_player : AnimationPlayer
 #endregion
 
+#region Attack Data
+@export_category("Attack")
+@export var is_attacking : bool = false
+@export var attack_buffer_timer : Timer
+#endregion
+
 #region Others
 @export_category("Others")
 @export var state_machine : Node
@@ -40,8 +46,6 @@ var score : int = 0
 # gerais
 @export var screen_size : Vector2
 
-# estados do jogador
-@export var is_attacking : bool = false
 var hurting : bool = false # estado = se morrendo ou não
 
 func _ready() -> void:
@@ -127,6 +131,17 @@ func is_coyote_timer_activated() -> bool:
 
 func stop_coyote_timer() -> void:
 	coyote_timer.stop()
+#endregion
+
+#region Attack Buffer Methods
+func start_attack_buffer() -> void:
+	attack_buffer_timer.start()
+
+func is_attack_buffering() -> bool:
+	return not attack_buffer_timer.is_stopped()
+
+func stop_attack_buffer() -> void:
+	attack_buffer_timer.stop()
 #endregion
 
 #region Death Methods

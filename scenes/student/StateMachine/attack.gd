@@ -4,6 +4,8 @@ class_name AttackState
 @onready var state_machine : Node = get_parent()
 
 func enter() -> void:
+	SfxManager.play_sfx("sword")
+	
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	if rng.randi_range(1,2) == 1:
 		player.anim.play("attack")
@@ -18,6 +20,8 @@ func enter() -> void:
 func handle_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump"):
 		player.start_jump_buffer()
+	if event.is_action_pressed("attack"):
+		player.start_attack_buffer()
 	
 	return null
 
@@ -34,4 +38,9 @@ func physics_update(delta: float) -> State:
 
 func _on_attack_finished() -> void:
 	player.is_attacking = false
-	state_machine.transition_to(state_machine.get_node("idle"))
+	if player.is_attack_buffering():
+		player.stop_attack_buffer()
+		state_machine.transition_to(self)
+		print("buffer certo")
+	else:
+		state_machine.transition_to(state_machine.get_node("idle"))
