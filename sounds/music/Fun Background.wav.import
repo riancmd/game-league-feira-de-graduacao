@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dtcaunwr52hi7"
+path="res://.godot/imported/Fun Background.wav-f3fda65d35a0cb3fe9d20273df5a59c6.sample"
+
+[deps]
+
+source_file="res://sounds/music/Fun Background.wav"
+dest_files=["res://.godot/imported/Fun Background.wav-f3fda65d35a0cb3fe9d20273df5a59c6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dlc2clrobpo7x"
+path="res://.godot/imported/Fun Background.ogg-952afff251528f4625a3236d21207f6b.oggvorbisstr"
+
+[deps]
+
+source_file="res://sounds/music/Fun Background.ogg"
+dest_files=["res://.godot/imported/Fun Background.ogg-952afff251528f4625a3236d21207f6b.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
