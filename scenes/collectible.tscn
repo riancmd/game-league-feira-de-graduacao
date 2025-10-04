@@ -441,7 +441,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vwbow")
 animation = &"collected"
 autoplay = "apple"
-frame_progress = 0.0658714
+frame_progress = 0.300023
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(2, 1)

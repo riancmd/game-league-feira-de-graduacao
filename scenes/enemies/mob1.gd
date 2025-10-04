@@ -14,7 +14,7 @@ func _ready() -> void:
 	hurting = false
 
 func _physics_process(delta: float) -> void:
-	if hurting && $"../../student".attacking: # só morre se jogador tiver atacado mesmo
+	if hurting && $"../student".attacking: # só morre se jogador tiver atacado mesmo
 		$AnimatedSprite2D.play("hit")
 		await get_tree().create_timer(0.5).timeout
 		queue_free()
