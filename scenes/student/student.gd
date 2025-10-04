@@ -37,15 +37,13 @@ signal dead
 #region Others
 @export_category("Others")
 @export var state_machine : Node
+@export var screen_size : Vector2
+@export var collision_hitbox : CollisionShape2D
+@onready var base_hitbox_offset_x : int = collision_hitbox.position.x
 #endregion
 
 var is_dead : bool = false
-
 var score : int = 0
-
-# gerais
-@export var screen_size : Vector2
-
 var hurting : bool = false # estado = se morrendo ou não
 
 func _ready() -> void:
@@ -63,6 +61,8 @@ func _physics_process(delta: float) -> void:
 	check_was_on_floor()
 
 	state_machine._on_physics_update(delta)
+
+	limit_horizontal_position()
 
 	move_and_slide()
 
@@ -85,8 +85,13 @@ func flip_sprite(input_axis : int) -> void:
 	match input_axis:
 		-1:
 			anim.flip_h = true
+			collision_hitbox.position.x = -base_hitbox_offset_x
 		1:
 			anim.flip_h = false
+			collision_hitbox.position.x = base_hitbox_offset_x
+	
+func limit_horizontal_position() -> void:
+	global_position.x = clamp(global_position.x, 0.0, screen_size.x)
 
 #region Jump and Fall Methods
 func jump() -> void:
@@ -155,8 +160,12 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 # verifica se algum mob entrou na hurtbox
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if body.name == "slime":
+	if not body.is_dead:
 		hurting = true
+		die()
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	die()
 
 func getScore() -> int:
 	return score

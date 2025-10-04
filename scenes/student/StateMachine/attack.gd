@@ -16,6 +16,7 @@ func enter() -> void:
 		player.connect("attack_finished", _on_attack_finished)
 	
 	player.is_attacking = true
+	player.collision_hitbox.set_deferred("disabled", false)
 
 func handle_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump"):
@@ -38,9 +39,10 @@ func physics_update(delta: float) -> State:
 
 func _on_attack_finished() -> void:
 	player.is_attacking = false
+	player.collision_hitbox.set_deferred("disabled", true)
+	
 	if player.is_attack_buffering():
 		player.stop_attack_buffer()
 		state_machine.transition_to(self)
-		print("buffer certo")
 	else:
 		state_machine.transition_to(state_machine.get_node("idle"))
