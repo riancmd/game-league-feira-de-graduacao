@@ -1,39 +1,51 @@
 extends CharacterBody2D
 
-# movimentação
-@export var speed: float = 50.0
-var dir = 1
-@export var walkLen = 270
-var initPos_x # guarda de onde ele começa
+@export var speed: float = 30.0
+@export var gravity: float = 800.0
 
-# estado
-var hurting = false # nesse caso, é se estiver num estado "pré-machucado"
+var direction : Vector2 = Vector2.LEFT
+var is_dead: bool = false
 
-func _ready() -> void:
-	initPos_x = global_position.x # onde foi colocado na cena
-	hurting = false
+@export var animated_sprite: AnimatedSprite2D
+@export var ledge_checker_01: RayCast2D
+@export var ledge_checker_02: RayCast2D
+
+@export var hurtbox : Area2D
+@export var collision : CollisionShape2D
 
 func _physics_process(delta: float) -> void:
-	if hurting && $"../student".attacking: # só morre se jogador tiver atacado mesmo
-		$AnimatedSprite2D.play("hit")
-		await get_tree().create_timer(0.5).timeout
-		queue_free()
-		
-	velocity.x = speed * dir
+	if is_dead: return
+
+	if not is_on_floor():
+		velocity.y += gravity * delta
 	
-	# anda pra direita, mas se chegar no limite volta
-	if dir == 1 && global_position.x >= initPos_x + walkLen:
-		dir = -1
-		$AnimatedSprite2D.flip_h
-	elif dir == -1 && global_position.x <= initPos_x:
-		dir = 1
-		$AnimatedSprite2D.flip_h
-		
+	if direction.x == 1:
+		animated_sprite.flip_h = true
+	else:
+		animated_sprite.flip_h = false
+	
+	var left_has_ground = ledge_checker_01.is_colliding()
+	var right_has_ground = ledge_checker_02.is_colliding()
+
+	if not left_has_ground and not right_has_ground:
+		velocity.x = 0
+	elif direction.x < 0 and not left_has_ground:
+		direction = Vector2.RIGHT
+	elif direction.x > 0 and not right_has_ground:
+		direction = Vector2.LEFT
+	elif is_on_wall():
+		direction *= -1
+
+	velocity.x = speed * direction.x
+
+	animated_sprite.flip_h = direction.x > 0
+
 	move_and_slide()
 
-
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	hurting = true
-	
-func _on_hurtbox_area_exited(area: Area2D) -> void:
-	hurting = false
+	is_dead = true
+	collision.set_deferred("disabled", true)
+	animated_sprite.play("hit")
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	queue_free()

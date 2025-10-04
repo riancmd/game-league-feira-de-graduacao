@@ -1,11 +1,13 @@
 extends Area2D
 
+signal collected
 
-func _on_body_entered(body: Node2D) -> void:
-	if body.name == "student":
-		$AnimatedSprite2D.play("collected")
-		$sfx.play()
-		await get_tree().create_timer(0.3).timeout
-		$"../../student".setScore(1)
-		queue_free()
-	
+@export var anim : AnimatedSprite2D
+
+func _on_body_entered(_body: Node2D) -> void:
+	anim.play("collected")
+	SfxManager.play_sfx("item_pickup")
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	emit_signal("collected")
+	queue_free()

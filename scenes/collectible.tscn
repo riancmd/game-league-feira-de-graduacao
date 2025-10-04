@@ -1,11 +1,10 @@
-[gd_scene load_steps=66 format=3 uid="uid://daff8as35mwaa"]
+[gd_scene load_steps=65 format=3 uid="uid://daff8as35mwaa"]
 
 [ext_resource type="Script" uid="uid://bsb8mvae1l7l4" path="res://scenes/collectible.gd" id="1_6gns2"]
 [ext_resource type="Texture2D" uid="uid://d1dgj4s150m8o" path="res://assets/scenery/Items/Fruits/Apple.png" id="1_ga2k0"]
 [ext_resource type="Texture2D" uid="uid://d1hl2fjbc1rfe" path="res://assets/scenery/Items/Fruits/Bananas.png" id="2_6gns2"]
 [ext_resource type="Texture2D" uid="uid://birvh6jf7ywxv" path="res://assets/scenery/Items/Fruits/Collected.png" id="3_rapul"]
 [ext_resource type="Texture2D" uid="uid://d2plshw5x8ec2" path="res://assets/scenery/Items/Fruits/Pineapple.png" id="4_mh687"]
-[ext_resource type="AudioStream" uid="uid://ba6kx6rp75v0w" path="res://sounds/sfx/item_pickup.wav" id="6_rapul"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ma10x"]
 atlas = ExtResource("1_ga2k0")
@@ -368,9 +367,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7hdlx")
 }],
-"loop": true,
+"loop": false,
 "name": &"collected",
-"speed": 20.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -433,23 +432,21 @@ animations = [{
 radius = 9.0
 height = 22.0
 
-[node name="RigidBody2D" type="Area2D"]
+[node name="Collectable" type="Area2D" node_paths=PackedStringArray("anim")]
+collision_layer = 8
+collision_mask = 2
 script = ExtResource("1_6gns2")
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vwbow")
-animation = &"collected"
+animation = &"apple"
 autoplay = "apple"
-frame_progress = 0.300023
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(2, 1)
 shape = SubResource("CapsuleShape2D_ga2k0")
 
-[node name="sfx" type="AudioStreamPlayer2D" parent="."]
-scale = Vector2(2, 2)
-stream = ExtResource("6_rapul")
-bus = &"SFX"
-
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

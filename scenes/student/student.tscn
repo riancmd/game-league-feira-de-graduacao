@@ -277,9 +277,8 @@ animations = [{
 radius = 51.0
 height = 154.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7wd77"]
-radius = 82.0
-height = 224.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ueofd"]
+size = Vector2(160, 160)
 
 [sub_resource type="Animation" id="Animation_1o6i5"]
 length = 0.001
@@ -319,7 +318,7 @@ _data = {
 &"squash": SubResource("Animation_lrylf")
 }
 
-[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "attack_buffer_timer", "state_machine")]
+[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "attack_buffer_timer", "state_machine", "collision_hitbox")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_vpnha")
@@ -327,7 +326,7 @@ max_speed = 300.0
 acceleration = 10.0
 friction = 10.0
 gravity = 1280.0
-jump_force = -500.0
+jump_force = -600.0
 jump_count_max = 1
 max_fall_speed = 1500.0
 coyote_timer = NodePath("Timers/Coyote_Timer")
@@ -336,13 +335,16 @@ anim = NodePath("AnimatedSprite2D")
 animation_player = NodePath("AnimationPlayer")
 attack_buffer_timer = NodePath("Timers/Attack_Buffer_Timer")
 state_machine = NodePath("StateMachine")
+collision_hitbox = NodePath("Hitbox/CollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 81)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_1l4k3")
-animation = &"attack"
+animation = &"attack_2"
 autoplay = "idle"
+frame = 5
+frame_progress = 1.0
 offset = Vector2(-0.4, -32.4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -350,13 +352,14 @@ position = Vector2(1, 4)
 shape = SubResource("CapsuleShape2D_fpbla")
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 16
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(1, -1)
+position = Vector2(64, -7.35678e-05)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_7wd77")
+shape = SubResource("RectangleShape2D_ueofd")
+disabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -410,5 +413,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_i0nlq")
 }
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.5, -0.5)
+scale = Vector2(5.15, 8.25)
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

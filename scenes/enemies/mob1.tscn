@@ -117,7 +117,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8y25x")
 }],
-"loop": true,
+"loop": false,
 "name": &"hit",
 "speed": 7.0
 }]
@@ -127,15 +127,23 @@ radius = 11.0997
 height = 37.7332
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vuauw"]
-radius = 26.0
-height = 98.02
+radius = 23.9963
+height = 80.1274
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="mob" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "ledge_checker_01", "ledge_checker_02", "hurtbox", "collision")]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_vdbti")
+animated_sprite = NodePath("AnimatedSprite2D")
+ledge_checker_01 = NodePath("RayCasts/RayCast2D")
+ledge_checker_02 = NodePath("RayCasts/RayCast2D2")
+hurtbox = NodePath("Hurtbox")
+collision = NodePath("CollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_v5yes")
+animation = &"hit"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -146,12 +154,22 @@ shape = SubResource("CapsuleShape2D_vdbti")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 4)
+position = Vector2(0, 3)
 rotation = -1.58825
 shape = SubResource("CapsuleShape2D_vuauw")
 
+[node name="RayCasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-40, 0)
+target_position = Vector2(0, 32)
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
+position = Vector2(40, 0)
+target_position = Vector2(0, 32)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
