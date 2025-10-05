@@ -82,14 +82,10 @@ func move(delta : float, input_axis : int) -> void:
 		velocity.x = lerp(velocity.x, 0.0, friction * delta)
 
 func flip_sprite(input_axis : int) -> void:
-	match input_axis:
-		-1:
-			anim.flip_h = true
-			collision_hitbox.position.x = -base_hitbox_offset_x
-		1:
-			anim.flip_h = false
-			collision_hitbox.position.x = base_hitbox_offset_x
-	
+	if input_axis != 0 and not is_attacking:
+		anim.flip_h = input_axis < 0
+		collision_hitbox.position.x = base_hitbox_offset_x * input_axis
+
 func limit_horizontal_position() -> void:
 	global_position.x = clamp(global_position.x, 0.0, screen_size.x)
 
