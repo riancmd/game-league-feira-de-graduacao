@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://qbgt78ak72da"]
+
+[ext_resource type="Script" uid="uid://dwyxh5w17lpyy" path="res://scenes/NPC/npc.gd" id="1_0c0is"]
+[ext_resource type="Texture2D" uid="uid://b08eu5qyenm5p" path="res://icon.svg" id="1_36vut"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0c0is"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_36vut")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwet7"]
+size = Vector2(128, 96)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0c0is"]
+font_size = 32
+
+[node name="NPC" type="Area2D" node_paths=PackedStringArray("talk_container")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_0c0is")
+talk_container = NodePath("TalkContainer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_0c0is")
+offset = Vector2(0, -64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -48)
+shape = SubResource("RectangleShape2D_lwet7")
+
+[node name="TalkContainer" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -64.0
+offset_top = -136.0
+offset_right = 64.0
+offset_bottom = -96.0
+
+[node name="TalkLabel" type="Label" parent="TalkContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Falar"
+label_settings = SubResource("LabelSettings_0c0is")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

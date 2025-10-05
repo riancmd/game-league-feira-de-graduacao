@@ -26,6 +26,7 @@ signal dead
 @export_category("Animation")
 @export var anim : AnimatedSprite2D
 @export var animation_player : AnimationPlayer
+@export var cutscene_player : AnimationPlayer
 #endregion
 
 #region Attack Data
@@ -39,16 +40,17 @@ signal dead
 @export var state_machine : Node
 @export var screen_size : Vector2
 @export var collision_hitbox : CollisionShape2D
+@export var collision_physics : CollisionShape2D
 @onready var base_hitbox_offset_x : int = collision_hitbox.position.x
 #endregion
 
 var is_dead : bool = false
+var is_talking : bool = false
+var is_in_cutscene : bool = false
 var score : int = 0
-var hurting : bool = false # estado = se morrendo ou não
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	hurting = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine._on_input(event)
@@ -56,13 +58,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	active_gravity(gravity, delta)
 	
-	if is_dead: return
+	if not is_talking or not is_dead or not is_in_cutscene:
 	
-	check_was_on_floor()
+		check_was_on_floor()
 
-	state_machine._on_physics_update(delta)
+		state_machine._on_physics_update(delta)
 
-	limit_horizontal_position()
+		limit_horizontal_position()
 
 	move_and_slide()
 
@@ -154,14 +156,20 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	emit_signal("attack_finished")
 #endregion
 
-# verifica se algum mob entrou na hurtbox
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if not body.is_dead:
-		hurting = true
 		die()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	die()
+
+func play_cutscene_animation(anim_name : String) -> void:
+	is_in_cutscene = true
+	cutscene_player.play(anim_name)
+
+func stop_cutscene_animation() -> void:
+	is_in_cutscene = false
+	anim.play("idle")
 
 func getScore() -> int:
 	return score
