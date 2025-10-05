@@ -1,13 +1,11 @@
 extends CharacterBody2D
 
-signal brain_boss_defeated
+signal clock_boss_defeated
+signal tic_tac
 
-@export var projectile_scene: PackedScene
-@export var projectile_text : Array[String]
-@export var player : CharacterBody2D
-@export var cooldown_timer : Timer
+@export var clock_timer : Timer
 
-@export var speed : float = 50.0
+@export var speed : float = 150.0
 @export var gravity : float = 800.0
 
 var direction : Vector2 = Vector2.LEFT
@@ -20,14 +18,13 @@ var is_dead: bool = false
 @export var hurtbox : Area2D
 @export var collision : CollisionShape2D
 
-@export var amp: float = 10.0 
+@export var amp: float = 15.0 
 @export var freq: float = 5.0
 
 var time_passed : float = 0.0
 var initial_pos_y : Vector2
 
-func setup(player_reference : CharacterBody2D) -> void:
-	self.player = player_reference
+var is_tic_blue : bool = false
 
 func _physics_process(delta: float) -> void:
 	if not is_dead: 
@@ -62,24 +59,20 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 
 	is_dead = true
 	collision.set_deferred("disabled", true)
-	cooldown_timer.stop()
-	emit_signal("brain_boss_defeated")
+	clock_timer.stop()
+	emit_signal("clock_boss_defeated")
 	
 	velocity.y = -300
 	velocity.x = 100 * sign(global_position.x - area.get_owner().global_position.x)
 
-func _on_cool_down_timer_timeout() -> void:
-	var projectile : Area2D = projectile_scene.instantiate()
-	get_parent().add_child(projectile)
-
-	projectile.global_position = self.global_position
-	projectile.setup(projectile_text.pick_random(), player.global_position)
-	
-	cooldown_timer.start()
-
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	initial_pos_y = global_position
-	_on_cool_down_timer_timeout()
+	_on_clock_timer_timeout()
+
+func _on_clock_timer_timeout() -> void:
+	emit_signal("tic_tac", is_tic_blue)
+	is_tic_blue = not is_tic_blue
+	clock_timer.start()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	if is_dead:

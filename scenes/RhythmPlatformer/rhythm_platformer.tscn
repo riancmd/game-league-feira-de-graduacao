@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://2govejcbivcc"]
+
+[ext_resource type="Texture2D" uid="uid://tge76fewssem" path="res://assets/scenery/Traps/Platforms/Brown On (32x8).png" id="1_3c7uf"]
+[ext_resource type="Script" uid="uid://e7xaiijnq4gn" path="res://scenes/RhythmPlatformer/rhythm_platformer.gd" id="1_03iif"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03iif"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(0, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcyto"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(32, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rg7cj"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(64, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbef2"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(96, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pc8en"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(128, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgs1o"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(160, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0vrl"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(192, 0, 32, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1glp"]
+atlas = ExtResource("1_3c7uf")
+region = Rect2(224, 0, 32, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7cwdx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03iif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcyto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg7cj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbef2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pc8en")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgs1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0vrl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1glp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0mlcc"]
+radius = 2.5
+height = 32.0
+
+[node name="RhythmPlatformer" type="StaticBody2D" node_paths=PackedStringArray("sprite", "collision_shape")]
+scale = Vector2(2, 2)
+script = ExtResource("1_03iif")
+sprite = NodePath("Sprite2D")
+collision_shape = NodePath("CollisionShape2D")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7cwdx")
+autoplay = "default"
+frame_progress = 0.450976
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0mlcc")
+disabled = true
