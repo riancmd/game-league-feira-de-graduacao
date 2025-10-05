@@ -65,7 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	active_gravity(gravity, delta)
 	
-	if not is_talking or not is_dead or not is_in_cutscene or not is_in_knockback:
+	if not is_talking and not is_dead and not is_in_cutscene and not is_in_knockback:
 	
 		check_was_on_floor()
 
@@ -188,6 +188,7 @@ func play_cutscene_animation(anim_name : String) -> void:
 
 func stop_cutscene_animation() -> void:
 	is_in_cutscene = false
+	cutscene_player.stop()
 	anim.play("idle")
 
 func _on_knock_back_timer_timeout() -> void:
