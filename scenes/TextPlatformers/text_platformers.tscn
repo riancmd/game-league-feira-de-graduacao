@@ -8,6 +8,21 @@ size = Vector2(96, 34)
 [sub_resource type="LabelSettings" id="LabelSettings_vtn7x"]
 font_color = Color(0.345098, 1, 0.364706, 1)
 
+[sub_resource type="Animation" id="Animation_4oquw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_vtn7x"]
 resource_name = "fire"
 length = 0.5
@@ -24,21 +39,6 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.5, 0.7), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_4oquw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PanelContainer:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_moekw"]
 _data = {
 &"RESET": SubResource("Animation_4oquw"),
@@ -52,6 +52,7 @@ label = NodePath("PanelContainer/Label")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_vtn7x")
+disabled = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(100, 0)

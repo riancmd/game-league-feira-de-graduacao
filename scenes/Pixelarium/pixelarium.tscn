@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=4 uid="uid://dut01awwrx3x1"]
+
+[ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_5itgb"]
+[ext_resource type="Script" uid="uid://xy1kky1hgj0c" path="res://scenes/Pixelarium/pixelarium.gd" id="1_p343x"]
+[ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_1r5xx"]
+[ext_resource type="PackedScene" uid="uid://dfdsqglwbm6ap" path="res://scenes/enemies/clock.tscn" id="2_g5xlk"]
+[ext_resource type="PackedScene" uid="uid://2govejcbivcc" path="res://scenes/RhythmPlatformer/rhythm_platformer.tscn" id="5_bx1yr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5itgb"]
+size = Vector2(584, 448)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1r5xx"]
+size = Vector2(8, 760)
+
+[node name="Pixelarium" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision", "platformers")]
+script = ExtResource("1_p343x")
+title_area = "Pixelarium"
+collisionArea = NodePath("AreaDetect/CollisionShape2D")
+next_wall_collision = NodePath("NextWall/CollisionShape2D")
+clock_scene = ExtResource("2_g5xlk")
+platformers = NodePath("Platformers")
+
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="platforms" parent="Tiles" instance=ExtResource("1_5itgb")]
+tile_map_data = PackedByteArray("AAAAABwACAAAAAgAAAAAAB0ACAAAAAkAAAABABwACAABAAgAAAACABwACAABAAgAAAADABwACAABAAgAAAAEABwACAABAAgAAAAFABwACAABAAgAAAAGABwACAABAAgAAAAHABwACAABAAgAAAAIABwACAABAAgAAAAJABwACAABAAgAAAAKABwACAABAAgAAAALABwACAABAAgAAAAMABwACAABAAgAAAANABwACAABAAgAAAAOABwACAABAAgAAAAPABwACAABAAgAAAAQABwACAABAAgAAAARABwACAABAAgAAAASABwACAABAAgAAAATABwACAABAAgAAAAUABwACAABAAgAAAAVABwACAABAAgAAAAWABwACAABAAgAAAAXABwACAABAAgAAAAYABwACAABAAgAAAAZABwACAABAAgAAAAaABwACAABAAgAAAAbABwACAABAAgAAAAcABwACAABAAgAAAAdABwACAABAAgAAAAeABwACAABAAgAAAAfABwACAABAAgAAAAgABwACAABAAgAAAAhABwACAABAAgAAAAiABwACAABAAgAAAAjABwACAABAAgAAAAkABwACAABAAgAAAAlABwACAABAAgAAAAmABwACAABAAgAAAAnABwACAACAAgAAAAnAB0ACAACAAkAAAABAB0ACAABAAkAAAACAB0ACAABAAkAAAADAB0ACAABAAkAAAAEAB0ACAABAAkAAAAFAB0ACAABAAkAAAAGAB0ACAABAAkAAAAHAB0ACAABAAkAAAAIAB0ACAABAAkAAAAJAB0ACAABAAkAAAAKAB0ACAABAAkAAAALAB0ACAABAAkAAAAMAB0ACAABAAkAAAANAB0ACAABAAkAAAAOAB0ACAABAAkAAAAPAB0ACAABAAkAAAAQAB0ACAABAAkAAAARAB0ACAABAAkAAAASAB0ACAABAAkAAAATAB0ACAABAAkAAAAUAB0ACAABAAkAAAAVAB0ACAABAAkAAAAWAB0ACAABAAkAAAAXAB0ACAABAAkAAAAYAB0ACAABAAkAAAAZAB0ACAABAAkAAAAaAB0ACAABAAkAAAAbAB0ACAABAAkAAAAcAB0ACAABAAkAAAAdAB0ACAABAAkAAAAeAB0ACAABAAkAAAAfAB0ACAABAAkAAAAgAB0ACAABAAkAAAAhAB0ACAABAAkAAAAiAB0ACAABAAkAAAAjAB0ACAABAAkAAAAkAB0ACAABAAkAAAAlAB0ACAABAAkAAAAmAB0ACAABAAkAAAABAB4ACAABAAkAAAACAB4ACAABAAkAAAADAB4ACAABAAkAAAAEAB4ACAABAAkAAAAFAB4ACAABAAkAAAAGAB4ACAABAAkAAAAHAB4ACAABAAkAAAAIAB4ACAABAAkAAAAJAB4ACAABAAkAAAAKAB4ACAABAAkAAAALAB4ACAABAAkAAAAMAB4ACAABAAkAAAANAB4ACAABAAkAAAAOAB4ACAABAAkAAAAPAB4ACAABAAkAAAAQAB4ACAABAAkAAAARAB4ACAABAAkAAAASAB4ACAABAAkAAAATAB4ACAABAAkAAAAUAB4ACAABAAkAAAAVAB4ACAABAAkAAAAWAB4ACAABAAkAAAAXAB4ACAABAAkAAAAYAB4ACAABAAkAAAAZAB4ACAABAAkAAAAaAB4ACAABAAkAAAAbAB4ACAABAAkAAAAcAB4ACAABAAkAAAAdAB4ACAABAAkAAAAeAB4ACAABAAkAAAAfAB4ACAABAAkAAAAgAB4ACAABAAkAAAAhAB4ACAABAAkAAAAiAB4ACAABAAkAAAAjAB4ACAABAAkAAAAkAB4ACAABAAkAAAAlAB4ACAABAAkAAAAmAB4ACAABAAkAAAAAAB4ACAAAAAkAAAAnAB4ACAACAAkAAAA=")
+
+[node name="AreaDetect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDetect"]
+position = Vector2(316, 224)
+shape = SubResource("RectangleShape2D_5itgb")
+
+[node name="NPC" parent="." instance=ExtResource("2_1r5xx")]
+position = Vector2(128, 448)
+timeline_name = "02_pixelarium"
+
+[node name="NextWall" type="StaticBody2D" parent="."]
+position = Vector2(648, 0)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
+position = Vector2(-12, 72)
+shape = SubResource("RectangleShape2D_1r5xx")
+
+[node name="Platformers" type="Node2D" parent="."]
+visible = false
+
+[node name="RhythmPlatformer" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(64, 384)
+
+[node name="RhythmPlatformer2" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(192, 320)
+platform_group = 1
+
+[node name="RhythmPlatformer3" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(64, 256)
+
+[node name="RhythmPlatformer4" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(192, 192)
+platform_group = 1
+
+[node name="RhythmPlatformer5" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(576, 384)
+
+[node name="RhythmPlatformer6" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(448, 320)
+platform_group = 1
+
+[node name="RhythmPlatformer7" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(576, 256)
+
+[node name="RhythmPlatformer8" parent="Platformers" instance=ExtResource("5_bx1yr")]
+position = Vector2(448, 192)
+platform_group = 1
+
+[connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
+[connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]

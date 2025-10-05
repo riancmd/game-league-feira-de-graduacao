@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://csbabgagapm26"]
+[gd_scene load_steps=8 format=4 uid="uid://csbabgagapm26"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_5xv28"]
 [ext_resource type="Script" uid="uid://bcic7ptt1rqgw" path="res://scenes/Entrance/Areas.gd" id="1_rx8e1"]
@@ -9,11 +9,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs5lk"]
 size = Vector2(16, 80)
 
-[node name="Entrance" type="Node2D" node_paths=PackedStringArray("collision_wall")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rx8e1"]
+size = Vector2(8, 760)
+
+[node name="Entrance" type="Node2D" node_paths=PackedStringArray("collision_wall", "next_wall_collision")]
 script = ExtResource("1_rx8e1")
 title_area = "Liga de Jogos"
 image = ExtResource("2_molcj")
 collision_wall = NodePath("StaticBody2D/CollisionShape2D")
+next_wall_collision = NodePath("NextWall/CollisionShape2D")
 
 [node name="BackGround01" parent="." instance=ExtResource("2_04rbt")]
 
@@ -32,3 +36,13 @@ timeline_name = "PrimeiroDialogo"
 position = Vector2(-8, 408)
 shape = SubResource("RectangleShape2D_fs5lk")
 disabled = true
+
+[node name="NextWall" type="StaticBody2D" parent="."]
+position = Vector2(640, 0)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
+position = Vector2(-4, 68)
+shape = SubResource("RectangleShape2D_rx8e1")
+
+[connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
