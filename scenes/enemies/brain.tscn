@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cai56pvknidjb"]
+[gd_scene load_steps=10 format=3 uid="uid://cai56pvknidjb"]
 
 [ext_resource type="Script" uid="uid://bp3301cpjx2k4" path="res://scenes/enemies/brain.gd" id="1_6aa2u"]
 [ext_resource type="Texture2D" uid="uid://kytwcb8xp52s" path="res://assets/enemies/Brain/Brain.png" id="2_6aa2u"]
@@ -70,7 +70,44 @@ radius = 24.0
 radius = 32.0
 height = 64.0
 
+[sub_resource type="Animation" id="Animation_jali4"]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(320, -64), Vector2(320, 120), Vector2(320, 72)]
+}
+
+[sub_resource type="Animation" id="Animation_rxde3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(320, -64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gltgl"]
+_data = {
+&"RESET": SubResource("Animation_rxde3"),
+&"spawn": SubResource("Animation_jali4")
+}
+
 [node name="Brain" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "animated_sprite", "ledge_checker_01", "ledge_checker_02", "hurtbox", "collision")]
+position = Vector2(320, -64)
 script = ExtResource("1_6aa2u")
 projectile_scene = ExtResource("2_jali4")
 projectile_text = Array[String](["Dúvida", "Estresse", "Ansiedade"])
@@ -111,6 +148,12 @@ shape = SubResource("CapsuleShape2D_6aa2u")
 [node name="CoolDown_Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gltgl")
+}
+autoplay = "spawn"
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="CoolDown_Timer" to="." method="_on_cool_down_timer_timeout"]
