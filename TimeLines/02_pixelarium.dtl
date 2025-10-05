@@ -1,0 +1,11 @@
+join NPC_3 right
+NPC_3: Este é o Pixelarium.
+NPC_3: Aqui, se reunem os artistas da liga de jogos. Eles são os responsáveis por dar cor, som e forma às ideias.
+NPC_3: A arte é a forma de expressar todas as ideias que tivemos. Cada sprite, cenário e animação nasce com muito cuidado.
+NPC_3: A beleza do jogo é o que prende o olhar e conta parte da história.
+NPC_3: Mas nem tudo são flores. E o processo de criação artística muitas vezes pode ser estressante. Especialmente por causa dele...
+leave NPC_3 [animation="Fade Out" wait="true"]
+[wait time="1.0"]
+join OPrazo left [animation="Bounce In" wait="true"]
+OPrazo: Tic-tac... O tempo está passando! Hihi. Tic-tac... A entrega é amanhã!
+leave OPrazo [animation="Instant Out"]
