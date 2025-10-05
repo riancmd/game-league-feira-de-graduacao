@@ -26,11 +26,14 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 directories/dch_directory={
 "BloqueioCriativo": "res://Characters/BloqueioCriativo.dch",
 "NPC_2": "res://Characters/NPC_2.dch",
+"NPC_3": "res://Characters/NPC_3.dch",
+"OPrazo": "res://Characters/OPrazo.dch",
 "PrimeiroDev": "res://Characters/PrimeiroDev.dch",
 "unit_test_character": "res://dialogic-2.0-alpha-18/Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
 "01_game_design": "res://TimeLines/01_game_design.dtl",
+"02_pixelarium": "res://TimeLines/02_pixelarium.dtl",
 "PrimeiroDialogo": "res://TimeLines/PrimeiroDialogo.dtl"
 }
 layout/style_directory={
