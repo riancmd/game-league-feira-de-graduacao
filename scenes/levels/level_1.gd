@@ -4,7 +4,7 @@ extends Node2D
 @export var player : CharacterBody2D
 
 func _process(_delta: float) -> void:
-	print($student.getScore())
+	print($Student.getScore())
 
 func _on_finish_body_entered(_body: Node2D) -> void:
 	get_tree().call_deferred("reload_current_scene")

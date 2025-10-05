@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://ixxttem1r4dk"]
+
+[ext_resource type="Script" uid="uid://dsgdluckg6457" path="res://scenes/Game/game.gd" id="1_fc1p2"]
+[ext_resource type="PackedScene" uid="uid://cx4u6qiq4a5cu" path="res://scenes/UI/area_title.tscn" id="1_jm17p"]
+[ext_resource type="PackedScene" uid="uid://csbabgagapm26" path="res://scenes/Entrance/entrance.tscn" id="2_fc1p2"]
+[ext_resource type="Script" uid="uid://c2jrbkx7d7wc1" path="res://scenes/Camera/camera.gd" id="3_bfxw3"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_fc1p2")
+
+[node name="AreaTitle" parent="." instance=ExtResource("1_jm17p")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 240)
+script = ExtResource("3_bfxw3")
+
+[node name="Entrance" parent="." instance=ExtResource("2_fc1p2")]
+
+[connection signal="new_area_entered" from="Entrance" to="AreaTitle" method="_on_show_area_title"]

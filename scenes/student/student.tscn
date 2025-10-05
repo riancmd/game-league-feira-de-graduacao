@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://47ncokraoa05"]
+[gd_scene load_steps=57 format=3 uid="uid://47ncokraoa05"]
 
 [ext_resource type="Texture2D" uid="uid://2uqfbcxk7nic" path="res://assets/characters/Idle_KG_1.png" id="1_btdwm"]
 [ext_resource type="Script" uid="uid://cysgq1ipirhk6" path="res://scenes/student/student.gd" id="1_vpnha"]
@@ -274,11 +274,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fpbla"]
-radius = 51.0
-height = 154.0
+radius = 16.0
+height = 64.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ueofd"]
-size = Vector2(160, 160)
+size = Vector2(64, 56)
 
 [sub_resource type="Animation" id="Animation_1o6i5"]
 length = 0.001
@@ -292,7 +292,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2.5, 2.5)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_lrylf"]
@@ -309,7 +309,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.08, 0.16, 0.25),
 "transitions": PackedFloat32Array(-2, -2, -2, -2),
 "update": 0,
-"values": [Vector2(2.5, 2.5), Vector2(2.2, 2.8), Vector2(2.8, 2.2), Vector2(2.5, 2.5)]
+"values": [Vector2(1, 1), Vector2(0.8, 1.2), Vector2(1.2, 0.8), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0nlq"]
@@ -318,13 +318,51 @@ _data = {
 &"squash": SubResource("Animation_lrylf")
 }
 
-[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "attack_buffer_timer", "state_machine", "collision_hitbox")]
+[sub_resource type="Animation" id="Animation_ueofd"]
+resource_name = "walk_in"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk"]
+}
+
+[sub_resource type="Animation" id="Animation_i0nlq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xghpn"]
+_data = {
+&"RESET": SubResource("Animation_i0nlq"),
+&"walk_in": SubResource("Animation_ueofd")
+}
+
+[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "cutscene_player", "attack_buffer_timer", "state_machine", "collision_hitbox", "collision_physics")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_vpnha")
-max_speed = 300.0
-acceleration = 10.0
-friction = 10.0
+max_speed = 350.0
+acceleration = 2.0
+friction = 8.0
 gravity = 1280.0
 jump_force = -600.0
 jump_count_max = 1
@@ -333,22 +371,20 @@ coyote_timer = NodePath("Timers/Coyote_Timer")
 jump_buffer_timer = NodePath("Timers/Jump_Buffer_Timer")
 anim = NodePath("AnimatedSprite2D")
 animation_player = NodePath("AnimationPlayer")
+cutscene_player = NodePath("CutscenePlayer")
 attack_buffer_timer = NodePath("Timers/Attack_Buffer_Timer")
 state_machine = NodePath("StateMachine")
 collision_hitbox = NodePath("Hitbox/CollisionShape2D")
+collision_physics = NodePath("CollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 81)
-scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_1l4k3")
-animation = &"attack_2"
+animation = &"attack"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 offset = Vector2(-0.4, -32.4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 4)
+position = Vector2(0, -32)
 shape = SubResource("CapsuleShape2D_fpbla")
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -356,7 +392,7 @@ collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(64, -7.35678e-05)
+position = Vector2(28, -32)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_ueofd")
 disabled = true
@@ -366,7 +402,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(1, 4)
+position = Vector2(0, -32)
 shape = SubResource("CapsuleShape2D_fpbla")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -413,9 +449,14 @@ libraries = {
 &"": SubResource("AnimationLibrary_i0nlq")
 }
 
+[node name="CutscenePlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xghpn")
+}
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(1.5, -0.5)
-scale = Vector2(5.15, 8.25)
+position = Vector2(0, -32)
+scale = Vector2(1.6, 3.2)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
