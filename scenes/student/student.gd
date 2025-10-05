@@ -35,6 +35,12 @@ signal dead
 @export var attack_buffer_timer : Timer
 #endregion
 
+#region KnockBack Data
+@export_category("Knockback")
+@export var knockback_force: float = 250.0
+@export var knockback_timer : Timer
+#endregion
+
 #region Others
 @export_category("Others")
 @export var state_machine : Node
@@ -47,6 +53,7 @@ signal dead
 var is_dead : bool = false
 var is_talking : bool = false
 var is_in_cutscene : bool = false
+var is_in_knockback : bool = false
 var score : int = 0
 
 func _ready() -> void:
@@ -58,7 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	active_gravity(gravity, delta)
 	
-	if not is_talking or not is_dead or not is_in_cutscene:
+	if not is_talking or not is_dead or not is_in_cutscene or not is_in_knockback:
 	
 		check_was_on_floor()
 
@@ -156,6 +163,18 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	emit_signal("attack_finished")
 #endregion
 
+func apply_knockback(attacker_position: Vector2) -> void:
+	if is_in_knockback: return
+
+	is_in_knockback = true
+
+	var direction = (global_position - attacker_position).normalized()
+
+	velocity = direction * knockback_force
+	velocity.y -= 200.0
+
+	knockback_timer.start()
+
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if not body.is_dead:
 		die()
@@ -170,6 +189,9 @@ func play_cutscene_animation(anim_name : String) -> void:
 func stop_cutscene_animation() -> void:
 	is_in_cutscene = false
 	anim.play("idle")
+
+func _on_knock_back_timer_timeout() -> void:
+	is_in_knockback = false
 
 func getScore() -> int:
 	return score

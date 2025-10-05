@@ -356,7 +356,7 @@ _data = {
 &"walk_in": SubResource("Animation_ueofd")
 }
 
-[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "cutscene_player", "attack_buffer_timer", "state_machine", "collision_hitbox", "collision_physics")]
+[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "cutscene_player", "attack_buffer_timer", "knockback_timer", "state_machine", "collision_hitbox", "collision_physics")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_vpnha")
@@ -373,6 +373,8 @@ anim = NodePath("AnimatedSprite2D")
 animation_player = NodePath("AnimationPlayer")
 cutscene_player = NodePath("CutscenePlayer")
 attack_buffer_timer = NodePath("Timers/Attack_Buffer_Timer")
+knockback_force = 500.0
+knockback_timer = NodePath("Timers/KnockBack_Timer")
 state_machine = NodePath("StateMachine")
 collision_hitbox = NodePath("Hitbox/CollisionShape2D")
 collision_physics = NodePath("CollisionShape2D")
@@ -444,6 +446,10 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
+[node name="KnockBack_Timer" type="Timer" parent="Timers"]
+wait_time = 0.5
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_i0nlq")
@@ -460,4 +466,5 @@ scale = Vector2(1.6, 3.2)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="Timers/KnockBack_Timer" to="." method="_on_knock_back_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

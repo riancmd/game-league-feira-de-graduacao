@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://c31uh3spjtbeu"]
+[gd_scene load_steps=7 format=4 uid="uid://c31uh3spjtbeu"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_sht75"]
+[ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_a6t2k"]
+[ext_resource type="PackedScene" uid="uid://cai56pvknidjb" path="res://scenes/enemies/brain.tscn" id="3_xunid"]
+[ext_resource type="PackedScene" uid="uid://47ncokraoa05" path="res://scenes/student/student.tscn" id="4_i0n8g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6t2k"]
 size = Vector2(16, 448)
@@ -35,3 +38,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDetect"]
 position = Vector2(320, 224)
 shape = SubResource("RectangleShape2D_xunid")
+
+[node name="NPC" parent="." instance=ExtResource("2_a6t2k")]
+position = Vector2(192, 448)
+timeline_name = "CreativeStudio"
+
+[node name="Brain" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_xunid")]
+position = Vector2(320, 104)
+player = NodePath("../Student")
+
+[node name="Student" parent="." instance=ExtResource("4_i0n8g")]
+position = Vector2(352, 448)
