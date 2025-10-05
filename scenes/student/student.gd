@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 
 		state_machine._on_physics_update(delta)
 
-		limit_horizontal_position()
+		#limit_horizontal_position()
 
 	move_and_slide()
 
@@ -178,9 +178,6 @@ func apply_knockback(attacker_position: Vector2) -> void:
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if not body.is_dead:
 		die()
-
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	die()
 
 func play_cutscene_animation(anim_name : String) -> void:
 	is_in_cutscene = true
