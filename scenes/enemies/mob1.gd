@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed: float = 30.0
-@export var gravity: float = 800.0
+@export var speed : float = 15.0
+@export var gravity : float = 800.0
 
 var direction : Vector2 = Vector2.LEFT
 var is_dead: bool = false
@@ -18,11 +18,6 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	
-	if direction.x == 1:
-		animated_sprite.flip_h = true
-	else:
-		animated_sprite.flip_h = false
 	
 	var left_has_ground = ledge_checker_01.is_colliding()
 	var right_has_ground = ledge_checker_02.is_colliding()
