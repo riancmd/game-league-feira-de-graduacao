@@ -1,22 +1,26 @@
-[gd_scene load_steps=7 format=4 uid="uid://c31uh3spjtbeu"]
+[gd_scene load_steps=8 format=4 uid="uid://c31uh3spjtbeu"]
 
 [ext_resource type="Script" uid="uid://dch3d76ov3rio" path="res://scenes/CreativeStudio/creative_studio.gd" id="1_3pk4w"]
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_sht75"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_a6t2k"]
+[ext_resource type="PackedScene" uid="uid://be466hh2sd2n4" path="res://scenes/TextPlatformers/text_platformers.tscn" id="3_3pk4w"]
 [ext_resource type="PackedScene" uid="uid://cai56pvknidjb" path="res://scenes/enemies/brain.tscn" id="3_xunid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6t2k"]
-size = Vector2(32, 448)
+size = Vector2(32, 760)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xunid"]
 size = Vector2(576, 448)
 
-[node name="creative_studio" type="Node2D" node_paths=PackedStringArray("previous_wall", "next_wall")]
+[node name="creative_studio" type="Node2D" node_paths=PackedStringArray("previous_wall", "next_wall", "markers")]
 script = ExtResource("1_3pk4w")
 brain_boss_scene = ExtResource("3_xunid")
 title_area = "Estúdio  Criativo"
 previous_wall = NodePath("PreviousWall/CollisionShape2D")
 next_wall = NodePath("NextWall/CollisionShape2D")
+markers = [NodePath("Markers/Marker2D"), NodePath("Markers/Marker2D2"), NodePath("Markers/Marker2D3"), NodePath("Markers/Marker2D4"), NodePath("Markers/Marker2D5"), NodePath("Markers/Marker2D6")]
+text_platform = ExtResource("3_3pk4w")
+texts_for_platformers = Array[String](["Ideia", "Inspiração", "Inspiração", "BrainStorm", "BrainStorm", "Ideia"])
 
 [node name="Tiles" type="Node2D" parent="."]
 
@@ -27,15 +31,16 @@ tile_map_data = PackedByteArray("AAAAABwACAAAAAAAAAAnABwACAACAAAAAAABABwACAABAAA
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PreviousWall"]
-position = Vector2(-16, 224)
+position = Vector2(-16, 68)
 shape = SubResource("RectangleShape2D_a6t2k")
 disabled = true
 
 [node name="NextWall" type="StaticBody2D" parent="."]
 position = Vector2(656, 0)
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
-position = Vector2(0, 224)
+position = Vector2(0, 72)
 shape = SubResource("RectangleShape2D_a6t2k")
 
 [node name="AreaDetect" type="Area2D" parent="."]
@@ -48,7 +53,33 @@ shape = SubResource("RectangleShape2D_xunid")
 
 [node name="NPC" parent="." instance=ExtResource("2_a6t2k")]
 position = Vector2(192, 448)
-timeline_name = "CreativeStudio"
+timeline_name = "01_game_design"
+
+[node name="CoolDown_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Markers"]
+position = Vector2(320, 384)
+
+[node name="Marker2D2" type="Marker2D" parent="Markers"]
+position = Vector2(128, 320)
+
+[node name="Marker2D3" type="Marker2D" parent="Markers"]
+position = Vector2(512, 320)
+
+[node name="Marker2D4" type="Marker2D" parent="Markers"]
+position = Vector2(576, 256)
+
+[node name="Marker2D5" type="Marker2D" parent="Markers"]
+position = Vector2(64, 256)
+
+[node name="Marker2D6" type="Marker2D" parent="Markers"]
+position = Vector2(320, 192)
+
+[node name="Platformers_Holder" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
+[connection signal="timeout" from="CoolDown_Timer" to="." method="_on_cool_down_timer_timeout"]

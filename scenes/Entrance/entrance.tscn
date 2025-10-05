@@ -1,97 +1,19 @@
-[gd_scene load_steps=11 format=4 uid="uid://csbabgagapm26"]
+[gd_scene load_steps=7 format=4 uid="uid://csbabgagapm26"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_5xv28"]
 [ext_resource type="Script" uid="uid://bcic7ptt1rqgw" path="res://scenes/Entrance/Areas.gd" id="1_rx8e1"]
 [ext_resource type="PackedScene" uid="uid://dtiv22fdh4le4" path="res://scenes/BackGround/background.tscn" id="2_04rbt"]
 [ext_resource type="Texture2D" uid="uid://cln4u1ylchf3r" path="res://assets/Logo IEEE semifinal render.png" id="2_molcj"]
-[ext_resource type="PackedScene" uid="uid://47ncokraoa05" path="res://scenes/student/student.tscn" id="3_h5dk3"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="4_fs5lk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs5lk"]
 size = Vector2(16, 80)
 
-[sub_resource type="Animation" id="Animation_fs5lk"]
-resource_name = "Enter_Scene"
-length = 3.0
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Student")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": ["walk_in"],
-"method": &"play_cutscene_animation"
-}, {
-"args": [],
-"method": &"stop_cutscene_animation"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Student:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(-56, 448), Vector2(96, 448)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_rx8e1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Student:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(32, 448)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_rx8e1"]
-_data = {
-&"Enter_Scene": SubResource("Animation_fs5lk"),
-&"RESET": SubResource("Animation_rx8e1")
-}
-
-[node name="Entrance" type="Node2D"]
+[node name="Entrance" type="Node2D" node_paths=PackedStringArray("collision_wall")]
 script = ExtResource("1_rx8e1")
 title_area = "Liga de Jogos"
 image = ExtResource("2_molcj")
+collision_wall = NodePath("StaticBody2D/CollisionShape2D")
 
 [node name="BackGround01" parent="." instance=ExtResource("2_04rbt")]
 
@@ -104,19 +26,9 @@ tile_map_data = PackedByteArray("AAAAABwACAAGAAAAAAABABwACAAHAAAAAAACABwACAAHAAA
 position = Vector2(480, 448)
 timeline_name = "PrimeiroDialogo"
 
-[node name="Student" parent="." instance=ExtResource("3_h5dk3")]
-position = Vector2(32, 448)
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-8, 408)
 shape = SubResource("RectangleShape2D_fs5lk")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_rx8e1")
-}
-autoplay = "Enter_Scene"
-
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+disabled = true
