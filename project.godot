@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Feira de Grad"
-run/main_scene="uid://dn2iip6chtt3v"
+run/main_scene="uid://ixxttem1r4dk"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
