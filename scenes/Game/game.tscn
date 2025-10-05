@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ixxttem1r4dk"]
+[gd_scene load_steps=13 format=3 uid="uid://ixxttem1r4dk"]
 
 [ext_resource type="Script" uid="uid://dsgdluckg6457" path="res://scenes/Game/game.gd" id="1_fc1p2"]
 [ext_resource type="PackedScene" uid="uid://cx4u6qiq4a5cu" path="res://scenes/UI/area_title.tscn" id="1_jm17p"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://c2jrbkx7d7wc1" path="res://scenes/Camera/camera.gd" id="3_bfxw3"]
 [ext_resource type="PackedScene" uid="uid://c31uh3spjtbeu" path="res://scenes/CreativeStudio/creative_studio.tscn" id="5_7dfdq"]
 [ext_resource type="PackedScene" uid="uid://47ncokraoa05" path="res://scenes/student/student.tscn" id="6_54y65"]
+[ext_resource type="PackedScene" uid="uid://dut01awwrx3x1" path="res://scenes/Pixelarium/pixelarium.tscn" id="6_t5wam"]
+[ext_resource type="PackedScene" uid="uid://0i31f8vq3n8d" path="res://scenes/LabProg/lab_prog.tscn" id="7_1p5ji"]
+[ext_resource type="PackedScene" uid="uid://b4vpkvnqqk80o" path="res://scenes/HallOfFame/hall_of_fame.tscn" id="9_rwo3j"]
 
 [sub_resource type="Animation" id="Animation_fs5lk"]
 resource_name = "Enter_Scene"
@@ -78,6 +81,14 @@ position = Vector2(640, 0)
 player = NodePath("../Student")
 camera = NodePath("../Camera2D")
 
+[node name="Pixelarium" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("6_t5wam")]
+position = Vector2(1280, 0)
+camera = NodePath("../Camera2D")
+
+[node name="LabProg" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("7_1p5ji")]
+position = Vector2(1920, 0)
+camera = NodePath("../Camera2D")
+
 [node name="Student" parent="." instance=ExtResource("6_54y65")]
 position = Vector2(32, 448)
 
@@ -87,6 +98,14 @@ libraries = {
 }
 autoplay = "Enter_Scene"
 
+[node name="HallOfFame" parent="." instance=ExtResource("9_rwo3j")]
+position = Vector2(2560, 0)
+
 [connection signal="new_area_entered" from="Entrance" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="disable_previous" from="creative_studio" to="Entrance" method="_on_creative_studio_disable_previous"]
 [connection signal="new_area_entered" from="creative_studio" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="disable_previous" from="Pixelarium" to="creative_studio" method="_on_pixelarium_disable_previous"]
+[connection signal="new_area_entered" from="Pixelarium" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="disable_previous" from="LabProg" to="Pixelarium" method="_on_lab_prog_disable_previous"]
+[connection signal="new_area_entered" from="LabProg" to="AreaTitle" method="_on_show_area_title"]
 [connection signal="animation_finished" from="AnimationPlayer" to="Entrance" method="_on_animation_player_animation_finished"]

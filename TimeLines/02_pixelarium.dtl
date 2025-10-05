@@ -9,3 +9,4 @@ leave NPC_3 [animation="Fade Out" wait="true"]
 join OPrazo left [animation="Bounce In" wait="true"]
 OPrazo: Tic-tac... O tempo está passando! Hihi. Tic-tac... A entrega é amanhã!
 leave OPrazo [animation="Instant Out"]
+[signal arg="02_pixelarium"]
