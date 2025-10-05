@@ -65,13 +65,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	active_gravity(gravity, delta)
 	
-	if not is_talking or not is_dead or not is_in_cutscene or not is_in_knockback:
+	if not is_talking and not is_dead and not is_in_cutscene and not is_in_knockback:
 	
 		check_was_on_floor()
 
 		state_machine._on_physics_update(delta)
 
-		limit_horizontal_position()
+		#limit_horizontal_position()
 
 	move_and_slide()
 
@@ -179,15 +179,13 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if not body.is_dead:
 		die()
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	die()
-
 func play_cutscene_animation(anim_name : String) -> void:
 	is_in_cutscene = true
 	cutscene_player.play(anim_name)
 
 func stop_cutscene_animation() -> void:
 	is_in_cutscene = false
+	cutscene_player.stop()
 	anim.play("idle")
 
 func _on_knock_back_timer_timeout() -> void:

@@ -8,3 +8,4 @@ leave NPC_2 [animation="Fade Out"]
 join BloqueioCriativo left [animation="Bounce In"]
 BloqueioCriativo: Blergh, blergh... Tem certeza disso? Blergh, blergh... Isso não vai dar certo... Blergh, blergh... Desista...
 leave BloqueioCriativo [animation="Instant Out"]
+[signal arg="01_game_design"]

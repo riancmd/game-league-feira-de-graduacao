@@ -3,38 +3,10 @@
 [ext_resource type="Script" uid="uid://cw4ng3dxqfawe" path="res://scenes/enemies/text_container_projectile.gd" id="1_nykrp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dli3"]
-size = Vector2(112, 32)
+size = Vector2(96, 32)
 
 [sub_resource type="LabelSettings" id="LabelSettings_l3eh2"]
-font_size = 32
-
-[sub_resource type="Animation" id="Animation_nykrp"]
-resource_name = "fire"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextContainer:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.5, 0.7), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextContainer/TextProjectile:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.3, 0.4),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0)]
-}
+font_color = Color(1, 0.435294, 0.403922, 1)
 
 [sub_resource type="Animation" id="Animation_2dli3"]
 length = 0.001
@@ -63,6 +35,34 @@ tracks/1/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_nykrp"]
+resource_name = "fire"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 0.7), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextContainer/TextProjectile:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.8),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t5uux"]
 _data = {
 &"RESET": SubResource("Animation_2dli3"),
@@ -77,7 +77,7 @@ label = NodePath("TextContainer/TextProjectile")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_2dli3")
 
 [node name="TextContainer" type="PanelContainer" parent="."]
@@ -86,9 +86,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -45.0
-offset_right = 64.0
+offset_left = -48.0
+offset_top = -32.0
+offset_right = 48.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(64, 45)
