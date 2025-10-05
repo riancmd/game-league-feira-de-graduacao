@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://cai56pvknidjb"]
+
+[ext_resource type="Script" uid="uid://bp3301cpjx2k4" path="res://scenes/enemies/brain.gd" id="1_6aa2u"]
+[ext_resource type="Texture2D" uid="uid://kytwcb8xp52s" path="res://assets/enemies/Brain/Brain.png" id="2_6aa2u"]
+[ext_resource type="PackedScene" uid="uid://lsa03mb74s3d" path="res://scenes/enemies/text_container_projectile.tscn" id="2_jali4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6aa2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6aa2u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jali4"]
+radius = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6aa2u"]
+radius = 32.0
+height = 64.0
+
+[node name="Brain" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "animated_sprite", "ledge_checker_01", "ledge_checker_02", "hurtbox", "collision")]
+script = ExtResource("1_6aa2u")
+projectile_scene = ExtResource("2_jali4")
+projectile_text = Array[String](["Dúvida", "Estresse", "Ansiedade"])
+cooldown_timer = NodePath("CoolDown_Timer")
+speed = 100.0
+animated_sprite = NodePath("AnimatedSprite2D")
+ledge_checker_01 = NodePath("RayCasts/RayCast2D")
+ledge_checker_02 = NodePath("RayCasts/RayCast2D2")
+hurtbox = NodePath("HurtBox")
+collision = NodePath("CollisionShape2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6aa2u")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jali4")
+
+[node name="RayCasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-24, 0)
+target_position = Vector2(-64, 0)
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
+position = Vector2(24, 0)
+target_position = Vector2(64, 0)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6aa2u")
+
+[node name="CoolDown_Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="timeout" from="CoolDown_Timer" to="." method="_on_cool_down_timer_timeout"]
