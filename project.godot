@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Feira de Grad"
-run/main_scene="uid://dn2iip6chtt3v"
+run/main_scene="uid://ixxttem1r4dk"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -24,10 +24,13 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
+"BloqueioCriativo": "res://Characters/BloqueioCriativo.dch",
+"NPC_2": "res://Characters/NPC_2.dch",
 "PrimeiroDev": "res://Characters/PrimeiroDev.dch",
 "unit_test_character": "res://dialogic-2.0-alpha-18/Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
+"01_game_design": "res://TimeLines/01_game_design.dtl",
 "PrimeiroDialogo": "res://TimeLines/PrimeiroDialogo.dtl"
 }
 layout/style_directory={
@@ -38,39 +41,6 @@ layout/style_list=["res://Styles/Style.tres"]
 layout/default_style="res://Styles/Style.tres"
 glossary/default_case_sensitive=true
 variables={}
-extensions_folder="res://addons/dialogic_additions"
-text/letter_speed=0.01
-text/initial_text_reveal_skippable=true
-text/text_reveal_skip_delay=0.1
-text/advance_delay=0.1
-text/autoadvance_per_character_delay=0.1
-text/autoadvance_ignored_characters_enabled=true
-animations/join_default_length=0.5
-animations/join_default_wait=true
-animations/leave_default_length=0.5
-animations/leave_default_wait=true
-animations/cross_fade_default_length=0.5
-choices/autofocus_first=true
-choices/delay=0.2
-choices/reveal_delay=0
-choices/reveal_by_input=false
-save/autosave_delay=60.0
-save/encryption_on_exports_only=true
-text/autopauses={}
-audio/channel_defaults={
-"": {
-"audio_bus": "",
-"fade_length": 0.0,
-"loop": false,
-"volume": 0.0
-},
-"music": {
-"audio_bus": "",
-"fade_length": 0.0,
-"loop": true,
-"volume": 0.0
-}
-}
 
 [display]
 
