@@ -56,10 +56,10 @@ position = Vector2(192, 320)
 platform_group = 1
 
 [node name="RhythmPlatformer3" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(64, 256)
+position = Vector2(40, 256)
 
 [node name="RhythmPlatformer4" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(192, 192)
+position = Vector2(216, 192)
 platform_group = 1
 
 [node name="RhythmPlatformer5" parent="Platformers" instance=ExtResource("5_bx1yr")]
@@ -70,10 +70,10 @@ position = Vector2(448, 320)
 platform_group = 1
 
 [node name="RhythmPlatformer7" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(576, 256)
+position = Vector2(592, 256)
 
 [node name="RhythmPlatformer8" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(448, 192)
+position = Vector2(424, 192)
 platform_group = 1
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
