@@ -73,6 +73,8 @@ position = Vector2(320, 216)
 
 [node name="Platformers_Holder" type="Node2D" parent="."]
 
+[node name="Projectiles_Holder" type="Node2D" parent="."]
+
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
 [connection signal="start_talking" from="NPC" to="." method="_on_npc_start_talking"]

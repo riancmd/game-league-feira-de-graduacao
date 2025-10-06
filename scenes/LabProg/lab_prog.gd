@@ -4,6 +4,7 @@ signal new_area_entered(text : String, image : Texture2D)
 signal disable_previous
 signal talking
 signal stop_talking
+signal shake_camera(amount : float)
 
 @export var camera : Camera2D
 @export var bugs_scene : PackedScene
@@ -25,7 +26,6 @@ func _on_creative_studio_disable_previous() -> void:
 	next_wall_collision.disabled = false
 
 func _on_area_detect_body_entered(body: Node2D) -> void:
-	print("aaaaa")
 	enter_new_area()
 	var tween : Tween = create_tween()
 	tween.tween_property(camera, "global_position:x", collisionArea.global_position.x, 0.3)
@@ -41,7 +41,7 @@ func _on_npc_ended_talking() -> void:
 
 func _on_mob_death() -> void:
 	bugs_counter -= 1
-	
+	emit_signal("shake_camera", 10.0)
 	if bugs_counter <= 0:
 		next_wall_collision.set_deferred("disabled", true)
 

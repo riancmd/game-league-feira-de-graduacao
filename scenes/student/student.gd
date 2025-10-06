@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal attack_finished
+signal damaged
 signal dead
 
 #region Movement Data
@@ -69,7 +70,7 @@ func _physics_process(delta: float) -> void:
 	if not is_talking and not is_dead and not is_in_cutscene and not is_in_knockback:
 	
 		check_was_on_floor()
-
+		
 		state_machine._on_physics_update(delta)
 
 		#limit_horizontal_position()
@@ -166,7 +167,8 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func apply_knockback(attacker_position: Vector2) -> void:
 	if is_in_knockback: return
-
+	
+	emit_signal("damaged")
 	is_in_knockback = true
 
 	var direction = (global_position - attacker_position).normalized()
@@ -180,6 +182,7 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	#if not body.is_dead:
 		#die()
 	print("danou-se")
+	emit_signal("damaged")
 
 func play_cutscene_animation(anim_name : String) -> void:
 	is_in_cutscene = true

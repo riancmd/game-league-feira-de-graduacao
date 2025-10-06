@@ -12,7 +12,7 @@ layer_1 = NodePath("ParallaxLayer")
 layer_4 = NodePath("ParallaxLayer4")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(640, 0)
+motion_mirroring = Vector2(635, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
 position = Vector2(320, 239.5)
@@ -20,7 +20,7 @@ scale = Vector2(1.11111, 1.48457)
 texture = ExtResource("2_fco25")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(640, 0)
+motion_mirroring = Vector2(635, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
 position = Vector2(320, 239.5)
