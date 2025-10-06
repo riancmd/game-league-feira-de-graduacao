@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://3hn6cpuey6vo"]
 
-[ext_resource type="AudioStream" uid="uid://dlc2clrobpo7x" path="res://sounds/music/Fun Background.ogg" id="1_b4s7b"]
+[ext_resource type="AudioStream" uid="uid://b7icno2kyi6k8" path="res://sounds/music/Fun Background.mp3" id="1_b4s7b"]
 
 [node name="MusicPlayer" type="Node"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_b4s7b")
 autoplay = true
+bus = &"Music"

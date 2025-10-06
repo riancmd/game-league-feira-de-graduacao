@@ -104,6 +104,7 @@ vertical_alignment = 1
 libraries = {
 &"": SubResource("AnimationLibrary_t5uux")
 }
+autoplay = "fire"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(9.53674e-06, -23)

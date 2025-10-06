@@ -4,6 +4,7 @@ signal new_area_entered(text : String, image : Texture2D)
 signal disable_previous
 signal talking
 signal stop_talking
+signal shake_camera(amount : float)
 
 @export var brain_boss_scene : PackedScene
 @export var player : CharacterBody2D
@@ -22,6 +23,7 @@ signal stop_talking
 @export var texts_for_platformers : Array[String]
 @onready var cool_down_timer: Timer = $CoolDown_Timer
 @onready var platformers_holder: Node2D = $Platformers_Holder
+@onready var projectiles_holder: Node2D = $Projectiles_Holder
 
 var boss_is_dead : bool = false
 
@@ -45,8 +47,11 @@ func _on_npc_ended_talking() -> void:
 
 func _on_brain_boss_defeated() -> void:
 	boss_is_dead = true
-	
+	emit_signal("shake_camera", 30.0)
 	for child in platformers_holder.get_children():
+		child.queue_free()
+	
+	for child in projectiles_holder.get_children():
 		child.queue_free()
 	
 	next_wall.set_deferred("disabled", true)

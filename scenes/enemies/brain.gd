@@ -60,17 +60,16 @@ func _physics_process(delta: float) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if is_dead: return
 
+	emit_signal("brain_boss_defeated")
 	is_dead = true
 	collision.set_deferred("disabled", true)
 	cooldown_timer.stop()
-	emit_signal("brain_boss_defeated")
-	
 	velocity.y = -300
 	velocity.x = 100 * sign(global_position.x - area.get_owner().global_position.x)
 
 func _on_cool_down_timer_timeout() -> void:
 	var projectile : Area2D = projectile_scene.instantiate()
-	get_parent().add_child(projectile)
+	get_parent().projectiles_holder.add_child(projectile)
 
 	projectile.global_position = self.global_position
 	projectile.setup(projectile_text.pick_random(), player.global_position)
