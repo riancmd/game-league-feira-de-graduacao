@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cstxmmd7y76qu"]
+[gd_scene load_steps=23 format=3 uid="uid://cstxmmd7y76qu"]
 
 [ext_resource type="Texture2D" uid="uid://dv51lr1kd0naf" path="res://assets/enemies/Slime/Idle-Run (44x30).png" id="1_36f7o"]
 [ext_resource type="Script" uid="uid://b1epqrwpje4p2" path="res://scenes/enemies/mob1.gd" id="1_vdbti"]
@@ -130,6 +130,10 @@ height = 23.3298
 radius = 12.998
 height = 48.0276
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_610bg"]
+radius = 11.9982
+height = 44.0282
+
 [node name="mob" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "ledge_checker_01", "ledge_checker_02", "hurtbox", "collision")]
 collision_layer = 4
 collision_mask = 7
@@ -165,10 +169,22 @@ shape = SubResource("CapsuleShape2D_vuauw")
 [node name="RayCast2D" type="RayCast2D" parent="RayCasts"]
 position = Vector2(-23, 0)
 target_position = Vector2(0, 32)
+collision_mask = 5
 
 [node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
 position = Vector2(23, 0)
 target_position = Vector2(0, 32)
+collision_mask = 5
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 7)
+rotation = -1.58825
+shape = SubResource("CapsuleShape2D_610bg")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

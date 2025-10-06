@@ -67,7 +67,7 @@ position = Vector2(576, 256)
 position = Vector2(64, 256)
 
 [node name="Marker2D6" type="Marker2D" parent="Markers"]
-position = Vector2(320, 192)
+position = Vector2(320, 216)
 
 [node name="Platformers_Holder" type="Node2D" parent="."]
 

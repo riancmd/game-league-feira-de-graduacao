@@ -1,0 +1,6 @@
+join NPC_4 right
+NPC_4: Aqui transformamos ideias em sistemas reais.\
+Cada linha de código faz o jogo ganhar vida.\
+Mas às vezes... os bugs aparecem.
+NPC_4: Por favor, nos ajude a livrar-se deles!!
+[signal arg="03_labprog"]

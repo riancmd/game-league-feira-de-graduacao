@@ -89,6 +89,10 @@ camera = NodePath("../Camera2D")
 position = Vector2(1920, 0)
 camera = NodePath("../Camera2D")
 
+[node name="HallOfFame" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("9_rwo3j")]
+position = Vector2(2560, 0)
+camera = NodePath("../Camera2D")
+
 [node name="Student" parent="." instance=ExtResource("6_54y65")]
 position = Vector2(32, 448)
 
@@ -98,9 +102,6 @@ libraries = {
 }
 autoplay = "Enter_Scene"
 
-[node name="HallOfFame" parent="." instance=ExtResource("9_rwo3j")]
-position = Vector2(2560, 0)
-
 [connection signal="new_area_entered" from="Entrance" to="AreaTitle" method="_on_show_area_title"]
 [connection signal="disable_previous" from="creative_studio" to="Entrance" method="_on_creative_studio_disable_previous"]
 [connection signal="new_area_entered" from="creative_studio" to="AreaTitle" method="_on_show_area_title"]
@@ -108,4 +109,6 @@ position = Vector2(2560, 0)
 [connection signal="new_area_entered" from="Pixelarium" to="AreaTitle" method="_on_show_area_title"]
 [connection signal="disable_previous" from="LabProg" to="Pixelarium" method="_on_lab_prog_disable_previous"]
 [connection signal="new_area_entered" from="LabProg" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="disable_previous" from="HallOfFame" to="LabProg" method="_on_hall_of_fame_disable_previous"]
+[connection signal="new_area_entered" from="HallOfFame" to="AreaTitle" method="_on_show_area_title"]
 [connection signal="animation_finished" from="AnimationPlayer" to="Entrance" method="_on_animation_player_animation_finished"]

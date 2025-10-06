@@ -176,8 +176,9 @@ func apply_knockback(attacker_position: Vector2) -> void:
 	knockback_timer.start()
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if not body.is_dead:
-		die()
+	#if not body.is_dead:
+		#die()
+	print("danou-se")
 
 func play_cutscene_animation(anim_name : String) -> void:
 	is_in_cutscene = true

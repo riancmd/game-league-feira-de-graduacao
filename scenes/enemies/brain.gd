@@ -20,7 +20,7 @@ var is_dead: bool = false
 @export var hurtbox : Area2D
 @export var collision : CollisionShape2D
 
-@export var amp: float = 10.0 
+@export var amp: float = 8.0 
 @export var freq: float = 5.0
 
 var time_passed : float = 0.0
