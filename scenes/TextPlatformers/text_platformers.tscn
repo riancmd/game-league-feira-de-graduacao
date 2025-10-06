@@ -55,6 +55,7 @@ shape = SubResource("RectangleShape2D_vtn7x")
 disabled = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0.431373)
 custom_minimum_size = Vector2(100, 0)
 anchors_preset = 7
 anchor_left = 0.5

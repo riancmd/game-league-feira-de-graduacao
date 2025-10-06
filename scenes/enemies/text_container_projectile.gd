@@ -12,8 +12,6 @@ func setup(text_content: String, player_position: Vector2) -> void:
 
 	direction_to_player = (player_position - global_position).normalized()
 
-	animation_player.play("fire")
-
 func _physics_process(delta: float) -> void:
 	if not can_move: return
 	
@@ -21,6 +19,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	can_move = true
+	modulate.a = 255
 
 func _on_body_entered(body: Node2D) -> void:
 	body.apply_knockback(global_position)

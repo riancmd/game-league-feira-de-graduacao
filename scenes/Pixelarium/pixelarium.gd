@@ -4,6 +4,7 @@ signal new_area_entered(text : String, image : Texture2D)
 signal disable_previous
 signal talking
 signal stop_talking
+signal shake_camera(amount : float)
 
 @export var camera : Camera2D
 
@@ -32,6 +33,8 @@ func _on_tic_tac(is_tic_blue : bool) -> void:
 		child._on_rhythm_tick(is_tic_blue)
 
 func _on_clock_defeated() -> void:
+	emit_signal("shake_camera", 30.0)
+	
 	for child in platformers.get_children():
 		child.queue_free()
 	

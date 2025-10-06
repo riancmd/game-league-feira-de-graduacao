@@ -56,11 +56,12 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if is_dead: return
-
+	
+	emit_signal("clock_boss_defeated")
+	
 	is_dead = true
 	collision.set_deferred("disabled", true)
 	clock_timer.stop()
-	emit_signal("clock_boss_defeated")
 	
 	velocity.y = -300
 	velocity.x = 100 * sign(global_position.x - area.get_owner().global_position.x)
@@ -72,6 +73,10 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func _on_clock_timer_timeout() -> void:
 	emit_signal("tic_tac", is_tic_blue)
 	is_tic_blue = not is_tic_blue
+	if is_tic_blue:
+		SfxManager.play_sfx("tic")
+	else:
+		SfxManager.play_sfx("tac")
 	clock_timer.start()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
