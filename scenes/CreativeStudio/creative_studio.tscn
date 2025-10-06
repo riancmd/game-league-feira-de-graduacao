@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://c31uh3spjtbeu"]
+[gd_scene load_steps=9 format=4 uid="uid://c31uh3spjtbeu"]
 
 [ext_resource type="Script" uid="uid://dch3d76ov3rio" path="res://scenes/CreativeStudio/creative_studio.gd" id="1_3pk4w"]
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_sht75"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_a6t2k"]
 [ext_resource type="PackedScene" uid="uid://be466hh2sd2n4" path="res://scenes/TextPlatformers/text_platformers.tscn" id="3_3pk4w"]
+[ext_resource type="Texture2D" uid="uid://eoak4qqur7y6" path="res://assets/creativeStudio.png" id="3_waiyv"]
 [ext_resource type="PackedScene" uid="uid://cai56pvknidjb" path="res://scenes/enemies/brain.tscn" id="3_xunid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6t2k"]
@@ -16,6 +17,7 @@ size = Vector2(608, 448)
 script = ExtResource("1_3pk4w")
 brain_boss_scene = ExtResource("3_xunid")
 title_area = "Estúdio  Criativo"
+image = ExtResource("3_waiyv")
 next_wall = NodePath("NextWall/CollisionShape2D")
 markers = [NodePath("Markers/Marker2D"), NodePath("Markers/Marker2D2"), NodePath("Markers/Marker2D3"), NodePath("Markers/Marker2D4"), NodePath("Markers/Marker2D5"), NodePath("Markers/Marker2D6")]
 text_platform = ExtResource("3_3pk4w")
@@ -67,10 +69,11 @@ position = Vector2(576, 256)
 position = Vector2(64, 256)
 
 [node name="Marker2D6" type="Marker2D" parent="Markers"]
-position = Vector2(320, 192)
+position = Vector2(320, 216)
 
 [node name="Platformers_Holder" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
+[connection signal="start_talking" from="NPC" to="." method="_on_npc_start_talking"]
 [connection signal="timeout" from="CoolDown_Timer" to="." method="_on_cool_down_timer_timeout"]

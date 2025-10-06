@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal mob_death
+
 @export var speed : float = 15.0
 @export var gravity : float = 800.0
 
@@ -22,11 +24,11 @@ func _physics_process(delta: float) -> void:
 	var left_has_ground = ledge_checker_01.is_colliding()
 	var right_has_ground = ledge_checker_02.is_colliding()
 
-	if not left_has_ground and not right_has_ground:
+	if left_has_ground and right_has_ground:
 		velocity.x = 0
-	elif direction.x < 0 and not left_has_ground:
+	elif direction.x < 0 and left_has_ground:
 		direction = Vector2.RIGHT
-	elif direction.x > 0 and not right_has_ground:
+	elif direction.x > 0 and right_has_ground:
 		direction = Vector2.LEFT
 	elif is_on_wall():
 		direction *= -1
@@ -43,4 +45,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	animated_sprite.play("hit")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
+	emit_signal("mob_death")
 	queue_free()
+
+func _on_hit_box_body_entered(body: Node2D) -> void:
+	if not is_dead:
+		body.apply_knockback(global_position)

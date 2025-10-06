@@ -374,7 +374,6 @@ anim = NodePath("AnimatedSprite2D")
 animation_player = NodePath("AnimationPlayer")
 cutscene_player = NodePath("CutscenePlayer")
 attack_buffer_timer = NodePath("Timers/Attack_Buffer_Timer")
-knockback_force = 500.0
 knockback_timer = NodePath("Timers/KnockBack_Timer")
 state_machine = NodePath("StateMachine")
 collision_hitbox = NodePath("Hitbox/CollisionShape2D")

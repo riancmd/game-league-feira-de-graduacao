@@ -2,6 +2,8 @@ extends Node2D
 
 signal new_area_entered(text : String, image : Texture2D)
 signal disable_previous
+signal talking
+signal stop_talking
 
 @export var camera : Camera2D
 
@@ -36,6 +38,8 @@ func _on_clock_defeated() -> void:
 	next_wall_collision.set_deferred("disabled", true)
 
 func _on_npc_ended_talking() -> void:
+	emit_signal("stop_talking")
+	
 	var clock_instance : CharacterBody2D = clock_scene.instantiate()
 	clock_instance.connect("tic_tac", _on_tic_tac)
 	clock_instance.connect("clock_boss_defeated", _on_clock_defeated)
@@ -44,3 +48,6 @@ func _on_npc_ended_talking() -> void:
 
 func _on_lab_prog_disable_previous() -> void:
 	next_wall_collision.set_deferred("disabled", false)
+
+func _on_npc_start_talking() -> void:
+	emit_signal("talking")

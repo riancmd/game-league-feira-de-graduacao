@@ -60,7 +60,8 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 func _unhandled_input(event: InputEvent) -> void:
-	state_machine._on_input(event)
+	if not is_talking and not is_dead and not is_in_cutscene and not is_in_knockback:
+		state_machine._on_input(event)
 
 func _physics_process(delta: float) -> void:
 	active_gravity(gravity, delta)
@@ -176,8 +177,9 @@ func apply_knockback(attacker_position: Vector2) -> void:
 	knockback_timer.start()
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if not body.is_dead:
-		die()
+	#if not body.is_dead:
+		#die()
+	print("danou-se")
 
 func play_cutscene_animation(anim_name : String) -> void:
 	is_in_cutscene = true

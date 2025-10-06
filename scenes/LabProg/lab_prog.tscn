@@ -1,18 +1,22 @@
-[gd_scene load_steps=6 format=4 uid="uid://0i31f8vq3n8d"]
+[gd_scene load_steps=8 format=4 uid="uid://0i31f8vq3n8d"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_2c06d"]
 [ext_resource type="Script" uid="uid://c1se4og3iiy1p" path="res://scenes/LabProg/lab_prog.gd" id="1_8xgch"]
+[ext_resource type="PackedScene" uid="uid://cstxmmd7y76qu" path="res://scenes/enemies/mob1.tscn" id="2_0eih3"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_ytk81"]
+[ext_resource type="Texture2D" uid="uid://bwwv3sdfgdkva" path="res://assets/labprog.png" id="3_g7ewm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c06d"]
-size = Vector2(592, 448)
+size = Vector2(608, 448)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ytk81"]
 size = Vector2(8, 760)
 
 [node name="LabProg" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision")]
 script = ExtResource("1_8xgch")
+bugs_scene = ExtResource("2_0eih3")
 title_area = "Laboratório de Programação"
+image = ExtResource("3_g7ewm")
 collisionArea = NodePath("AreaDetect/CollisionShape2D")
 next_wall_collision = NodePath("NextWall/CollisionShape2D")
 
@@ -31,7 +35,7 @@ shape = SubResource("RectangleShape2D_2c06d")
 
 [node name="NPC" parent="." instance=ExtResource("2_ytk81")]
 position = Vector2(128, 448)
-timeline_name = "03_programacao"
+timeline_name = "03_labprog"
 
 [node name="NextWall" type="StaticBody2D" parent="."]
 position = Vector2(648, -4)
@@ -40,3 +44,27 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
 position = Vector2(-12, 72)
 shape = SubResource("RectangleShape2D_ytk81")
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(322, -60)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(130, -60)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(514, -60)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(448, -128)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(192, -128)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(320, -128)
+
+[connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
+[connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
+[connection signal="start_talking" from="NPC" to="." method="_on_npc_start_talking"]

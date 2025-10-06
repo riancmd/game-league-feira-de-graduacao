@@ -1,13 +1,14 @@
-[gd_scene load_steps=8 format=4 uid="uid://dut01awwrx3x1"]
+[gd_scene load_steps=9 format=4 uid="uid://dut01awwrx3x1"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_5itgb"]
 [ext_resource type="Script" uid="uid://xy1kky1hgj0c" path="res://scenes/Pixelarium/pixelarium.gd" id="1_p343x"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_1r5xx"]
 [ext_resource type="PackedScene" uid="uid://dfdsqglwbm6ap" path="res://scenes/enemies/clock.tscn" id="2_g5xlk"]
+[ext_resource type="Texture2D" uid="uid://rwjbnxmu1arl" path="res://assets/pixelarium.png" id="2_pvgcd"]
 [ext_resource type="PackedScene" uid="uid://2govejcbivcc" path="res://scenes/RhythmPlatformer/rhythm_platformer.tscn" id="5_bx1yr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5itgb"]
-size = Vector2(584, 448)
+size = Vector2(608, 448)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1r5xx"]
 size = Vector2(8, 760)
@@ -15,6 +16,7 @@ size = Vector2(8, 760)
 [node name="Pixelarium" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision", "platformers")]
 script = ExtResource("1_p343x")
 title_area = "Pixelarium"
+image = ExtResource("2_pvgcd")
 collisionArea = NodePath("AreaDetect/CollisionShape2D")
 next_wall_collision = NodePath("NextWall/CollisionShape2D")
 clock_scene = ExtResource("2_g5xlk")
@@ -30,7 +32,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDetect"]
-position = Vector2(316, 224)
+position = Vector2(320, 224)
 shape = SubResource("RectangleShape2D_5itgb")
 
 [node name="NPC" parent="." instance=ExtResource("2_1r5xx")]
@@ -56,10 +58,10 @@ position = Vector2(192, 320)
 platform_group = 1
 
 [node name="RhythmPlatformer3" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(64, 256)
+position = Vector2(40, 256)
 
 [node name="RhythmPlatformer4" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(192, 192)
+position = Vector2(216, 192)
 platform_group = 1
 
 [node name="RhythmPlatformer5" parent="Platformers" instance=ExtResource("5_bx1yr")]
@@ -70,11 +72,12 @@ position = Vector2(448, 320)
 platform_group = 1
 
 [node name="RhythmPlatformer7" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(576, 256)
+position = Vector2(592, 256)
 
 [node name="RhythmPlatformer8" parent="Platformers" instance=ExtResource("5_bx1yr")]
-position = Vector2(448, 192)
+position = Vector2(424, 192)
 platform_group = 1
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
+[connection signal="start_talking" from="NPC" to="." method="_on_npc_start_talking"]

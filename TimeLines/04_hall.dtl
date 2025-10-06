@@ -1,0 +1,5 @@
+join PrimeiroDev right
+PrimeiroDev: Cada jogo é fruto de colaboração, aprendizado e criatividade.\
+E o próximo... pode ser o seu!
+PrimeiroDev: Acesse o QR Code para jogar nossos jogos e nos acompanhar nas redes!
+[signal arg="04_hall"]
