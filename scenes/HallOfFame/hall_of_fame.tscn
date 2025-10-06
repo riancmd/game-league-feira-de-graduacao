@@ -17,6 +17,7 @@ size = Vector2(8, 760)
 
 [node name="HallOfFame" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision")]
 script = ExtResource("1_x1e1m")
+title_area = "Hall da Fama"
 collisionArea = NodePath("AreaDetect/CollisionShape2D")
 next_wall_collision = NodePath("NextWall/CollisionShape2D")
 
@@ -109,3 +110,4 @@ loop = true
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
+[connection signal="start_talking" from="NPC" to="." method="_on_npc_start_talking"]

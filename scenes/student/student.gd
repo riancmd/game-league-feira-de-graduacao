@@ -60,7 +60,8 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 func _unhandled_input(event: InputEvent) -> void:
-	state_machine._on_input(event)
+	if not is_talking and not is_dead and not is_in_cutscene and not is_in_knockback:
+		state_machine._on_input(event)
 
 func _physics_process(delta: float) -> void:
 	active_gravity(gravity, delta)
