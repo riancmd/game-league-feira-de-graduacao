@@ -64,8 +64,9 @@ _data = {
 &"RESET": SubResource("Animation_rx8e1")
 }
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_fc1p2")
+player = NodePath("Student")
 
 [node name="AreaTitle" parent="." instance=ExtResource("1_jm17p")]
 
@@ -103,12 +104,22 @@ libraries = {
 autoplay = "Enter_Scene"
 
 [connection signal="new_area_entered" from="Entrance" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="stop_talking" from="Entrance" to="." method="_on_stop_talking"]
+[connection signal="talking" from="Entrance" to="." method="_on_talking"]
 [connection signal="disable_previous" from="creative_studio" to="Entrance" method="_on_creative_studio_disable_previous"]
 [connection signal="new_area_entered" from="creative_studio" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="stop_talking" from="creative_studio" to="." method="_on_stop_talking"]
+[connection signal="talking" from="creative_studio" to="." method="_on_talking"]
 [connection signal="disable_previous" from="Pixelarium" to="creative_studio" method="_on_pixelarium_disable_previous"]
 [connection signal="new_area_entered" from="Pixelarium" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="stop_talking" from="Pixelarium" to="." method="_on_stop_talking"]
+[connection signal="talking" from="Pixelarium" to="." method="_on_talking"]
 [connection signal="disable_previous" from="LabProg" to="Pixelarium" method="_on_lab_prog_disable_previous"]
 [connection signal="new_area_entered" from="LabProg" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="stop_talking" from="LabProg" to="." method="_on_stop_talking"]
+[connection signal="talking" from="LabProg" to="." method="_on_talking"]
 [connection signal="disable_previous" from="HallOfFame" to="LabProg" method="_on_hall_of_fame_disable_previous"]
 [connection signal="new_area_entered" from="HallOfFame" to="AreaTitle" method="_on_show_area_title"]
+[connection signal="stop_talking" from="HallOfFame" to="." method="_on_stop_talking"]
+[connection signal="talking" from="HallOfFame" to="." method="_on_talking"]
 [connection signal="animation_finished" from="AnimationPlayer" to="Entrance" method="_on_animation_player_animation_finished"]

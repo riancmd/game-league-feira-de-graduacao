@@ -36,6 +36,7 @@ directories/dtl_directory={
 "01_game_design": "res://TimeLines/01_game_design.dtl",
 "02_pixelarium": "res://TimeLines/02_pixelarium.dtl",
 "03_labprog": "res://TimeLines/03_labprog.dtl",
+"04_hall": "res://TimeLines/04_hall.dtl",
 "PrimeiroDialogo": "res://TimeLines/PrimeiroDialogo.dtl"
 }
 layout/style_directory={

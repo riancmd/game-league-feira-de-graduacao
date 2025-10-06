@@ -2,6 +2,8 @@ extends Node2D
 
 signal new_area_entered(text : String, image : Texture2D)
 signal disable_previous
+signal talking
+signal stop_talking
 
 @export var brain_boss_scene : PackedScene
 @export var player : CharacterBody2D
@@ -33,6 +35,8 @@ func _on_area_detect_body_entered(body: Node2D) -> void:
 	tween.tween_property(camera, "global_position:x", collisionArea.global_position.x, 0.3)
 
 func _on_npc_ended_talking() -> void:
+	emit_signal("stop_talking")
+	
 	var brain_boss_instance : CharacterBody2D = brain_boss_scene.instantiate()
 	brain_boss_instance.setup(player)
 	brain_boss_instance.connect("brain_boss_defeated", _on_brain_boss_defeated)
@@ -57,3 +61,6 @@ func _on_cool_down_timer_timeout() -> void:
 
 func _on_pixelarium_disable_previous() -> void:
 	next_wall.set_deferred("disabled", false)
+
+func _on_npc_start_talking() -> void:
+	emit_signal("talking")

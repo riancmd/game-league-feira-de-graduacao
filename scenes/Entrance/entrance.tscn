@@ -46,3 +46,4 @@ position = Vector2(-4, 68)
 shape = SubResource("RectangleShape2D_rx8e1")
 
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
+[connection signal="start_talking" from="NPC" to="." method="_on_npc_start_talking"]
