@@ -1,10 +1,16 @@
-[gd_scene load_steps=8 format=4 uid="uid://0i31f8vq3n8d"]
+[gd_scene load_steps=14 format=4 uid="uid://0i31f8vq3n8d"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_2c06d"]
 [ext_resource type="Script" uid="uid://c1se4og3iiy1p" path="res://scenes/LabProg/lab_prog.gd" id="1_8xgch"]
 [ext_resource type="PackedScene" uid="uid://cstxmmd7y76qu" path="res://scenes/enemies/mob1.tscn" id="2_0eih3"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_ytk81"]
 [ext_resource type="Texture2D" uid="uid://bwwv3sdfgdkva" path="res://assets/labprog.png" id="3_g7ewm"]
+[ext_resource type="Texture2D" uid="uid://dekln4wevnx5x" path="res://assets/scenery/props/pixelarium_bg.png" id="4_3bi58"]
+[ext_resource type="Texture2D" uid="uid://c7a8o7u0bposy" path="res://assets/scenery/props/monitor.png" id="5_dplbf"]
+[ext_resource type="Texture2D" uid="uid://bqriefnowsh07" path="res://assets/scenery/props/solo_desk.png" id="5_tb8ri"]
+[ext_resource type="Texture2D" uid="uid://f75som2f7cdd" path="res://assets/scenery/props/screen.png" id="6_0gwk4"]
+[ext_resource type="Texture2D" uid="uid://cg2h21u37hlw" path="res://assets/scenery/props/chair.png" id="6_dplbf"]
+[ext_resource type="Texture2D" uid="uid://dbelehko8hblu" path="res://assets/scenery/props/desktop.png" id="11_8f0hp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c06d"]
 size = Vector2(608, 448)
@@ -19,6 +25,67 @@ title_area = "Laboratório de Programação"
 image = ExtResource("3_g7ewm")
 collisionArea = NodePath("AreaDetect/CollisionShape2D")
 next_wall_collision = NodePath("NextWall/CollisionShape2D")
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="PixelariumBg" type="Sprite2D" parent="Props"]
+position = Vector2(320, 240)
+texture = ExtResource("4_3bi58")
+
+[node name="Monitor" type="Sprite2D" parent="Props"]
+position = Vector2(228, 371)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_dplbf")
+
+[node name="Monitor2" type="Sprite2D" parent="Props"]
+position = Vector2(375, 371)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_dplbf")
+flip_h = true
+
+[node name="Screen" type="Sprite2D" parent="Props"]
+position = Vector2(420, 370)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_0gwk4")
+flip_h = true
+
+[node name="Screen2" type="Sprite2D" parent="Props"]
+position = Vector2(274, 370)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_0gwk4")
+flip_h = true
+
+[node name="SoloDesk" type="Sprite2D" parent="Props"]
+position = Vector2(245, 420)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_tb8ri")
+
+[node name="SoloDesk2" type="Sprite2D" parent="Props"]
+position = Vector2(388, 419)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_tb8ri")
+
+[node name="Chair" type="Sprite2D" parent="Props"]
+position = Vector2(257, 412)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_dplbf")
+
+[node name="Chair2" type="Sprite2D" parent="Props"]
+position = Vector2(373, 412)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_dplbf")
+flip_h = true
+
+[node name="Desktop" type="Sprite2D" parent="Props"]
+position = Vector2(303, 424)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_8f0hp")
+
+[node name="Desktop2" type="Sprite2D" parent="Props"]
+position = Vector2(446, 424)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_8f0hp")
+flip_h = true
 
 [node name="Tiles" type="Node2D" parent="."]
 
