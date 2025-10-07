@@ -12,7 +12,7 @@
 },
 &"default_portrait": "Default",
 &"description": "O primeiro NPC do jogo",
-&"display_name": "PrimeiroDev",
+&"display_name": "Rian",
 &"mirror": false,
 &"nicknames": ["NPCDev01"],
 &"offset": Vector2(0, 0),

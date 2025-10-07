@@ -1,7 +1,11 @@
 join NPC_2 right
+audio "res://sounds/voices/npc_01_voice.mp3"
 NPC_2: Essa é a sala do Game Design.
+audio "res://sounds/voices/npc_01_voice.mp3"
 NPC_2: Aqui, nós criamos o conceito por trás de cada jogo. Deixamos a criatividade fluir enquanto temos inspiração.
+audio "res://sounds/voices/npc_01_voice.mp3"
 NPC_2: Então, tentamos entender\: o que queremos passar para o jogador? O que ele deve sentir? Qual deve ser sua experiência?
+audio "res://sounds/voices/npc_01_voice.mp3"
 NPC_2: Porém, ideias vem e vão... E às vezes, podemos nos deparar com ele...
 [wait time="1.0"]
 leave NPC_2 [animation="Fade Out"]

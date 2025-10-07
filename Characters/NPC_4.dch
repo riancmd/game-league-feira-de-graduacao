@@ -12,7 +12,7 @@
 },
 &"default_portrait": "Default",
 &"description": "NPC do Laboratório de Programação",
-&"display_name": "NPC_4",
+&"display_name": "João",
 &"mirror": false,
 &"nicknames": ["NPCDev04"],
 &"offset": Vector2(0, 0),

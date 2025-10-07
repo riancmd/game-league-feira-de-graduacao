@@ -25,6 +25,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 directories/dch_directory={
 "BloqueioCriativo": "res://Characters/BloqueioCriativo.dch",
+"NPC_1": "res://Characters/NPC_1.dch",
 "NPC_2": "res://Characters/NPC_2.dch",
 "NPC_3": "res://Characters/NPC_3.dch",
 "NPC_4": "res://Characters/NPC_4.dch",

@@ -11,15 +11,15 @@
 "suffix": ""
 },
 &"default_portrait": "default",
-&"description": "NPC Artista.",
-&"display_name": "Giulia",
+&"description": "NPC Dev que apresenta o Hall da Fama",
+&"display_name": "Julia",
 &"mirror": false,
-&"nicknames": ["NPCArtista01"],
+&"nicknames": ["NPCDev03"],
 &"offset": Vector2(0, 0),
 &"portraits": {
 "default": {
 "export_overrides": {
-"image": "\"icon.svg\""
+"image": "\"res://icon.svg\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),

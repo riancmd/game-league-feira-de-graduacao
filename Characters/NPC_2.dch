@@ -12,7 +12,7 @@
 },
 &"default_portrait": "default",
 &"description": "NPC da sala de game design",
-&"display_name": "NPC",
+&"display_name": "Gui",
 &"mirror": false,
 &"nicknames": ["NPCDev02"],
 &"offset": Vector2(0, 0),
