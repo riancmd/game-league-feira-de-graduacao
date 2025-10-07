@@ -1,17 +1,73 @@
-[gd_scene load_steps=6 format=3 uid="uid://qbgt78ak72da"]
+[gd_scene load_steps=15 format=3 uid="uid://qbgt78ak72da"]
 
 [ext_resource type="Script" uid="uid://dwyxh5w17lpyy" path="res://scenes/NPC/npc.gd" id="1_0c0is"]
-[ext_resource type="Texture2D" uid="uid://b08eu5qyenm5p" path="res://icon.svg" id="1_36vut"]
+[ext_resource type="Texture2D" uid="uid://d3x73qre2nv5s" path="res://assets/npcs/rian.png" id="2_0c0is"]
+[ext_resource type="Texture2D" uid="uid://rdoowacrstvi" path="res://assets/npcs/giulia.png" id="2_5fqau"]
+[ext_resource type="Texture2D" uid="uid://csxjv6d4w46lj" path="res://assets/npcs/gui.png" id="3_aanyv"]
+[ext_resource type="Texture2D" uid="uid://b44bpcyx646ia" path="res://assets/npcs/joao.png" id="4_4jjfo"]
+[ext_resource type="Texture2D" uid="uid://dgi6bmcih2fec" path="res://assets/npcs/julia.png" id="5_sdgcv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osodb"]
+atlas = ExtResource("2_5fqau")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oaw6"]
+atlas = ExtResource("3_aanyv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3px2"]
+atlas = ExtResource("4_4jjfo")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q836e"]
+atlas = ExtResource("5_sdgcv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwet7"]
+atlas = ExtResource("2_0c0is")
+region = Rect2(0, 0, 33, 33)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0c0is"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_36vut")
+"texture": SubResource("AtlasTexture_osodb")
 }],
 "loop": true,
-"name": &"default",
-"speed": 5.0
+"name": &"giulia",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oaw6")
+}],
+"loop": true,
+"name": &"gui",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3px2")
+}],
+"loop": true,
+"name": &"joão",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q836e")
+}],
+"loop": true,
+"name": &"julia",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwet7")
+}],
+"loop": true,
+"name": &"rian",
+"speed": 1.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwet7"]
@@ -27,8 +83,10 @@ script = ExtResource("1_0c0is")
 talk_container = NodePath("TalkContainer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+position = Vector2(1, 93)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_0c0is")
+animation = &"julia"
 offset = Vector2(0, -64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

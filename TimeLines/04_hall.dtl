@@ -1,4 +1,4 @@
-join PrimeiroDev right
+join NPC_1 right
 audio "res://sounds/voices/npc_04_voice.mp3"
 NPC_1: Cada jogo é fruto de colaboração, aprendizado e criatividade.\
 E o próximo... pode ser o seu!
