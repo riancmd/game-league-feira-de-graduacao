@@ -15,3 +15,7 @@ func _on_student_damaged() -> void:
 
 func _on_shake_camera(amount: float) -> void:
 	camera.shake(amount)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("esc"):
+		get_tree().change_scene_to_file("res://scenes/Menu/menu.tscn")

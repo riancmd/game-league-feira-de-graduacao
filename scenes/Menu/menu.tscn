@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=4 uid="uid://cvx5keg7xq3il"]
+
+[ext_resource type="PackedScene" uid="uid://dtiv22fdh4le4" path="res://scenes/BackGround/background.tscn" id="1_6wcv6"]
+[ext_resource type="Script" uid="uid://bsik2kr20tu7" path="res://scenes/Menu/menu.gd" id="1_fi74l"]
+[ext_resource type="Shader" uid="uid://ds8scsl2iaf3n" path="res://Shaders/rays.gdshader" id="2_2qf5f"]
+[ext_resource type="Texture2D" uid="uid://cln4u1ylchf3r" path="res://assets/Logo IEEE semifinal render.png" id="3_4e4iy"]
+[ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="3_7hiy7"]
+[ext_resource type="FontFile" uid="uid://c0cjtq5cs6xyf" path="res://assets/fonts/Born2bSportyFS.otf" id="4_fi74l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4e4iy"]
+shader = ExtResource("2_2qf5f")
+shader_parameter/angle = -0.3
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.5
+shader_parameter/cutoff = 0.28
+shader_parameter/falloff = 0.312
+shader_parameter/edge_fade = 0.15
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(1, 0.9, 0.65, 0.8)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fi74l"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0831475, 0.0878732, 0.0642139, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fi74l")
+
+[node name="BackGround01" parent="." instance=ExtResource("1_6wcv6")]
+
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="platforms" parent="Tiles" instance=ExtResource("3_7hiy7")]
+tile_map_data = PackedByteArray("AAAAABwACAAGAAAAAAABABwACAAHAAAAAAACABwACAAHAAAAAAADABwACAAHAAAAAAAEABwACAAHAAAAAAAFABwACAAHAAAAAAAGABwACAAHAAAAAAAHABwACAAHAAAAAAAIABwACAAHAAAAAAAJABwACAAHAAAAAAAKABwACAAHAAAAAAALABwACAAHAAAAAAAMABwACAAHAAAAAAANABwACAAHAAAAAAAOABwACAAHAAAAAAAPABwACAAHAAAAAAAQABwACAAHAAAAAAARABwACAAHAAAAAAASABwACAAHAAAAAAATABwACAAHAAAAAAAUABwACAAHAAAAAAAVABwACAAHAAAAAAAWABwACAAHAAAAAAAXABwACAAHAAAAAAAYABwACAAHAAAAAAAZABwACAAHAAAAAAAaABwACAAHAAAAAAAbABwACAAHAAAAAAAcABwACAAHAAAAAAAdABwACAAHAAAAAAAeABwACAAHAAAAAAAfABwACAAHAAAAAAAgABwACAAHAAAAAAAhABwACAAHAAAAAAAiABwACAAHAAAAAAAjABwACAAHAAAAAAAkABwACAAHAAAAAAAlABwACAAHAAAAAAAmABwACAAHAAAAAAAnABwACAAIAAAAAAAAAB0ACAAGAAEAAAAAAB4ACAAGAAEAAAAnAB0ACAAIAAEAAAAnAB4ACAAIAAEAAAABAB0ACAAHAAEAAAABAB4ACAAHAAEAAAACAB0ACAAHAAEAAAACAB4ACAAHAAEAAAADAB0ACAAHAAEAAAADAB4ACAAHAAEAAAAEAB0ACAAHAAEAAAAEAB4ACAAHAAEAAAAFAB0ACAAHAAEAAAAFAB4ACAAHAAEAAAAGAB0ACAAHAAEAAAAGAB4ACAAHAAEAAAAHAB0ACAAHAAEAAAAHAB4ACAAHAAEAAAAIAB0ACAAHAAEAAAAIAB4ACAAHAAEAAAAJAB0ACAAHAAEAAAAJAB4ACAAHAAEAAAAKAB0ACAAHAAEAAAAKAB4ACAAHAAEAAAALAB0ACAAHAAEAAAALAB4ACAAHAAEAAAAMAB0ACAAHAAEAAAAMAB4ACAAHAAEAAAANAB0ACAAHAAEAAAANAB4ACAAHAAEAAAAOAB0ACAAHAAEAAAAOAB4ACAAHAAEAAAAPAB0ACAAHAAEAAAAPAB4ACAAHAAEAAAAQAB0ACAAHAAEAAAAQAB4ACAAHAAEAAAARAB0ACAAHAAEAAAARAB4ACAAHAAEAAAASAB0ACAAHAAEAAAASAB4ACAAHAAEAAAATAB0ACAAHAAEAAAATAB4ACAAHAAEAAAAUAB0ACAAHAAEAAAAUAB4ACAAHAAEAAAAVAB0ACAAHAAEAAAAVAB4ACAAHAAEAAAAWAB0ACAAHAAEAAAAWAB4ACAAHAAEAAAAXAB0ACAAHAAEAAAAXAB4ACAAHAAEAAAAYAB0ACAAHAAEAAAAYAB4ACAAHAAEAAAAZAB0ACAAHAAEAAAAZAB4ACAAHAAEAAAAaAB0ACAAHAAEAAAAaAB4ACAAHAAEAAAAbAB0ACAAHAAEAAAAbAB4ACAAHAAEAAAAcAB0ACAAHAAEAAAAcAB4ACAAHAAEAAAAdAB0ACAAHAAEAAAAdAB4ACAAHAAEAAAAeAB0ACAAHAAEAAAAeAB4ACAAHAAEAAAAfAB0ACAAHAAEAAAAfAB4ACAAHAAEAAAAgAB0ACAAHAAEAAAAgAB4ACAAHAAEAAAAhAB0ACAAHAAEAAAAhAB4ACAAHAAEAAAAiAB0ACAAHAAEAAAAiAB4ACAAHAAEAAAAjAB0ACAAHAAEAAAAjAB4ACAAHAAEAAAAkAB0ACAAHAAEAAAAkAB4ACAAHAAEAAAAlAB0ACAAHAAEAAAAlAB4ACAAHAAEAAAAmAB0ACAAHAAEAAAAmAB4ACAAHAAEAAAA=")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4e4iy")
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="Darkness" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.635294)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fi74l")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("3_4e4iy")
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_fi74l")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_fi74l")
+text = "Apresentar"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
