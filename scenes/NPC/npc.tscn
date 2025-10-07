@@ -44,13 +44,17 @@ offset_top = -136.0
 offset_right = 64.0
 offset_bottom = -96.0
 
-[node name="TalkLabel" type="Label" parent="TalkContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="TalkContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TalkLabel" type="Label" parent="TalkContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Falar"
 label_settings = SubResource("LabelSettings_0c0is")
 horizontal_alignment = 1

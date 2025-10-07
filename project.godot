@@ -52,6 +52,7 @@ variables={}
 
 window/size/viewport_width=640
 window/size/viewport_height=480
+window/size/mode=4
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
