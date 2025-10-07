@@ -85,10 +85,10 @@ script = ExtResource("1_0c0is")
 talk_container = NodePath("TalkContainer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 94)
+position = Vector2(0, 100)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_0c0is")
-animation = &"julia"
+animation = &"giulia"
 autoplay = "rian"
 offset = Vector2(0, -64)
 
