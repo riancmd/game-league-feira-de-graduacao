@@ -6,4 +6,4 @@ audio "res://sounds/voices/npc_04_voice.mp3"
 NPC_1: Obrigado por nos acompanhar nessa jornada, caro amigo!
 audio "res://sounds/voices/npc_04_voice.mp3"
 NPC_1: E não se esqueça\: acesse o QR Code para jogar nossos jogos e nos acompanhar nas redes!
-[signal arg="04_hall"]
+[signal arg="02_pixelarium"]

@@ -86,7 +86,8 @@ talk_container = NodePath("TalkContainer")
 position = Vector2(1, 93)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_0c0is")
-animation = &"julia"
+animation = &"rian"
+autoplay = "rian"
 offset = Vector2(0, -64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
