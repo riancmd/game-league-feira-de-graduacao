@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://c31uh3spjtbeu"]
+[gd_scene load_steps=19 format=4 uid="uid://c31uh3spjtbeu"]
 
 [ext_resource type="Script" uid="uid://dch3d76ov3rio" path="res://scenes/CreativeStudio/creative_studio.gd" id="1_3pk4w"]
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_sht75"]
@@ -6,12 +6,43 @@
 [ext_resource type="PackedScene" uid="uid://be466hh2sd2n4" path="res://scenes/TextPlatformers/text_platformers.tscn" id="3_3pk4w"]
 [ext_resource type="Texture2D" uid="uid://eoak4qqur7y6" path="res://assets/creativeStudio.png" id="3_waiyv"]
 [ext_resource type="PackedScene" uid="uid://cai56pvknidjb" path="res://scenes/enemies/brain.tscn" id="3_xunid"]
+[ext_resource type="Texture2D" uid="uid://c80jfe0xkbt7j" path="res://assets/scenery/props/studio_bg.png" id="5_p1dyx"]
+[ext_resource type="Texture2D" uid="uid://c2l0mlqdlevnl" path="res://assets/scenery/props/idea_frame.png" id="6_a0id4"]
+[ext_resource type="Texture2D" uid="uid://bqriefnowsh07" path="res://assets/scenery/props/solo_desk.png" id="7_ix1y6"]
+[ext_resource type="Texture2D" uid="uid://l884whk6alyp" path="res://assets/scenery/props/idea_monitor.png" id="8_56vj1"]
+[ext_resource type="Texture2D" uid="uid://cg2h21u37hlw" path="res://assets/scenery/props/chair.png" id="11_nexd5"]
+[ext_resource type="Texture2D" uid="uid://bajggt1affl06" path="res://assets/arrow_go.png" id="12_56vj1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6t2k"]
-size = Vector2(8, 760)
+size = Vector2(8, 452)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ix1y6"]
+size = Vector2(618, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xunid"]
 size = Vector2(608, 448)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56vj1"]
+atlas = ExtResource("12_56vj1")
+region = Rect2(0, 0, 160, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nexd5"]
+atlas = ExtResource("12_56vj1")
+region = Rect2(160, 0, 160, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7j8up"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56vj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nexd5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="creative_studio" type="Node2D" node_paths=PackedStringArray("next_wall", "markers")]
 script = ExtResource("1_3pk4w")
@@ -23,6 +54,38 @@ markers = [NodePath("Markers/Marker2D"), NodePath("Markers/Marker2D2"), NodePath
 text_platform = ExtResource("3_3pk4w")
 texts_for_platformers = Array[String](["Ideia", "Inspiração", "Inspiração", "BrainStorm", "BrainStorm", "Ideia"])
 
+[node name="Props" type="Node2D" parent="."]
+
+[node name="StudioBg" type="Sprite2D" parent="Props"]
+position = Vector2(320, 240)
+texture = ExtResource("5_p1dyx")
+
+[node name="IdeaFrame" type="Sprite2D" parent="Props"]
+position = Vector2(448, 320)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_a0id4")
+
+[node name="IdeaFrame2" type="Sprite2D" parent="Props"]
+position = Vector2(192, 320)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_a0id4")
+
+[node name="SoloDesk" type="Sprite2D" parent="Props"]
+position = Vector2(312, 420)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_ix1y6")
+
+[node name="IdeaMonitor" type="Sprite2D" parent="Props"]
+position = Vector2(310, 358)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_56vj1")
+
+[node name="Chair" type="Sprite2D" parent="Props"]
+position = Vector2(291, 412)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_nexd5")
+flip_h = true
+
 [node name="Tiles" type="Node2D" parent="."]
 
 [node name="platforms" parent="Tiles" instance=ExtResource("1_sht75")]
@@ -33,8 +96,12 @@ position = Vector2(656, 0)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
-position = Vector2(-20, 72)
+position = Vector2(-20, 226)
 shape = SubResource("RectangleShape2D_a6t2k")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="NextWall"]
+position = Vector2(-333, -8)
+shape = SubResource("RectangleShape2D_ix1y6")
 
 [node name="AreaDetect" type="Area2D" parent="."]
 collision_layer = 0
@@ -74,6 +141,14 @@ position = Vector2(320, 216)
 [node name="Platformers_Holder" type="Node2D" parent="."]
 
 [node name="Projectiles_Holder" type="Node2D" parent="."]
+
+[node name="Arrow_Go" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(544, 208)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_7j8up")
+autoplay = "default"
+frame_progress = 0.904332
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]

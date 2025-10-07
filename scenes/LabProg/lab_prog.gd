@@ -44,6 +44,7 @@ func _on_mob_death() -> void:
 	emit_signal("shake_camera", 10.0)
 	if bugs_counter <= 0:
 		next_wall_collision.set_deferred("disabled", true)
+		$Arrow_Go.show()
 
 func _on_hall_of_fame_disable_previous() -> void:
 	next_wall_collision.set_deferred("disabled", false)

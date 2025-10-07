@@ -53,7 +53,7 @@ func _on_brain_boss_defeated() -> void:
 	
 	for child in projectiles_holder.get_children():
 		child.queue_free()
-	
+	$Arrow_Go.show()
 	next_wall.set_deferred("disabled", true)
 
 func _on_cool_down_timer_timeout() -> void:

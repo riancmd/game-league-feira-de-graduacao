@@ -1,17 +1,47 @@
-[gd_scene load_steps=9 format=4 uid="uid://dut01awwrx3x1"]
+[gd_scene load_steps=18 format=4 uid="uid://dut01awwrx3x1"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_5itgb"]
 [ext_resource type="Script" uid="uid://xy1kky1hgj0c" path="res://scenes/Pixelarium/pixelarium.gd" id="1_p343x"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_1r5xx"]
 [ext_resource type="PackedScene" uid="uid://dfdsqglwbm6ap" path="res://scenes/enemies/clock.tscn" id="2_g5xlk"]
 [ext_resource type="Texture2D" uid="uid://rwjbnxmu1arl" path="res://assets/pixelarium.png" id="2_pvgcd"]
+[ext_resource type="Texture2D" uid="uid://cuwugegiqdbur" path="res://assets/scenery/props/desk.png" id="4_1cnb1"]
+[ext_resource type="Texture2D" uid="uid://dekln4wevnx5x" path="res://assets/scenery/props/pixelarium_bg.png" id="4_4venq"]
+[ext_resource type="Texture2D" uid="uid://cqib7j31l0qlc" path="res://assets/scenery/props/frame.png" id="4_wwf8d"]
+[ext_resource type="Texture2D" uid="uid://5fm60su7tlel" path="res://assets/scenery/props/bookshelf.png" id="5_1cnb1"]
 [ext_resource type="PackedScene" uid="uid://2govejcbivcc" path="res://scenes/RhythmPlatformer/rhythm_platformer.tscn" id="5_bx1yr"]
+[ext_resource type="Texture2D" uid="uid://bajggt1affl06" path="res://assets/arrow_go.png" id="11_h86q5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5itgb"]
 size = Vector2(608, 448)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1r5xx"]
-size = Vector2(8, 760)
+size = Vector2(8, 452)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4venq"]
+size = Vector2(626, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56vj1"]
+atlas = ExtResource("11_h86q5")
+region = Rect2(0, 0, 160, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nexd5"]
+atlas = ExtResource("11_h86q5")
+region = Rect2(160, 0, 160, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_omqgx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56vj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nexd5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Pixelarium" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision", "platformers")]
 script = ExtResource("1_p343x")
@@ -21,6 +51,27 @@ collisionArea = NodePath("AreaDetect/CollisionShape2D")
 next_wall_collision = NodePath("NextWall/CollisionShape2D")
 clock_scene = ExtResource("2_g5xlk")
 platformers = NodePath("Platformers")
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="PixelariumBg" type="Sprite2D" parent="Props"]
+position = Vector2(320, 240)
+texture = ExtResource("4_4venq")
+
+[node name="Desk" type="Sprite2D" parent="Props"]
+position = Vector2(192, 397)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_1cnb1")
+
+[node name="Frame" type="Sprite2D" parent="Props"]
+position = Vector2(288, 388)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_wwf8d")
+
+[node name="Bookshelf" type="Sprite2D" parent="Props"]
+position = Vector2(447, 344)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_1cnb1")
 
 [node name="Tiles" type="Node2D" parent="."]
 
@@ -44,8 +95,12 @@ position = Vector2(648, 0)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
-position = Vector2(-12, 72)
+position = Vector2(-12, 226)
 shape = SubResource("RectangleShape2D_1r5xx")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="NextWall"]
+position = Vector2(-329, -8)
+shape = SubResource("RectangleShape2D_4venq")
 
 [node name="Platformers" type="Node2D" parent="."]
 visible = false
@@ -77,6 +132,13 @@ position = Vector2(592, 256)
 [node name="RhythmPlatformer8" parent="Platformers" instance=ExtResource("5_bx1yr")]
 position = Vector2(424, 192)
 platform_group = 1
+
+[node name="Arrow_Go" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(544, 208)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_omqgx")
+autoplay = "default"
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]

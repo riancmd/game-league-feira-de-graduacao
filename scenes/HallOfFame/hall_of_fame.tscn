@@ -1,13 +1,18 @@
-[gd_scene load_steps=11 format=4 uid="uid://b4vpkvnqqk80o"]
+[gd_scene load_steps=18 format=4 uid="uid://b4vpkvnqqk80o"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_py00m"]
 [ext_resource type="Script" uid="uid://bu650ryykxumj" path="res://scenes/HallOfFame/hall_of_fame.gd" id="1_x1e1m"]
+[ext_resource type="Texture2D" uid="uid://cfgvx1c3x31eq" path="res://assets/scenery/props/hall_bg.png" id="2_b11c4"]
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="2_u8qe5"]
+[ext_resource type="Texture2D" uid="uid://cd53dk13fqtjf" path="res://assets/scenery/props/trofeu.png" id="3_pqcm1"]
 [ext_resource type="VideoStream" uid="uid://duw41c3dnd7ef" path="res://assets/HallDaFama/Muranga/Muranga.ogv" id="4_oq4ks"]
 [ext_resource type="VideoStream" uid="uid://6qbxs0v47l1w" path="res://assets/HallDaFama/Mikus/Mikus.ogv" id="5_36h81"]
 [ext_resource type="VideoStream" uid="uid://piu1hmirtnf" path="res://assets/HallDaFama/Typo/Typo.ogv" id="6_fjopc"]
 [ext_resource type="VideoStream" uid="uid://dwiuogag01etj" path="res://assets/HallDaFama/Planta/Planta.ogv" id="7_eh57c"]
 [ext_resource type="VideoStream" uid="uid://d2jgfjkj5qc4t" path="res://assets/HallDaFama/Bus/Bus.ogv" id="8_b11c4"]
+[ext_resource type="VideoStream" uid="uid://bho5vdoe3oox" path="res://assets/HallDaFama/Embrace/embrace.ogv" id="11_1ilbi"]
+[ext_resource type="Texture2D" uid="uid://c85wyex0e3pj0" path="res://assets/HallDaFama/ligadejogosuefs_qrcode.png" id="12_6hgtd"]
+[ext_resource type="FontFile" uid="uid://c0cjtq5cs6xyf" path="res://assets/fonts/Born2bSportyFS.otf" id="12_lpg70"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_py00m"]
 size = Vector2(608, 448)
@@ -15,11 +20,40 @@ size = Vector2(608, 448)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8qe5"]
 size = Vector2(8, 760)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pqcm1"]
+bg_color = Color(0.4, 0.223529, 0.192157, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.4, 0.223529, 0.192157, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_sfgsl"]
+font = ExtResource("12_lpg70")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
 [node name="HallOfFame" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision")]
 script = ExtResource("1_x1e1m")
 title_area = "Hall da Fama"
+image = ExtResource("3_pqcm1")
 collisionArea = NodePath("AreaDetect/CollisionShape2D")
 next_wall_collision = NodePath("NextWall/CollisionShape2D")
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="HallBg" type="Sprite2D" parent="Props"]
+position = Vector2(320, 240)
+texture = ExtResource("2_b11c4")
+
+[node name="Trofeu" type="Sprite2D" parent="Props"]
+position = Vector2(320, 361)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_pqcm1")
 
 [node name="Tiles" type="Node2D" parent="."]
 
@@ -27,6 +61,7 @@ next_wall_collision = NodePath("NextWall/CollisionShape2D")
 tile_map_data = PackedByteArray("AAAAABwACAARAAgAAAABABwACAASAAgAAAACABwACAASAAgAAAADABwACAASAAgAAAAEABwACAASAAgAAAAFABwACAASAAgAAAAGABwACAASAAgAAAAHABwACAASAAgAAAAIABwACAASAAgAAAAJABwACAASAAgAAAAKABwACAASAAgAAAALABwACAASAAgAAAAMABwACAASAAgAAAANABwACAASAAgAAAAOABwACAASAAgAAAAPABwACAASAAgAAAAQABwACAASAAgAAAARABwACAASAAgAAAASABwACAASAAgAAAATABwACAASAAgAAAAUABwACAASAAgAAAAVABwACAASAAgAAAAWABwACAASAAgAAAAXABwACAASAAgAAAAYABwACAASAAgAAAAZABwACAASAAgAAAAaABwACAASAAgAAAAbABwACAASAAgAAAAcABwACAASAAgAAAAdABwACAASAAgAAAAeABwACAASAAgAAAAfABwACAASAAgAAAAnABwACAATAAgAAAAmABwACAASAAgAAAAlABwACAASAAgAAAAkABwACAASAAgAAAAjABwACAASAAgAAAAiABwACAASAAgAAAAhABwACAASAAgAAAAgABwACAASAAgAAAAAAB0ACAARAAgAAAABAB0ACAASAAgAAAACAB0ACAASAAgAAAADAB0ACAASAAgAAAAEAB0ACAASAAgAAAAFAB0ACAASAAgAAAAGAB0ACAASAAgAAAAHAB0ACAASAAgAAAAIAB0ACAASAAgAAAAJAB0ACAASAAgAAAAKAB0ACAASAAgAAAALAB0ACAASAAgAAAAMAB0ACAASAAgAAAANAB0ACAASAAgAAAAOAB0ACAASAAgAAAAPAB0ACAASAAgAAAAQAB0ACAASAAgAAAARAB0ACAASAAgAAAASAB0ACAASAAgAAAATAB0ACAASAAgAAAAUAB0ACAASAAgAAAAVAB0ACAASAAgAAAAWAB0ACAASAAgAAAAXAB0ACAASAAgAAAAYAB0ACAASAAgAAAAZAB0ACAASAAgAAAAaAB0ACAASAAgAAAAbAB0ACAASAAgAAAAcAB0ACAASAAgAAAAdAB0ACAASAAgAAAAeAB0ACAASAAgAAAAfAB0ACAASAAgAAAAgAB0ACAASAAgAAAAhAB0ACAASAAgAAAAiAB0ACAASAAgAAAAjAB0ACAASAAgAAAAkAB0ACAASAAgAAAAlAB0ACAASAAgAAAAmAB0ACAASAAgAAAAnAB0ACAATAAgAAAAAAB4ACAARAAkAAAABAB4ACAARAAkAAAACAB4ACAARAAkAAAADAB4ACAARAAkAAAAEAB4ACAARAAkAAAAFAB4ACAARAAkAAAAGAB4ACAARAAkAAAAHAB4ACAARAAkAAAAIAB4ACAARAAkAAAAJAB4ACAARAAkAAAAKAB4ACAARAAkAAAALAB4ACAARAAkAAAAMAB4ACAARAAkAAAANAB4ACAARAAkAAAAOAB4ACAARAAkAAAAPAB4ACAARAAkAAAAQAB4ACAARAAkAAAARAB4ACAARAAkAAAASAB4ACAARAAkAAAATAB4ACAARAAkAAAAUAB4ACAARAAkAAAAVAB4ACAARAAkAAAAWAB4ACAARAAkAAAAXAB4ACAARAAkAAAAYAB4ACAARAAkAAAAZAB4ACAARAAkAAAAaAB4ACAARAAkAAAAbAB4ACAARAAkAAAAcAB4ACAARAAkAAAAdAB4ACAARAAkAAAAeAB4ACAARAAkAAAAfAB4ACAARAAkAAAAgAB4ACAARAAkAAAAhAB4ACAARAAkAAAAiAB4ACAARAAkAAAAjAB4ACAARAAkAAAAkAB4ACAARAAkAAAAlAB4ACAARAAkAAAAmAB4ACAARAAkAAAAnAB4ACAARAAkAAAA=")
 
 [node name="AreaDetect" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -59,11 +94,19 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -38.0
+offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 3
 
-[node name="Muranga" type="VideoStreamPlayer" parent="Control/GridContainer"]
+[node name="First" type="PanelContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqcm1")
+
+[node name="Muranga" type="VideoStreamPlayer" parent="Control/GridContainer/First"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -72,7 +115,13 @@ autoplay = true
 expand = true
 loop = true
 
-[node name="Mikus" type="VideoStreamPlayer" parent="Control/GridContainer"]
+[node name="Second" type="PanelContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqcm1")
+
+[node name="Mikus" type="VideoStreamPlayer" parent="Control/GridContainer/Second"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -81,7 +130,13 @@ autoplay = true
 expand = true
 loop = true
 
-[node name="Typo" type="VideoStreamPlayer" parent="Control/GridContainer"]
+[node name="Third" type="PanelContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqcm1")
+
+[node name="Typo" type="VideoStreamPlayer" parent="Control/GridContainer/Third"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -90,7 +145,13 @@ autoplay = true
 expand = true
 loop = true
 
-[node name="Planta" type="VideoStreamPlayer" parent="Control/GridContainer"]
+[node name="Fourth" type="PanelContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqcm1")
+
+[node name="Planta" type="VideoStreamPlayer" parent="Control/GridContainer/Fourth"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -99,7 +160,13 @@ autoplay = true
 expand = true
 loop = true
 
-[node name="Bus" type="VideoStreamPlayer" parent="Control/GridContainer"]
+[node name="Fifth" type="PanelContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqcm1")
+
+[node name="Bus" type="VideoStreamPlayer" parent="Control/GridContainer/Fifth"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -107,6 +174,56 @@ stream = ExtResource("8_b11c4")
 autoplay = true
 expand = true
 loop = true
+
+[node name="Sixth" type="PanelContainer" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqcm1")
+
+[node name="Embrace" type="VideoStreamPlayer" parent="Control/GridContainer/Sixth"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stream = ExtResource("11_1ilbi")
+autoplay = true
+expand = true
+loop = true
+
+[node name="QRCODE" type="PanelContainer" parent="."]
+offset_left = 411.0
+offset_top = 229.0
+offset_right = 622.0
+offset_bottom = 416.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pqcm1")
+
+[node name="ColorRect" type="ColorRect" parent="QRCODE"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QRCODE/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="QRCODE/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Acesse Nossas Redes"
+label_settings = SubResource("LabelSettings_sfgsl")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="QRCode" type="TextureRect" parent="QRCODE/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("12_6hgtd")
+expand_mode = 2
 
 [connection signal="body_entered" from="AreaDetect" to="." method="_on_area_detect_body_entered"]
 [connection signal="ended_talking" from="NPC" to="." method="_on_npc_ended_talking"]
