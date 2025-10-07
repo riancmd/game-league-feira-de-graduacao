@@ -51,8 +51,8 @@ position = Vector2(320, 240)
 texture = ExtResource("2_b11c4")
 
 [node name="Trofeu" type="Sprite2D" parent="Props"]
-position = Vector2(320, 372)
-scale = Vector2(0.25, 0.25)
+position = Vector2(320, 361)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_pqcm1")
 
 [node name="Tiles" type="Node2D" parent="."]

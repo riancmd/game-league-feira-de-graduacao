@@ -20,6 +20,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func _on_npc_ended_talking() -> void:
 	emit_signal("stop_talking")
 	next_wall_collision.set_deferred("disabled", true)
+	$Arrow_Go.show()
 
 func _on_creative_studio_disable_previous() -> void:
 	next_wall_collision.set_deferred("disabled", false)

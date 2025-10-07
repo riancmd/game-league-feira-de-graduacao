@@ -37,7 +37,7 @@ func _on_clock_defeated() -> void:
 	
 	for child in platformers.get_children():
 		child.queue_free()
-	
+	$Arrow_Go.show()
 	next_wall_collision.set_deferred("disabled", true)
 
 func _on_npc_ended_talking() -> void:
