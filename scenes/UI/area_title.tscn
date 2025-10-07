@@ -1,8 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://cx4u6qiq4a5cu"]
+[gd_scene load_steps=9 format=3 uid="uid://cx4u6qiq4a5cu"]
 
 [ext_resource type="Script" uid="uid://b6e6fx76w3nx2" path="res://scenes/UI/area_title.gd" id="1_hvhrj"]
 [ext_resource type="Texture2D" uid="uid://cln4u1ylchf3r" path="res://assets/Logo IEEE semifinal render.png" id="2_ilhj4"]
 [ext_resource type="FontFile" uid="uid://c0cjtq5cs6xyf" path="res://assets/fonts/Born2bSportyFS.otf" id="3_vn55n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vn55n"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0831475, 0.0878732, 0.0642139, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_qovc1"]
 font = ExtResource("3_vn55n")
@@ -97,8 +108,8 @@ _data = {
 [node name="AreaTitle" type="CanvasLayer" node_paths=PackedStringArray("title_label", "title_image", "animation_player")]
 visible = false
 script = ExtResource("1_hvhrj")
-title_label = NodePath("Container/VBoxContainer/Title")
-title_image = NodePath("Container/VBoxContainer/Icon")
+title_label = NodePath("Container/VBoxContainer/PanelContainer2/Title")
+title_image = NodePath("Container/VBoxContainer/PanelContainer/Icon")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="Container" type="Control" parent="."]
@@ -134,13 +145,21 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(204.564, 58.0849)
 
-[node name="Icon" type="TextureRect" parent="Container/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Container/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vn55n")
+
+[node name="Icon" type="TextureRect" parent="Container/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("2_ilhj4")
 
-[node name="Title" type="Label" parent="Container/VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="Container/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vn55n")
+
+[node name="Title" type="Label" parent="Container/VBoxContainer/PanelContainer2"]
 layout_mode = 2
 text = "Liga de Jogos"
 label_settings = SubResource("LabelSettings_qovc1")
