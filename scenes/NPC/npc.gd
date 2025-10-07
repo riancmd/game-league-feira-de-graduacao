@@ -14,6 +14,17 @@ var talked : bool = false
 func _ready() -> void:
 	Dialogic.connect("signal_event", _on_dialogic_signal)
 
+func _process(delta: float) -> void:
+	match timeline_name:
+		"01_game_design":
+			$AnimatedSprite2D.play("gui")
+		"02_pixelarium":
+			$AnimatedSprite2D.play("giulia")
+		"03_labprog":
+			$AnimatedSprite2D.play("joão")
+		"04_hall":
+			$AnimatedSprite2D.play("julia")
+
 func _on_body_entered(_body: Node2D) -> void:
 	if talked: return
 	player_in_range = true

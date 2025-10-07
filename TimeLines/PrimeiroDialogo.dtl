@@ -1,6 +1,9 @@
 join PrimeiroDev right
+audio "res://sounds/voices/npc_00_voice.mp3"
 PrimeiroDev: Bem-vindo(a) à Liga de Jogos!\
 Aqui, estudantes apaixonados por criar se juntam para desenvolver games do zero.
+audio "res://sounds/voices/npc_00_voice.mp3"
 PrimeiroDev: Trabalhamos em equipe, misturando ideias, arte e código pra dar vida a mundos.
+audio "res://sounds/voices/npc_00_voice.mp3"
 PrimeiroDev: Siga em frente, mostraremos tudo que há por aqui!
 [signal arg="PrimeiroDialogo"]

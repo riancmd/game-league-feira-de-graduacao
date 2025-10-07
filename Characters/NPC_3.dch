@@ -12,14 +12,14 @@
 },
 &"default_portrait": "default",
 &"description": "NPC Artista.",
-&"display_name": "Artista",
+&"display_name": "Giulia",
 &"mirror": false,
 &"nicknames": ["NPCArtista01"],
 &"offset": Vector2(0, 0),
 &"portraits": {
 "default": {
 "export_overrides": {
-"image": "\"icon.svg\""
+"image": "\"res://assets/npcs/giulia_profile.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),

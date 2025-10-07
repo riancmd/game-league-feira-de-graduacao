@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://cai56pvknidjb"]
+[gd_scene load_steps=16 format=3 uid="uid://cai56pvknidjb"]
 
 [ext_resource type="Script" uid="uid://dba7pamqfm0q5" path="res://scenes/enemies/brain.gd" id="1_6aa2u"]
-[ext_resource type="Texture2D" uid="uid://kytwcb8xp52s" path="res://assets/enemies/Brain/Brain.png" id="2_6aa2u"]
 [ext_resource type="PackedScene" uid="uid://lsa03mb74s3d" path="res://scenes/enemies/text_container_projectile.tscn" id="2_jali4"]
 [ext_resource type="Texture2D" uid="uid://csghg1owqve8r" path="res://assets/enemies/BloqueioCriativo/BloqueioCriativo1-sheet.png" id="4_rxde3"]
 
@@ -32,9 +31,6 @@ region = Rect2(320, 0, 64, 64)
 [sub_resource type="SpriteFrames" id="SpriteFrames_6aa2u"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_6aa2u")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gltgl")
 }, {
@@ -117,6 +113,7 @@ collision = NodePath("CollisionShape2D")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6aa2u")
 autoplay = "default"
+frame_progress = 0.389558
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jali4")

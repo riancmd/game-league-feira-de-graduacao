@@ -1,6 +1,8 @@
 join NPC_4 right
+audio "res://sounds/voices/npc_03_voice.mp3"
 NPC_4: Aqui transformamos ideias em sistemas reais.\
 Cada linha de código faz o jogo ganhar vida.\
 Mas às vezes... os bugs aparecem.
+audio "res://sounds/voices/npc_03_voice.mp3"
 NPC_4: Por favor, nos ajude a livrar-se deles!!
 [signal arg="03_labprog"]

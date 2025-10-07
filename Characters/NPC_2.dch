@@ -12,14 +12,14 @@
 },
 &"default_portrait": "default",
 &"description": "NPC da sala de game design",
-&"display_name": "NPC",
+&"display_name": "Gui",
 &"mirror": false,
 &"nicknames": ["NPCDev02"],
 &"offset": Vector2(0, 0),
 &"portraits": {
 "default": {
 "export_overrides": {
-"image": "\"icon.svg\""
+"image": "\"res://assets/npcs/gui_profile.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),
