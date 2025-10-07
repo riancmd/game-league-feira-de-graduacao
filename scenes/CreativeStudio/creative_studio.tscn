@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://c31uh3spjtbeu"]
+[gd_scene load_steps=14 format=4 uid="uid://c31uh3spjtbeu"]
 
 [ext_resource type="Script" uid="uid://dch3d76ov3rio" path="res://scenes/CreativeStudio/creative_studio.gd" id="1_3pk4w"]
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_sht75"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://be466hh2sd2n4" path="res://scenes/TextPlatformers/text_platformers.tscn" id="3_3pk4w"]
 [ext_resource type="Texture2D" uid="uid://eoak4qqur7y6" path="res://assets/creativeStudio.png" id="3_waiyv"]
 [ext_resource type="PackedScene" uid="uid://cai56pvknidjb" path="res://scenes/enemies/brain.tscn" id="3_xunid"]
+[ext_resource type="Texture2D" uid="uid://c80jfe0xkbt7j" path="res://assets/scenery/props/studio_bg.png" id="5_p1dyx"]
+[ext_resource type="Texture2D" uid="uid://c2l0mlqdlevnl" path="res://assets/scenery/props/idea_frame.png" id="6_a0id4"]
+[ext_resource type="Texture2D" uid="uid://bqriefnowsh07" path="res://assets/scenery/props/solo_desk.png" id="7_ix1y6"]
+[ext_resource type="Texture2D" uid="uid://l884whk6alyp" path="res://assets/scenery/props/idea_monitor.png" id="8_56vj1"]
+[ext_resource type="Texture2D" uid="uid://cg2h21u37hlw" path="res://assets/scenery/props/chair.png" id="11_nexd5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6t2k"]
 size = Vector2(8, 760)
@@ -22,6 +27,38 @@ next_wall = NodePath("NextWall/CollisionShape2D")
 markers = [NodePath("Markers/Marker2D"), NodePath("Markers/Marker2D2"), NodePath("Markers/Marker2D3"), NodePath("Markers/Marker2D4"), NodePath("Markers/Marker2D5"), NodePath("Markers/Marker2D6")]
 text_platform = ExtResource("3_3pk4w")
 texts_for_platformers = Array[String](["Ideia", "Inspiração", "Inspiração", "BrainStorm", "BrainStorm", "Ideia"])
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="StudioBg" type="Sprite2D" parent="Props"]
+position = Vector2(320, 240)
+texture = ExtResource("5_p1dyx")
+
+[node name="IdeaFrame" type="Sprite2D" parent="Props"]
+position = Vector2(448, 320)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_a0id4")
+
+[node name="IdeaFrame2" type="Sprite2D" parent="Props"]
+position = Vector2(192, 320)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_a0id4")
+
+[node name="SoloDesk" type="Sprite2D" parent="Props"]
+position = Vector2(312, 420)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_ix1y6")
+
+[node name="IdeaMonitor" type="Sprite2D" parent="Props"]
+position = Vector2(310, 358)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_56vj1")
+
+[node name="Chair" type="Sprite2D" parent="Props"]
+position = Vector2(291, 412)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_nexd5")
+flip_h = true
 
 [node name="Tiles" type="Node2D" parent="."]
 
