@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://qbgt78ak72da"]
+[gd_scene load_steps=7 format=3 uid="uid://qbgt78ak72da"]
 
 [ext_resource type="Script" uid="uid://dwyxh5w17lpyy" path="res://scenes/NPC/npc.gd" id="1_0c0is"]
 [ext_resource type="Texture2D" uid="uid://b08eu5qyenm5p" path="res://icon.svg" id="1_36vut"]
+[ext_resource type="FontFile" uid="uid://c0cjtq5cs6xyf" path="res://assets/fonts/Born2bSportyFS.otf" id="3_lwet7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0c0is"]
 animations = [{
@@ -18,6 +19,7 @@ animations = [{
 size = Vector2(128, 96)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0c0is"]
+font = ExtResource("3_lwet7")
 font_size = 32
 
 [node name="NPC" type="Area2D" node_paths=PackedStringArray("talk_container")]
