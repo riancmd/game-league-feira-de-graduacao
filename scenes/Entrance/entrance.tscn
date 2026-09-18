@@ -53,12 +53,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Entrance" type="Node2D" node_paths=PackedStringArray("previous_gate", "next_gate")]
+[node name="Entrance" type="Node2D" node_paths=PackedStringArray("progress_indicator", "next_gate", "previous_gate")]
 script = ExtResource("1_rx8e1")
 title_area = "Liga de Jogos"
 image = ExtResource("2_molcj")
-previous_gate = NodePath("StaticBody2D")
+progress_indicator = NodePath("Arrow_Go")
 next_gate = NodePath("NextWall")
+previous_gate = NodePath("StaticBody2D")
 
 [node name="BackGround01" parent="." instance=ExtResource("2_04rbt")]
 

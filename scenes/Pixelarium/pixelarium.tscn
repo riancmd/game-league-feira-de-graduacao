@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://dut01awwrx3x1"]
+[gd_scene load_steps=19 format=4 uid="uid://dut01awwrx3x1"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_5itgb"]
 [ext_resource type="Script" uid="uid://xy1kky1hgj0c" path="res://scenes/Pixelarium/pixelarium.gd" id="1_p343x"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://5fm60su7tlel" path="res://assets/scenery/props/bookshelf.png" id="5_1cnb1"]
 [ext_resource type="PackedScene" uid="uid://2govejcbivcc" path="res://scenes/RhythmPlatformer/rhythm_platformer.tscn" id="5_bx1yr"]
 [ext_resource type="Texture2D" uid="uid://bajggt1affl06" path="res://assets/arrow_go.png" id="11_h86q5"]
+[ext_resource type="Script" path="res://scenes/rooms/components/room_gate.gd" id="12_gate"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5itgb"]
 size = Vector2(608, 448)
@@ -43,12 +44,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Pixelarium" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision", "platformers")]
+[node name="Pixelarium" type="Node2D" node_paths=PackedStringArray("progress_indicator", "next_gate", "camera_anchor", "platformers")]
 script = ExtResource("1_p343x")
 title_area = "Pixelarium"
 image = ExtResource("2_pvgcd")
-collisionArea = NodePath("AreaDetect/CollisionShape2D")
-next_wall_collision = NodePath("NextWall/CollisionShape2D")
+progress_indicator = NodePath("Arrow_Go")
+next_gate = NodePath("NextWall")
+camera_anchor = NodePath("AreaDetect/CollisionShape2D")
 clock_scene = ExtResource("2_g5xlk")
 platformers = NodePath("Platformers")
 
@@ -90,9 +92,11 @@ shape = SubResource("RectangleShape2D_5itgb")
 position = Vector2(128, 448)
 timeline_name = "02_pixelarium"
 
-[node name="NextWall" type="StaticBody2D" parent="."]
+[node name="NextWall" type="StaticBody2D" parent="." node_paths=PackedStringArray("collision_shape")]
 position = Vector2(648, 0)
 collision_mask = 0
+script = ExtResource("12_gate")
+collision_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
 position = Vector2(-12, 226)

@@ -1,21 +1,9 @@
-extends Node2D
+extends RoomController
 
-signal new_area_entered(text : String, image : Texture2D)
-signal disable_previous
-signal talking
-signal stop_talking
 signal shake_camera(amount : float)
 
 @export var brain_boss_scene : PackedScene
 @export var player : CharacterBody2D
-
-@export var title_area : String
-@export var image : Texture2D
-
-@export var next_wall : CollisionShape2D
-
-@export var camera : Camera2D
-@onready var collisionArea : CollisionShape2D = $AreaDetect/CollisionShape2D
 
 @export var markers : Array[Marker2D]
 @export var text_platform : PackedScene
@@ -28,17 +16,11 @@ signal shake_camera(amount : float)
 var boss_is_dead : bool = false
 var next_platform_index : int = 0
 
-func enter_new_area() -> void:
-	emit_signal("new_area_entered", title_area, image)
-	emit_signal("disable_previous")
-
-func _on_area_detect_body_entered(body: Node2D) -> void:
-	enter_new_area()
-	var tween : Tween = create_tween()
-	tween.tween_property(camera, "global_position:x", collisionArea.global_position.x, 0.3)
+func _on_area_detect_body_entered(_body: Node2D) -> void:
+	enter_room()
 
 func _on_npc_ended_talking() -> void:
-	emit_signal("stop_talking")
+	finish_dialogue()
 	
 	var brain_boss_instance : CharacterBody2D = brain_boss_scene.instantiate()
 	brain_boss_instance.setup(player)
@@ -54,8 +36,7 @@ func _on_brain_boss_defeated() -> void:
 	
 	for child in projectiles_holder.get_children():
 		child.queue_free()
-	$Arrow_Go.show()
-	next_wall.set_deferred("disabled", true)
+	complete_room()
 
 func _on_cool_down_timer_timeout() -> void:
 	var available_platforms := mini(markers.size(), texts_for_platformers.size())
@@ -71,8 +52,5 @@ func _on_cool_down_timer_timeout() -> void:
 		next_platform_index += 1
 		cool_down_timer.start()
 
-func _on_pixelarium_disable_previous() -> void:
-	next_wall.set_deferred("disabled", false)
-
 func _on_npc_start_talking() -> void:
-	emit_signal("talking")
+	start_dialogue()
