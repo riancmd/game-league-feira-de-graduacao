@@ -162,7 +162,8 @@ func die() -> void:
 	state_machine.transition_to(state_machine.get_node("death"))
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	emit_signal("attack_finished")
+	if anim.animation in [&"attack", &"attack_2"]:
+		emit_signal("attack_finished")
 #endregion
 
 func apply_knockback(attacker_position: Vector2) -> void:
@@ -178,10 +179,9 @@ func apply_knockback(attacker_position: Vector2) -> void:
 
 	knockback_timer.start()
 
-func _on_hurtbox_body_entered(body: Node2D) -> void:
-	#if not body.is_dead:
+func _on_hurtbox_body_entered(_body: Node2D) -> void:
+	#if not _body.is_dead:
 		#die()
-	print("danou-se")
 	emit_signal("damaged")
 
 func play_cutscene_animation(anim_name : String) -> void:

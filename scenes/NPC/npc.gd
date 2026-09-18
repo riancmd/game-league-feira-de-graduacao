@@ -13,9 +13,12 @@ var talked : bool = false
 
 func _ready() -> void:
 	Dialogic.connect("signal_event", _on_dialogic_signal)
+	set_npc_animation()
 
-func _process(delta: float) -> void:
+func set_npc_animation() -> void:
 	match timeline_name:
+		"PrimeiroDialogo":
+			$AnimatedSprite2D.play("rian")
 		"01_game_design":
 			$AnimatedSprite2D.play("gui")
 		"02_pixelarium":
@@ -24,6 +27,8 @@ func _process(delta: float) -> void:
 			$AnimatedSprite2D.play("joão")
 		"04_hall":
 			$AnimatedSprite2D.play("julia")
+		_:
+			push_warning("No NPC animation configured for timeline: %s" % timeline_name)
 
 func _on_body_entered(_body: Node2D) -> void:
 	if talked: return
@@ -45,4 +50,3 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_dialogic_signal(argument : String) -> void:
 	if argument == timeline_name:
 		emit_signal("ended_talking")
-		print(argument)

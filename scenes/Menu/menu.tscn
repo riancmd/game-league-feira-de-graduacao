@@ -52,6 +52,7 @@ tile_map_data = PackedByteArray("AAAAABwACAAGAAAAAAABABwACAAHAAAAAAACABwACAAHAAA
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_4e4iy")
+layout_mode = 0
 offset_right = 640.0
 offset_bottom = 480.0
 

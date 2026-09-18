@@ -49,5 +49,5 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
-	if not is_dead:
+	if not is_dead and body.has_method("apply_knockback"):
 		body.apply_knockback(global_position)

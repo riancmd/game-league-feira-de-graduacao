@@ -26,6 +26,7 @@ signal shake_camera(amount : float)
 @onready var projectiles_holder: Node2D = $Projectiles_Holder
 
 var boss_is_dead : bool = false
+var next_platform_index : int = 0
 
 func enter_new_area() -> void:
 	emit_signal("new_area_entered", title_area, image)
@@ -57,11 +58,17 @@ func _on_brain_boss_defeated() -> void:
 	next_wall.set_deferred("disabled", true)
 
 func _on_cool_down_timer_timeout() -> void:
-	if markers.size() > 0 and not boss_is_dead:
-		var marker_selected : Marker2D = markers.pop_front()
+	var available_platforms := mini(markers.size(), texts_for_platformers.size())
+	if next_platform_index < available_platforms and not boss_is_dead:
+		var marker_selected : Marker2D = markers[next_platform_index]
 		var platform_instance : AnimatableBody2D = text_platform.instantiate()
-		platform_instance.setup(npc.global_position, marker_selected.global_position, texts_for_platformers.pop_front())
+		platform_instance.setup(
+			npc.global_position,
+			marker_selected.global_position,
+			texts_for_platformers[next_platform_index]
+		)
 		platformers_holder.add_child(platform_instance)
+		next_platform_index += 1
 		cool_down_timer.start()
 
 func _on_pixelarium_disable_previous() -> void:

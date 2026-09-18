@@ -64,7 +64,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	clock_timer.stop()
 	
 	velocity.y = -300
-	velocity.x = 100 * sign(global_position.x - area.get_owner().global_position.x)
+	velocity.x = 100 * sign(global_position.x - area.global_position.x)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	initial_pos_y = global_position

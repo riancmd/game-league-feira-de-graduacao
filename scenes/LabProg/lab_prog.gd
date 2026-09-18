@@ -16,7 +16,7 @@ signal shake_camera(amount : float)
 
 @onready var spawn_points: Node2D = $SpawnPoints
 
-var bugs_counter : int = 6
+var bugs_counter : int = 0
 
 func enter_new_area() -> void:
 	emit_signal("new_area_entered", title_area, image)
@@ -32,19 +32,34 @@ func _on_area_detect_body_entered(body: Node2D) -> void:
 
 func _on_npc_ended_talking() -> void:
 	emit_signal("stop_talking")
-	for child in spawn_points.get_children():
+	var points := spawn_points.get_children()
+	bugs_counter = points.size()
+
+	for child in points:
+		var spawn_point := child as Marker2D
+		if not spawn_point:
+			push_warning("Ignoring invalid spawn point in LabProg: %s" % child.name)
+			bugs_counter -= 1
+			continue
+
 		var bug_instance : CharacterBody2D = bugs_scene.instantiate()
-		bug_instance.position = child.position
+		bug_instance.position = spawn_point.position
 		bug_instance.connect("mob_death", _on_mob_death)
 		add_child(bug_instance)
 		await get_tree().create_timer(1.0).timeout
+
+	if bugs_counter == 0:
+		complete_encounter()
 
 func _on_mob_death() -> void:
 	bugs_counter -= 1
 	emit_signal("shake_camera", 10.0)
 	if bugs_counter <= 0:
-		next_wall_collision.set_deferred("disabled", true)
-		$Arrow_Go.show()
+		complete_encounter()
+
+func complete_encounter() -> void:
+	next_wall_collision.set_deferred("disabled", true)
+	$Arrow_Go.show()
 
 func _on_hall_of_fame_disable_previous() -> void:
 	next_wall_collision.set_deferred("disabled", false)

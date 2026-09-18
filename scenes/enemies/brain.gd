@@ -65,7 +65,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	collision.set_deferred("disabled", true)
 	cooldown_timer.stop()
 	velocity.y = -300
-	velocity.x = 100 * sign(global_position.x - area.get_owner().global_position.x)
+	velocity.x = 100 * sign(global_position.x - area.global_position.x)
 
 func _on_cool_down_timer_timeout() -> void:
 	var projectile : Area2D = projectile_scene.instantiate()

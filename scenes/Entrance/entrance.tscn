@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://csbabgagapm26"]
+[gd_scene load_steps=15 format=4 uid="uid://csbabgagapm26"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_5xv28"]
 [ext_resource type="Script" uid="uid://bcic7ptt1rqgw" path="res://scenes/Entrance/Areas.gd" id="1_rx8e1"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://qbgt78ak72da" path="res://scenes/NPC/npc.tscn" id="4_fs5lk"]
 [ext_resource type="Shader" uid="uid://ds8scsl2iaf3n" path="res://Shaders/rays.gdshader" id="6_molcj"]
 [ext_resource type="Texture2D" uid="uid://bajggt1affl06" path="res://assets/arrow_go.png" id="7_w3ml0"]
+[ext_resource type="Script" path="res://scenes/rooms/components/room_gate.gd" id="8_gate"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fs5lk"]
 size = Vector2(16, 80)
@@ -52,12 +53,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Entrance" type="Node2D" node_paths=PackedStringArray("collision_wall", "next_wall_collision")]
+[node name="Entrance" type="Node2D" node_paths=PackedStringArray("previous_gate", "next_gate")]
 script = ExtResource("1_rx8e1")
 title_area = "Liga de Jogos"
 image = ExtResource("2_molcj")
-collision_wall = NodePath("StaticBody2D/CollisionShape2D")
-next_wall_collision = NodePath("NextWall/CollisionShape2D")
+previous_gate = NodePath("StaticBody2D")
+next_gate = NodePath("NextWall")
 
 [node name="BackGround01" parent="." instance=ExtResource("2_04rbt")]
 
@@ -70,16 +71,21 @@ tile_map_data = PackedByteArray("AAAAABwACAAGAAAAAAABABwACAAHAAAAAAACABwACAAHAAA
 position = Vector2(480, 448)
 timeline_name = "PrimeiroDialogo"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("8_gate")
+collision_shape = NodePath("CollisionShape2D")
+starts_open = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-8, 408)
 shape = SubResource("RectangleShape2D_fs5lk")
 disabled = true
 
-[node name="NextWall" type="StaticBody2D" parent="."]
+[node name="NextWall" type="StaticBody2D" parent="." node_paths=PackedStringArray("collision_shape")]
 position = Vector2(640, 0)
 collision_mask = 0
+script = ExtResource("8_gate")
+collision_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
 position = Vector2(-4, 224)
