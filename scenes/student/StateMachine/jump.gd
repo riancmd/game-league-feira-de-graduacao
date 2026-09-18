@@ -1,8 +1,6 @@
 extends State
 class_name JumpState
 
-@onready var state_machine : Node = get_parent()
-
 func enter() -> void:
 	SfxManager.play_sfx(SfxManager.JUMP)
 	player.jump()
@@ -14,9 +12,9 @@ func enter() -> void:
 func handle_input(event : InputEvent) -> State:
 	if event.is_action_released("jump"):
 		player.cut_velocity()
-		return state_machine.get_node("fall")
+		return get_state(&"fall")
 	if event.is_action_pressed("attack"):
-		return state_machine.get_node("attack")
+		return get_state(&"attack")
 	return null
 
 func physics_update(delta: float) -> State:
@@ -25,7 +23,7 @@ func physics_update(delta: float) -> State:
 	player.flip_sprite(input_axis)
 	
 	if player.velocity.y > 0:
-		return state_machine.get_node("fall")
+		return get_state(&"fall")
 	
 	return null
 

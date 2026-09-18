@@ -1,8 +1,6 @@
 extends State
 class_name AttackState
 
-@onready var state_machine : Node = get_parent()
-
 func enter() -> void:
 	SfxManager.play_sfx(SfxManager.SWORD)
 	
@@ -33,7 +31,7 @@ func physics_update(delta: float) -> State:
 	
 	if player.can_jump() and player.is_jump_buffering():
 		player.stop_jump_buffer()
-		return state_machine.get_node("jump")
+		return get_state(&"jump")
 	
 	return null
 
@@ -45,4 +43,4 @@ func _on_attack_finished() -> void:
 		player.stop_attack_buffer()
 		state_machine.transition_to(self)
 	else:
-		state_machine.transition_to(state_machine.get_node("idle"))
+		state_machine.transition_to_named(&"idle")

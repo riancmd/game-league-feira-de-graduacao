@@ -43,7 +43,7 @@ signal dead
 
 #region Others
 @export_category("Others")
-@export var state_machine : Node
+@export var state_machine: StateMachine
 @export var screen_size : Vector2
 @export var collision_hitbox : CollisionShape2D
 @export var collision_physics : CollisionShape2D
@@ -157,7 +157,7 @@ func stop_attack_buffer() -> void:
 #region Death Methods
 func die() -> void:
 	is_dead = true
-	state_machine.transition_to(state_machine.get_node("death"))
+	state_machine.transition_to_named(&"death")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if anim.animation in [&"attack", &"attack_2"]:

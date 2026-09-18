@@ -13,8 +13,8 @@ var is_active: bool = false
 
 
 func activate() -> void:
-	if not entity or not config:
-		push_error("FloatingMovementComponent is missing entity or config: %s" % get_path())
+	if not entity or not entity.definition or not config:
+		push_error("FloatingMovementComponent is missing entity, definition, or config: %s" % get_path())
 		return
 
 	initial_height = entity.global_position.y
@@ -23,11 +23,11 @@ func activate() -> void:
 
 
 func physics_update(delta: float) -> void:
-	if not entity or not config:
+	if not entity or not entity.definition or not config:
 		return
 
 	if entity.is_dead:
-		entity.velocity.y += config.gravity * delta
+		entity.velocity.y += entity.definition.gravity * delta
 		entity.move_and_slide()
 		return
 
@@ -49,5 +49,5 @@ func physics_update(delta: float) -> void:
 	elif entity.is_on_wall():
 		direction *= -1.0
 
-	entity.velocity.x = direction.x * config.speed
+	entity.velocity.x = direction.x * entity.definition.move_speed
 	entity.move_and_slide()

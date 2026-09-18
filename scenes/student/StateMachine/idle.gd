@@ -1,8 +1,6 @@
 extends State
 class_name IdleState
 
-@onready var state_machine : Node = get_parent()
-
 # Preenche a função "enter" do molde.
 # Idle é um estado "terrestre", por isso reiniciamos o contador de pulos
 # Executamos ações que só precisam ser feitas uma vez como animações.
@@ -17,7 +15,7 @@ func handle_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump"):
 		player.start_jump_buffer()
 	if event.is_action_pressed("attack"):
-		return state_machine.get_node("attack")
+		return get_state(&"attack")
 	
 	return null
 
@@ -31,15 +29,15 @@ func physics_update(delta: float) -> State:
 	# 1. Checa a ação de maior prioridade: PULAR
 	if player.can_jump() and player.is_jump_buffering():
 		player.stop_jump_buffer()
-		return state_machine.get_node("jump")
+		return get_state(&"jump")
 	
 	# 2. Se não for pular, checa a segunda ação mais ativa: ANDAR
 	if input_axis != 0 and player.is_on_floor():
-		return state_machine.get_node("walk")
+		return get_state(&"walk")
 	
 	# 3. Se não for pular nem andar, checa uma transição reativa: CAIR
 	if player.velocity.y > 0:
-		return state_machine.get_node("fall")
+		return get_state(&"fall")
 	
 	# 4. Se NENHUMA das condições acima for atendida, não faz nada.
 	return null

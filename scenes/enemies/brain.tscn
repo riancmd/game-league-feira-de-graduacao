@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cai56pvknidjb"]
+[gd_scene load_steps=22 format=3 uid="uid://cai56pvknidjb"]
 
 [ext_resource type="Script" uid="uid://dba7pamqfm0q5" path="res://scenes/enemies/brain.gd" id="1_6aa2u"]
 [ext_resource type="PackedScene" uid="uid://lsa03mb74s3d" path="res://scenes/enemies/text_container_projectile.tscn" id="2_jali4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="7_hitbox"]
 [ext_resource type="Script" path="res://scenes/components/movement/floating_movement_component.gd" id="8_movement"]
 [ext_resource type="Resource" path="res://resources/enemies/brain_movement.tres" id="9_config"]
+[ext_resource type="Resource" path="res://resources/enemies/brain_definition.tres" id="10_definition"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gltgl"]
 atlas = ExtResource("4_rxde3")
@@ -105,6 +106,7 @@ _data = {
 
 [node name="Brain" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "cooldown_timer", "movement_component")]
 script = ExtResource("1_6aa2u")
+definition = ExtResource("10_definition")
 health_component = NodePath("HealthComponent")
 collision = NodePath("CollisionShape2D")
 projectile_scene = ExtResource("2_jali4")

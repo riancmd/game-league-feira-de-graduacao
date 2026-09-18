@@ -1,7 +1,12 @@
 extends Node
 class_name State
 
-var player : CharacterBody2D # Referência do Player
+var player: CharacterBody2D
+var state_machine: StateMachine
+
+
+func get_state(state_name: StringName) -> State:
+	return state_machine.get_state(state_name)
 
 # Método chamado uma vez ao ENTRAR no estado
 # Ideal para iniciar animações, sons, etc.

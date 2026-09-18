@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dfdsqglwbm6ap"]
+[gd_scene load_steps=25 format=3 uid="uid://dfdsqglwbm6ap"]
 
 [ext_resource type="Script" uid="uid://bvblfbvb8qsx" path="res://scenes/enemies/clock.gd" id="1_4f4gu"]
 [ext_resource type="Texture2D" uid="uid://dnmf6onv3dtj4" path="res://assets/enemies/OPrazo/OPrazo_sheet.png" id="1_nmenk"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="4_hitbox"]
 [ext_resource type="Script" path="res://scenes/components/movement/floating_movement_component.gd" id="5_movement"]
 [ext_resource type="Resource" path="res://resources/enemies/clock_movement.tres" id="6_config"]
+[ext_resource type="Resource" path="res://resources/enemies/clock_definition.tres" id="7_definition"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4f4gu"]
 atlas = ExtResource("1_nmenk")
@@ -133,6 +134,7 @@ _data = {
 [node name="Clock" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "clock_timer", "movement_component")]
 position = Vector2(320, -64)
 script = ExtResource("1_4f4gu")
+definition = ExtResource("7_definition")
 health_component = NodePath("HealthComponent")
 collision = NodePath("CollisionShape2D")
 clock_timer = NodePath("Clock_Timer")

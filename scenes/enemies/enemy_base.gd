@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal died
 
+@export var definition: EnemyDefinition
 @export var health_component: HealthComponent
 @export var collision: CollisionShape2D
 
@@ -10,9 +11,19 @@ var is_dead: bool = false
 
 
 func _ready() -> void:
+	if not definition:
+		push_error("EnemyBase requires an EnemyDefinition: %s" % get_path())
+		return
+
 	if not health_component:
 		push_error("EnemyBase requires a HealthComponent: %s" % get_path())
 		return
+
+	health_component.max_health = definition.max_health
+	health_component.reset()
+	for child in get_children():
+		if child is HitboxComponent:
+			child.damage = definition.contact_damage
 
 	if not health_component.died.is_connected(_on_health_depleted):
 		health_component.died.connect(_on_health_depleted)

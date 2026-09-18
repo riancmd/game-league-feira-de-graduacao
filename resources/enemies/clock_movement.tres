@@ -4,7 +4,5 @@
 
 [resource]
 script = ExtResource("1_config")
-speed = 150.0
-gravity = 800.0
 amplitude = 15.0
 frequency = 5.0

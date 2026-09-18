@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cstxmmd7y76qu"]
+[gd_scene load_steps=28 format=3 uid="uid://cstxmmd7y76qu"]
 
 [ext_resource type="Texture2D" uid="uid://dv51lr1kd0naf" path="res://assets/enemies/Slime/Idle-Run (44x30).png" id="1_36f7o"]
 [ext_resource type="Script" uid="uid://b1epqrwpje4p2" path="res://scenes/enemies/mob1.gd" id="1_vdbti"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scenes/components/combat/health_component.gd" id="3_health"]
 [ext_resource type="Script" path="res://scenes/components/combat/hurtbox_component.gd" id="4_hurtbox"]
 [ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="5_hitbox"]
+[ext_resource type="Script" path="res://scenes/components/movement/ground_patrol_component.gd" id="6_movement"]
+[ext_resource type="Resource" path="res://resources/enemies/mob_definition.tres" id="7_definition"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ler4u"]
 atlas = ExtResource("1_36f7o")
@@ -137,15 +139,15 @@ height = 48.0276
 radius = 11.9982
 height = 44.0282
 
-[node name="mob" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "animated_sprite", "ledge_checker_01", "ledge_checker_02")]
+[node name="mob" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "animated_sprite", "movement_component")]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_vdbti")
+definition = ExtResource("7_definition")
 health_component = NodePath("HealthComponent")
 collision = NodePath("CollisionShape2D")
 animated_sprite = NodePath("AnimatedSprite2D")
-ledge_checker_01 = NodePath("RayCasts/RayCast2D")
-ledge_checker_02 = NodePath("RayCasts/RayCast2D2")
+movement_component = NodePath("GroundPatrolComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v5yes")
@@ -180,6 +182,13 @@ collision_mask = 5
 position = Vector2(23, 0)
 target_position = Vector2(0, 32)
 collision_mask = 5
+
+[node name="GroundPatrolComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "left_ground_ray", "right_ground_ray", "visuals")]
+script = ExtResource("6_movement")
+entity = NodePath("..")
+left_ground_ray = NodePath("../RayCasts/RayCast2D")
+right_ground_ray = NodePath("../RayCasts/RayCast2D2")
+visuals = NodePath("../AnimatedSprite2D")
 
 [node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 0
