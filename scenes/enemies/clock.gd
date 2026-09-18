@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends EnemyBase
 
 signal clock_boss_defeated
 signal tic_tac
@@ -9,14 +9,10 @@ signal tic_tac
 @export var gravity : float = 800.0
 
 var direction : Vector2 = Vector2.LEFT
-var is_dead: bool = false
 
 @export var animated_sprite: AnimatedSprite2D
 @export var ledge_checker_01: RayCast2D
 @export var ledge_checker_02: RayCast2D
-
-@export var hurtbox : Area2D
-@export var collision : CollisionShape2D
 
 @export var amp: float = 15.0 
 @export var freq: float = 5.0
@@ -54,17 +50,12 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if is_dead: return
-	
+func on_died(source: HitboxComponent) -> void:
 	emit_signal("clock_boss_defeated")
-	
-	is_dead = true
-	collision.set_deferred("disabled", true)
 	clock_timer.stop()
 	
 	velocity.y = -300
-	velocity.x = 100 * sign(global_position.x - area.global_position.x)
+	velocity.x = 100 * sign(global_position.x - source.get_source_position().x)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	initial_pos_y = global_position

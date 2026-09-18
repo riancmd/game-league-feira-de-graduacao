@@ -38,8 +38,7 @@ signal dead
 
 #region KnockBack Data
 @export_category("Knockback")
-@export var knockback_force: float = 250.0
-@export var knockback_timer : Timer
+@export var knockback_component: KnockbackComponent
 #endregion
 
 #region Others
@@ -54,20 +53,19 @@ signal dead
 var is_dead : bool = false
 var is_talking : bool = false
 var is_in_cutscene : bool = false
-var is_in_knockback : bool = false
 var score : int = 0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_talking and not is_dead and not is_in_cutscene and not is_in_knockback:
+	if not is_talking and not is_dead and not is_in_cutscene and not knockback_component.is_active:
 		state_machine._on_input(event)
 
 func _physics_process(delta: float) -> void:
 	active_gravity(gravity, delta)
 	
-	if not is_talking and not is_dead and not is_in_cutscene and not is_in_knockback:
+	if not is_talking and not is_dead and not is_in_cutscene and not knockback_component.is_active:
 	
 		check_was_on_floor()
 		
@@ -167,22 +165,14 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 #endregion
 
 func apply_knockback(attacker_position: Vector2) -> void:
-	if is_in_knockback: return
+	if knockback_component.is_active:
+		return
 	
 	emit_signal("damaged")
-	is_in_knockback = true
+	knockback_component.apply(attacker_position)
 
-	var direction = (global_position - attacker_position).normalized()
-
-	velocity = direction * knockback_force
-	velocity.y -= 200.0
-
-	knockback_timer.start()
-
-func _on_hurtbox_body_entered(_body: Node2D) -> void:
-	#if not _body.is_dead:
-		#die()
-	emit_signal("damaged")
+func receive_hit(hitbox: HitboxComponent) -> void:
+	apply_knockback(hitbox.get_source_position())
 
 func play_cutscene_animation(anim_name : String) -> void:
 	is_in_cutscene = true
@@ -192,9 +182,6 @@ func stop_cutscene_animation() -> void:
 	is_in_cutscene = false
 	cutscene_player.stop()
 	anim.play("idle")
-
-func _on_knock_back_timer_timeout() -> void:
-	is_in_knockback = false
 
 func getScore() -> int:
 	return score

@@ -23,7 +23,7 @@ func _on_npc_ended_talking() -> void:
 	finish_dialogue()
 	
 	var brain_boss_instance : CharacterBody2D = brain_boss_scene.instantiate()
-	brain_boss_instance.setup(player)
+	brain_boss_instance.setup(player, projectiles_holder)
 	brain_boss_instance.connect("brain_boss_defeated", _on_brain_boss_defeated)
 	add_child(brain_boss_instance)
 	cool_down_timer.start()

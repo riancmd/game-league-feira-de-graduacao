@@ -1,7 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://dfdsqglwbm6ap"]
+[gd_scene load_steps=22 format=3 uid="uid://dfdsqglwbm6ap"]
 
 [ext_resource type="Script" uid="uid://bvblfbvb8qsx" path="res://scenes/enemies/clock.gd" id="1_4f4gu"]
 [ext_resource type="Texture2D" uid="uid://dnmf6onv3dtj4" path="res://assets/enemies/OPrazo/OPrazo_sheet.png" id="1_nmenk"]
+[ext_resource type="Script" path="res://scenes/components/combat/health_component.gd" id="2_health"]
+[ext_resource type="Script" path="res://scenes/components/combat/hurtbox_component.gd" id="3_hurtbox"]
+[ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="4_hitbox"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4f4gu"]
 atlas = ExtResource("1_nmenk")
@@ -125,15 +128,15 @@ _data = {
 &"spawn": SubResource("Animation_nmenk")
 }
 
-[node name="Clock" type="CharacterBody2D" node_paths=PackedStringArray("clock_timer", "animated_sprite", "ledge_checker_01", "ledge_checker_02", "hurtbox", "collision")]
+[node name="Clock" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "clock_timer", "animated_sprite", "ledge_checker_01", "ledge_checker_02")]
 position = Vector2(320, -64)
 script = ExtResource("1_4f4gu")
+health_component = NodePath("HealthComponent")
+collision = NodePath("CollisionShape2D")
 clock_timer = NodePath("Clock_Timer")
 animated_sprite = NodePath("AnimatedSprite2D")
 ledge_checker_01 = NodePath("RayCasts/RayCast2D")
 ledge_checker_02 = NodePath("RayCasts/RayCast2D2")
-hurtbox = NodePath("HurtBox")
-collision = NodePath("CollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_us0rq")
@@ -153,13 +156,28 @@ target_position = Vector2(-64, 0)
 position = Vector2(24, 0)
 target_position = Vector2(64, 0)
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 0
 collision_mask = 16
+script = ExtResource("3_hurtbox")
+entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qehkv")
+
+[node name="ContactHitbox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_hitbox")
+entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qehkv")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -173,7 +191,6 @@ autostart = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Clock_Timer" to="." method="_on_clock_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

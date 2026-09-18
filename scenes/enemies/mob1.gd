@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends EnemyBase
 
 signal mob_death
 
@@ -6,14 +6,10 @@ signal mob_death
 @export var gravity : float = 800.0
 
 var direction : Vector2 = Vector2.LEFT
-var is_dead: bool = false
 
 @export var animated_sprite: AnimatedSprite2D
 @export var ledge_checker_01: RayCast2D
 @export var ledge_checker_02: RayCast2D
-
-@export var hurtbox : Area2D
-@export var collision : CollisionShape2D
 
 func _physics_process(delta: float) -> void:
 	if is_dead: return
@@ -39,15 +35,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	is_dead = true
-	collision.set_deferred("disabled", true)
+func on_died(_source: HitboxComponent) -> void:
 	animated_sprite.play("hit")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	emit_signal("mob_death")
 	queue_free()
-
-func _on_hit_box_body_entered(body: Node2D) -> void:
-	if not is_dead and body.has_method("apply_knockback"):
-		body.apply_knockback(global_position)

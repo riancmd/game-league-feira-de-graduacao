@@ -1,24 +1,21 @@
-extends CharacterBody2D
+extends EnemyBase
 
 signal brain_boss_defeated
 
 @export var projectile_scene: PackedScene
 @export var projectile_text : Array[String]
 @export var player : CharacterBody2D
+@export var projectiles_holder: Node2D
 @export var cooldown_timer : Timer
 
 @export var speed : float = 50.0
 @export var gravity : float = 800.0
 
 var direction : Vector2 = Vector2.LEFT
-var is_dead: bool = false
 
 @export var animated_sprite: AnimatedSprite2D
 @export var ledge_checker_01: RayCast2D
 @export var ledge_checker_02: RayCast2D
-
-@export var hurtbox : Area2D
-@export var collision : CollisionShape2D
 
 @export var amp: float = 8.0 
 @export var freq: float = 5.0
@@ -26,8 +23,9 @@ var is_dead: bool = false
 var time_passed : float = 0.0
 var initial_pos_y : Vector2
 
-func setup(player_reference : CharacterBody2D) -> void:
-	self.player = player_reference
+func setup(player_reference: CharacterBody2D, holder_reference: Node2D) -> void:
+	player = player_reference
+	projectiles_holder = holder_reference
 
 func _physics_process(delta: float) -> void:
 	if not is_dead: 
@@ -57,19 +55,18 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if is_dead: return
-
+func on_died(source: HitboxComponent) -> void:
 	emit_signal("brain_boss_defeated")
-	is_dead = true
-	collision.set_deferred("disabled", true)
 	cooldown_timer.stop()
 	velocity.y = -300
-	velocity.x = 100 * sign(global_position.x - area.global_position.x)
+	velocity.x = 100 * sign(global_position.x - source.get_source_position().x)
 
 func _on_cool_down_timer_timeout() -> void:
+	if not player or not projectiles_holder:
+		return
+
 	var projectile : Area2D = projectile_scene.instantiate()
-	get_parent().projectiles_holder.add_child(projectile)
+	projectiles_holder.add_child(projectile)
 
 	projectile.global_position = self.global_position
 	projectile.setup(projectile_text.pick_random(), player.global_position)
