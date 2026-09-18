@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://dfdsqglwbm6ap"]
+[gd_scene load_steps=24 format=3 uid="uid://dfdsqglwbm6ap"]
 
 [ext_resource type="Script" uid="uid://bvblfbvb8qsx" path="res://scenes/enemies/clock.gd" id="1_4f4gu"]
 [ext_resource type="Texture2D" uid="uid://dnmf6onv3dtj4" path="res://assets/enemies/OPrazo/OPrazo_sheet.png" id="1_nmenk"]
 [ext_resource type="Script" path="res://scenes/components/combat/health_component.gd" id="2_health"]
 [ext_resource type="Script" path="res://scenes/components/combat/hurtbox_component.gd" id="3_hurtbox"]
 [ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="4_hitbox"]
+[ext_resource type="Script" path="res://scenes/components/movement/floating_movement_component.gd" id="5_movement"]
+[ext_resource type="Resource" path="res://resources/enemies/clock_movement.tres" id="6_config"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4f4gu"]
 atlas = ExtResource("1_nmenk")
@@ -128,15 +130,13 @@ _data = {
 &"spawn": SubResource("Animation_nmenk")
 }
 
-[node name="Clock" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "clock_timer", "animated_sprite", "ledge_checker_01", "ledge_checker_02")]
+[node name="Clock" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "clock_timer", "movement_component")]
 position = Vector2(320, -64)
 script = ExtResource("1_4f4gu")
 health_component = NodePath("HealthComponent")
 collision = NodePath("CollisionShape2D")
 clock_timer = NodePath("Clock_Timer")
-animated_sprite = NodePath("AnimatedSprite2D")
-ledge_checker_01 = NodePath("RayCasts/RayCast2D")
-ledge_checker_02 = NodePath("RayCasts/RayCast2D2")
+movement_component = NodePath("FloatingMovementComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_us0rq")
@@ -155,6 +155,13 @@ target_position = Vector2(-64, 0)
 [node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
 position = Vector2(24, 0)
 target_position = Vector2(64, 0)
+
+[node name="FloatingMovementComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "left_ray", "right_ray")]
+script = ExtResource("5_movement")
+entity = NodePath("..")
+left_ray = NodePath("../RayCasts/RayCast2D")
+right_ray = NodePath("../RayCasts/RayCast2D2")
+config = ExtResource("6_config")
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 0

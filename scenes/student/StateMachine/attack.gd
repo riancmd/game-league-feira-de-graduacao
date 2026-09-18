@@ -4,7 +4,7 @@ class_name AttackState
 @onready var state_machine : Node = get_parent()
 
 func enter() -> void:
-	SfxManager.play_sfx("sword")
+	SfxManager.play_sfx(SfxManager.SWORD)
 	
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	if rng.randi_range(1,2) == 1:

@@ -4,7 +4,7 @@ class_name JumpState
 @onready var state_machine : Node = get_parent()
 
 func enter() -> void:
-	SfxManager.play_sfx("jump")
+	SfxManager.play_sfx(SfxManager.JUMP)
 	player.jump()
 	player.stop_coyote_timer()
 	
