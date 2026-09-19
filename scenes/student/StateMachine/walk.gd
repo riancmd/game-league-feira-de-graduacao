@@ -16,7 +16,7 @@ func handle_input(event: InputEvent) -> State:
 func physics_update(delta: float) -> State:
 	var input_axis: float = Input.get_axis("left", "right")
 	player.movement_component.move_horizontal(delta, input_axis)
-	player.movement_component.update_facing(input_axis, player.is_attacking)
+	player.movement_component.update_facing(input_axis)
 	
 	if player.movement_component.can_jump() and player.jump_buffer_component.is_active():
 		player.jump_buffer_component.stop()

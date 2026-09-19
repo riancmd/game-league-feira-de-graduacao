@@ -45,8 +45,8 @@ func move_horizontal(delta: float, input_axis: float) -> void:
 		entity.velocity.x = lerp(entity.velocity.x, 0.0, config.friction * delta)
 
 
-func update_facing(input_axis: float, is_attacking: bool) -> void:
-	if input_axis == 0.0 or is_attacking:
+func update_facing(input_axis: float) -> void:
+	if input_axis == 0.0:
 		return
 	if visuals:
 		visuals.flip_h = input_axis < 0.0

@@ -62,7 +62,8 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func apply_knockback(attacker_position: Vector2) -> void:
 	if knockback_component.is_active:
 		return
-	
+
+	state_machine.transition_to_named(&"damaged")
 	emit_signal("damaged")
 	knockback_component.apply(attacker_position)
 
