@@ -29,7 +29,7 @@ func activate() -> void:
 	tween.tween_property(self, "global_position", target_position_marker, move_duration).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	
 	await tween.finished
-	modulate.a = 255
+	modulate.a = 1.0
 	collision.set("disabled", false)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

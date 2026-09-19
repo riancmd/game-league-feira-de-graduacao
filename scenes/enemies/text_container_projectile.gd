@@ -1,4 +1,4 @@
-extends Area2D
+extends HitboxComponent
 
 @export var label : Label
 @export var animation_player : AnimationPlayer
@@ -19,10 +19,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	can_move = true
-	modulate.a = 255
-
-func _on_body_entered(body: Node2D) -> void:
-	body.apply_knockback(global_position)
+	modulate.a = 1.0
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

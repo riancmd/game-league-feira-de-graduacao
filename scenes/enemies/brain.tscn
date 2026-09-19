@@ -1,8 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://cai56pvknidjb"]
+[gd_scene load_steps=22 format=3 uid="uid://cai56pvknidjb"]
 
 [ext_resource type="Script" uid="uid://dba7pamqfm0q5" path="res://scenes/enemies/brain.gd" id="1_6aa2u"]
 [ext_resource type="PackedScene" uid="uid://lsa03mb74s3d" path="res://scenes/enemies/text_container_projectile.tscn" id="2_jali4"]
 [ext_resource type="Texture2D" uid="uid://csghg1owqve8r" path="res://assets/enemies/BloqueioCriativo/BloqueioCriativo1-sheet.png" id="4_rxde3"]
+[ext_resource type="Script" path="res://scenes/components/combat/health_component.gd" id="5_health"]
+[ext_resource type="Script" path="res://scenes/components/combat/hurtbox_component.gd" id="6_hurtbox"]
+[ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="7_hitbox"]
+[ext_resource type="Script" path="res://scenes/components/movement/floating_movement_component.gd" id="8_movement"]
+[ext_resource type="Resource" path="res://resources/enemies/brain_movement.tres" id="9_config"]
+[ext_resource type="Resource" path="res://resources/enemies/brain_definition.tres" id="10_definition"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gltgl"]
 atlas = ExtResource("4_rxde3")
@@ -98,17 +104,15 @@ _data = {
 &"spawn": SubResource("Animation_rxde3")
 }
 
-[node name="Brain" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "animated_sprite", "ledge_checker_01", "ledge_checker_02", "hurtbox", "collision")]
+[node name="Brain" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "cooldown_timer", "movement_component")]
 script = ExtResource("1_6aa2u")
+definition = ExtResource("10_definition")
+health_component = NodePath("HealthComponent")
+collision = NodePath("CollisionShape2D")
 projectile_scene = ExtResource("2_jali4")
 projectile_text = Array[String](["Dúvida", "Estresse", "Ansiedade"])
 cooldown_timer = NodePath("CoolDown_Timer")
-speed = 100.0
-animated_sprite = NodePath("AnimatedSprite2D")
-ledge_checker_01 = NodePath("RayCasts/RayCast2D")
-ledge_checker_02 = NodePath("RayCasts/RayCast2D2")
-hurtbox = NodePath("HurtBox")
-collision = NodePath("CollisionShape2D")
+movement_component = NodePath("FloatingMovementComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6aa2u")
@@ -128,13 +132,35 @@ target_position = Vector2(-64, 0)
 position = Vector2(24, 0)
 target_position = Vector2(64, 0)
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="FloatingMovementComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "left_ray", "right_ray")]
+script = ExtResource("8_movement")
+entity = NodePath("..")
+left_ray = NodePath("../RayCasts/RayCast2D")
+right_ray = NodePath("../RayCasts/RayCast2D2")
+config = ExtResource("9_config")
+
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 0
 collision_mask = 16
+script = ExtResource("6_hurtbox")
+entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_6aa2u")
+
+[node name="ContactHitbox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_hitbox")
+entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHitbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6aa2u")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_health")
 
 [node name="CoolDown_Timer" type="Timer" parent="."]
 wait_time = 2.0
@@ -149,7 +175,6 @@ autoplay = "spawn"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="CoolDown_Timer" to="." method="_on_cool_down_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

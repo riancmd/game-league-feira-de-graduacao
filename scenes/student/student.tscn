@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://47ncokraoa05"]
+[gd_scene load_steps=62 format=3 uid="uid://47ncokraoa05"]
 
 [ext_resource type="Texture2D" uid="uid://2uqfbcxk7nic" path="res://assets/characters/Idle_KG_1.png" id="1_btdwm"]
 [ext_resource type="Script" uid="uid://cysgq1ipirhk6" path="res://scenes/student/student.gd" id="1_vpnha"]
@@ -15,6 +15,11 @@
 [ext_resource type="Script" uid="uid://bj0qwixqkbwm8" path="res://scenes/student/StateMachine/damaged.gd" id="14_lrylf"]
 [ext_resource type="Script" uid="uid://tc85ltacbsve" path="res://scenes/student/StateMachine/death.gd" id="15_1o6i5"]
 [ext_resource type="Script" uid="uid://cygjuxw1r2s02" path="res://scenes/student/StateMachine/fall.gd" id="16_lrylf"]
+[ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="17_hitbox"]
+[ext_resource type="Script" path="res://scenes/components/combat/knockback_component.gd" id="18_knockback"]
+[ext_resource type="Script" path="res://scenes/components/movement/student_movement_component.gd" id="19_movement"]
+[ext_resource type="Script" path="res://scenes/components/input/action_buffer_component.gd" id="20_buffer"]
+[ext_resource type="Resource" path="res://resources/student/default_movement.tres" id="21_movement_config"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sphjv"]
 atlas = ExtResource("2_umfa7")
@@ -356,28 +361,19 @@ _data = {
 &"walk_in": SubResource("Animation_ueofd")
 }
 
-[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("coyote_timer", "jump_buffer_timer", "anim", "animation_player", "cutscene_player", "attack_buffer_timer", "knockback_timer", "state_machine", "collision_hitbox", "collision_physics")]
+[node name="Student" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "jump_buffer_component", "attack_buffer_component", "knockback_component", "state_machine", "anim", "cutscene_player", "collision_hitbox")]
 z_index = 1
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_vpnha")
-max_speed = 350.0
-acceleration = 2.0
-friction = 10.0
-gravity = 1280.0
-jump_force = -600.0
-jump_count_max = 1
-max_fall_speed = 1500.0
-coyote_timer = NodePath("Timers/Coyote_Timer")
-jump_buffer_timer = NodePath("Timers/Jump_Buffer_Timer")
-anim = NodePath("AnimatedSprite2D")
-animation_player = NodePath("AnimationPlayer")
-cutscene_player = NodePath("CutscenePlayer")
-attack_buffer_timer = NodePath("Timers/Attack_Buffer_Timer")
-knockback_timer = NodePath("Timers/KnockBack_Timer")
+movement_component = NodePath("StudentMovementComponent")
+jump_buffer_component = NodePath("JumpBufferComponent")
+attack_buffer_component = NodePath("AttackBufferComponent")
+knockback_component = NodePath("KnockbackComponent")
 state_machine = NodePath("StateMachine")
+anim = NodePath("AnimatedSprite2D")
+cutscene_player = NodePath("CutscenePlayer")
 collision_hitbox = NodePath("Hitbox/CollisionShape2D")
-collision_physics = NodePath("CollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1l4k3")
@@ -389,9 +385,11 @@ offset = Vector2(-0.4, -32.4)
 position = Vector2(0, -32)
 shape = SubResource("CapsuleShape2D_fpbla")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 16
 collision_mask = 0
+script = ExtResource("17_hitbox")
+entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(28, -32)
@@ -399,13 +397,22 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_ueofd")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
+[node name="StudentMovementComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "coyote_timer", "visuals", "squash_animation_player", "attack_collision")]
+script = ExtResource("19_movement")
+entity = NodePath("..")
+config = ExtResource("21_movement_config")
+coyote_timer = NodePath("../Timers/Coyote_Timer")
+visuals = NodePath("../AnimatedSprite2D")
+squash_animation_player = NodePath("../AnimationPlayer")
+attack_collision = NodePath("../Hitbox/CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -32)
-shape = SubResource("CapsuleShape2D_fpbla")
+[node name="JumpBufferComponent" type="Node" parent="." node_paths=PackedStringArray("timer")]
+script = ExtResource("20_buffer")
+timer = NodePath("../Timers/Jump_Buffer_Timer")
+
+[node name="AttackBufferComponent" type="Node" parent="." node_paths=PackedStringArray("timer")]
+script = ExtResource("20_buffer")
+timer = NodePath("../Timers/Attack_Buffer_Timer")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("9_u0ogy")
@@ -450,6 +457,11 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
+[node name="KnockbackComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "timer")]
+script = ExtResource("18_knockback")
+entity = NodePath("..")
+timer = NodePath("../Timers/KnockBack_Timer")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_i0nlq")
@@ -461,5 +473,3 @@ libraries = {
 }
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
-[connection signal="timeout" from="Timers/KnockBack_Timer" to="." method="_on_knock_back_timer_timeout"]

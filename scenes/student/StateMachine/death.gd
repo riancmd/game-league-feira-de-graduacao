@@ -6,6 +6,6 @@ func enter() -> void:
 	player.emit_signal("dead")
 
 func physics_update(delta: float) -> State:
-	player.move(delta, 0)
+	player.movement_component.move_horizontal(delta, 0.0)
 	
 	return null

@@ -11,6 +11,9 @@ func _process(delta: float) -> void:
 	if shakeStrength > 0.05:
 		shakeStrength = lerp(shakeStrength, 0.0, shakeFade * delta)
 		offset = randomOffset()
+	else:
+		shakeStrength = 0.0
+		offset = Vector2.ZERO
 		
 func randomOffset() -> Vector2:
 	return Vector2(randf_range(-shakeStrength, shakeStrength), randf_range(-shakeStrength, shakeStrength))

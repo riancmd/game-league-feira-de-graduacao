@@ -6,7 +6,7 @@ signal collected
 
 func _on_body_entered(_body: Node2D) -> void:
 	anim.play("collected")
-	SfxManager.play_sfx("item_pickup")
+	SfxManager.play_sfx(SfxManager.ITEM_PICKUP)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	emit_signal("collected")

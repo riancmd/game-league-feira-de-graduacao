@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://b4vpkvnqqk80o"]
+[gd_scene load_steps=19 format=4 uid="uid://b4vpkvnqqk80o"]
 
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_py00m"]
 [ext_resource type="Script" uid="uid://bu650ryykxumj" path="res://scenes/HallOfFame/hall_of_fame.gd" id="1_x1e1m"]
@@ -13,6 +13,7 @@
 [ext_resource type="VideoStream" uid="uid://bho5vdoe3oox" path="res://assets/HallDaFama/Embrace/embrace.ogv" id="11_1ilbi"]
 [ext_resource type="Texture2D" uid="uid://c85wyex0e3pj0" path="res://assets/HallDaFama/ligadejogosuefs_qrcode.png" id="12_6hgtd"]
 [ext_resource type="FontFile" uid="uid://c0cjtq5cs6xyf" path="res://assets/fonts/Born2bSportyFS.otf" id="12_lpg70"]
+[ext_resource type="Script" path="res://scenes/rooms/components/room_gate.gd" id="13_gate"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_py00m"]
 size = Vector2(608, 448)
@@ -37,12 +38,11 @@ font = ExtResource("12_lpg70")
 font_size = 24
 font_color = Color(0, 0, 0, 1)
 
-[node name="HallOfFame" type="Node2D" node_paths=PackedStringArray("collisionArea", "next_wall_collision")]
+[node name="HallOfFame" type="Node2D" node_paths=PackedStringArray("camera_anchor")]
 script = ExtResource("1_x1e1m")
 title_area = "Hall da Fama"
 image = ExtResource("3_pqcm1")
-collisionArea = NodePath("AreaDetect/CollisionShape2D")
-next_wall_collision = NodePath("NextWall/CollisionShape2D")
+camera_anchor = NodePath("AreaDetect/CollisionShape2D")
 
 [node name="Props" type="Node2D" parent="."]
 
@@ -73,9 +73,11 @@ shape = SubResource("RectangleShape2D_py00m")
 position = Vector2(128, 448)
 timeline_name = "04_hall"
 
-[node name="NextWall" type="StaticBody2D" parent="."]
+[node name="NextWall" type="StaticBody2D" parent="." node_paths=PackedStringArray("collision_shape")]
 position = Vector2(648, -4)
 collision_mask = 0
+script = ExtResource("13_gate")
+collision_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
 position = Vector2(-12, 72)

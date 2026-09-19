@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/enemies/enemy_definition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+display_name = &"Clock"
+max_health = 1.0
+contact_damage = 1.0
+move_speed = 150.0
+gravity = 800.0

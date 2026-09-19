@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FloatingMovementConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/enemies/floating_movement_config.gd" id="1_config"]
+
+[resource]
+script = ExtResource("1_config")
+amplitude = 15.0
+frequency = 5.0

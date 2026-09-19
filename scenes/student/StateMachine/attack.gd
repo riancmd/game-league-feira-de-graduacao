@@ -1,10 +1,15 @@
 extends State
 class_name AttackState
 
-@onready var state_machine : Node = get_parent()
+const ATTACK_ANIMATIONS := [&"attack", &"attack_2"]
+const MAX_ATTACK_DURATION_SECONDS := 1.0
+
+var attack_elapsed: float = 0.0
+
 
 func enter() -> void:
-	SfxManager.play_sfx("sword")
+	attack_elapsed = 0.0
+	SfxManager.play_sfx(SfxManager.SWORD)
 	
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	if rng.randi_range(1,2) == 1:
@@ -20,29 +25,45 @@ func enter() -> void:
 
 func handle_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump"):
-		player.start_jump_buffer()
+		player.jump_buffer_component.start()
 	if event.is_action_pressed("attack"):
-		player.start_attack_buffer()
+		player.attack_buffer_component.start()
 	
 	return null
 
 func physics_update(delta: float) -> State:
+	attack_elapsed += delta
+	if player.anim.animation not in ATTACK_ANIMATIONS or attack_elapsed >= MAX_ATTACK_DURATION_SECONDS:
+		return _get_next_state()
+
 	var input_axis: float = Input.get_axis("left", "right")
-	player.move(delta, input_axis)
-	player.flip_sprite(input_axis)
+	player.movement_component.move_horizontal(delta, input_axis)
+	player.movement_component.update_facing(input_axis)
 	
-	if player.can_jump() and player.is_jump_buffering():
-		player.stop_jump_buffer()
-		return state_machine.get_node("jump")
+	if player.movement_component.can_jump() and player.jump_buffer_component.is_active():
+		player.jump_buffer_component.stop()
+		return get_state(&"jump")
 	
 	return null
 
-func _on_attack_finished() -> void:
+func exit() -> void:
 	player.is_attacking = false
 	player.collision_hitbox.set_deferred("disabled", true)
-	
-	if player.is_attack_buffering():
-		player.stop_attack_buffer()
-		state_machine.transition_to(self)
-	else:
-		state_machine.transition_to(state_machine.get_node("idle"))
+	player.attack_buffer_component.stop()
+
+func _on_attack_finished() -> void:
+	if state_machine.current_state != self:
+		return
+
+	state_machine.transition_to(_get_next_state())
+
+
+func _get_next_state() -> State:
+	if player.attack_buffer_component.is_active():
+		player.attack_buffer_component.stop()
+		return self
+	if not player.is_on_floor():
+		return get_state(&"fall")
+	if Input.get_axis("left", "right") != 0.0:
+		return get_state(&"walk")
+	return get_state(&"idle")

@@ -1,37 +1,35 @@
 extends State
 class_name FallState
 
-@onready var state_machine : Node = get_parent()
-
 func enter() -> void:
 	player.anim.play("fall")
 
 func handle_input(event : InputEvent) -> State:
 	if event.is_action_pressed("jump"):
-		if player.is_coyote_timer_activated():
-			return state_machine.get_node("jump")
+		if player.movement_component.is_coyote_active():
+			return get_state(&"jump")
 		
-		player.start_jump_buffer()
+		player.jump_buffer_component.start()
 	if event.is_action_pressed("attack"):
-		return state_machine.get_node("attack")
+		return get_state(&"attack")
 	
 	return null
 
 func physics_update(delta: float) -> State:
 	var input_axis : float = Input.get_axis("left", "right")
-	player.move(delta, input_axis)
-	player.flip_sprite(input_axis)
+	player.movement_component.move_horizontal(delta, input_axis)
+	player.movement_component.update_facing(input_axis)
 	
 	if player.is_on_floor():
-		player.play_squash_n_stretch()
+		player.movement_component.play_squash_and_stretch()
 		
-		if player.is_jump_buffering():
-			return state_machine.get_node("jump")
+		if player.jump_buffer_component.is_active():
+			return get_state(&"jump")
 		
 		if input_axis == 0:
-			return state_machine.get_node("idle")
+			return get_state(&"idle")
 		
 		if input_axis != 0:
-			return state_machine.get_node("walk")
+			return get_state(&"walk")
 	
 	return null

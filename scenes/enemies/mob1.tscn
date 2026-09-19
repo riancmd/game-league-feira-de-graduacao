@@ -1,8 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://cstxmmd7y76qu"]
+[gd_scene load_steps=28 format=3 uid="uid://cstxmmd7y76qu"]
 
 [ext_resource type="Texture2D" uid="uid://dv51lr1kd0naf" path="res://assets/enemies/Slime/Idle-Run (44x30).png" id="1_36f7o"]
 [ext_resource type="Script" uid="uid://b1epqrwpje4p2" path="res://scenes/enemies/mob1.gd" id="1_vdbti"]
 [ext_resource type="Texture2D" uid="uid://dombhif15p1cr" path="res://assets/enemies/Slime/Hit (44x30).png" id="2_vdbti"]
+[ext_resource type="Script" path="res://scenes/components/combat/health_component.gd" id="3_health"]
+[ext_resource type="Script" path="res://scenes/components/combat/hurtbox_component.gd" id="4_hurtbox"]
+[ext_resource type="Script" path="res://scenes/components/combat/hitbox_component.gd" id="5_hitbox"]
+[ext_resource type="Script" path="res://scenes/components/movement/ground_patrol_component.gd" id="6_movement"]
+[ext_resource type="Resource" path="res://resources/enemies/mob_definition.tres" id="7_definition"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ler4u"]
 atlas = ExtResource("1_36f7o")
@@ -134,15 +139,15 @@ height = 48.0276
 radius = 11.9982
 height = 44.0282
 
-[node name="mob" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "ledge_checker_01", "ledge_checker_02", "hurtbox", "collision")]
+[node name="mob" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "collision", "animated_sprite", "movement_component")]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_vdbti")
-animated_sprite = NodePath("AnimatedSprite2D")
-ledge_checker_01 = NodePath("RayCasts/RayCast2D")
-ledge_checker_02 = NodePath("RayCasts/RayCast2D2")
-hurtbox = NodePath("Hurtbox")
+definition = ExtResource("7_definition")
+health_component = NodePath("HealthComponent")
 collision = NodePath("CollisionShape2D")
+animated_sprite = NodePath("AnimatedSprite2D")
+movement_component = NodePath("GroundPatrolComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v5yes")
@@ -155,9 +160,11 @@ rotation = -1.58825
 scale = Vector2(1.8, 1.8)
 shape = SubResource("CapsuleShape2D_vdbti")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 0
 collision_mask = 16
+script = ExtResource("4_hurtbox")
+entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 7)
@@ -176,15 +183,25 @@ position = Vector2(23, 0)
 target_position = Vector2(0, 32)
 collision_mask = 5
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="GroundPatrolComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "left_ground_ray", "right_ground_ray", "visuals")]
+script = ExtResource("6_movement")
+entity = NodePath("..")
+left_ground_ray = NodePath("../RayCasts/RayCast2D")
+right_ground_ray = NodePath("../RayCasts/RayCast2D2")
+visuals = NodePath("../AnimatedSprite2D")
+
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("entity")]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("5_hitbox")
+entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 7)
 rotation = -1.58825
 shape = SubResource("CapsuleShape2D_610bg")
 
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_health")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
