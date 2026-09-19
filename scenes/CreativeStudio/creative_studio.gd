@@ -1,7 +1,5 @@
 extends RoomController
 
-signal shake_camera(amount : float)
-
 @export var brain_boss_scene : PackedScene
 @export var player : CharacterBody2D
 
@@ -16,12 +14,7 @@ signal shake_camera(amount : float)
 var boss_is_dead : bool = false
 var next_platform_index : int = 0
 
-func _on_area_detect_body_entered(_body: Node2D) -> void:
-	enter_room()
-
-func _on_npc_ended_talking() -> void:
-	finish_dialogue()
-	
+func on_dialogue_finished() -> void:
 	var brain_boss_instance : CharacterBody2D = brain_boss_scene.instantiate()
 	brain_boss_instance.setup(player, projectiles_holder)
 	brain_boss_instance.connect("brain_boss_defeated", _on_brain_boss_defeated)
@@ -30,7 +23,7 @@ func _on_npc_ended_talking() -> void:
 
 func _on_brain_boss_defeated() -> void:
 	boss_is_dead = true
-	emit_signal("shake_camera", 30.0)
+	request_camera_shake(30.0)
 	for child in platformers_holder.get_children():
 		child.queue_free()
 	
@@ -51,6 +44,3 @@ func _on_cool_down_timer_timeout() -> void:
 		platformers_holder.add_child(platform_instance)
 		next_platform_index += 1
 		cool_down_timer.start()
-
-func _on_npc_start_talking() -> void:
-	start_dialogue()

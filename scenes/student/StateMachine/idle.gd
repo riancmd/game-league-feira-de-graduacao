@@ -6,14 +6,14 @@ class_name IdleState
 # Executamos ações que só precisam ser feitas uma vez como animações.
 func enter() -> void:
 	player.anim.play("idle")
-	player.reset_jump_count()
+	player.movement_component.reset_jump_count()
 
 # Preenche a função "handle_input" do molde.
 # Aqui armazenamos o pulo, não porque o jogador está caindo, 
 # mas para evitar desincronia com physics_update
 func handle_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump"):
-		player.start_jump_buffer()
+		player.jump_buffer_component.start()
 	if event.is_action_pressed("attack"):
 		return get_state(&"attack")
 	
@@ -24,11 +24,11 @@ func physics_update(delta: float) -> State:
 	# Checa se o jogador está apertando para alguma direção
 	var input_axis : float = Input.get_axis("left", "right")
 	# Aplica o jogador para de se mover
-	player.move(delta, 0.0)
+	player.movement_component.move_horizontal(delta, 0.0)
 	
 	# 1. Checa a ação de maior prioridade: PULAR
-	if player.can_jump() and player.is_jump_buffering():
-		player.stop_jump_buffer()
+	if player.movement_component.can_jump() and player.jump_buffer_component.is_active():
+		player.jump_buffer_component.stop()
 		return get_state(&"jump")
 	
 	# 2. Se não for pular, checa a segunda ação mais ativa: ANDAR

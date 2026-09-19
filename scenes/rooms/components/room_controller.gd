@@ -4,6 +4,7 @@ extends Node2D
 signal new_area_entered(text: String, image: Texture2D)
 signal talking
 signal stop_talking
+signal shake_camera(amount: float)
 signal room_entered(room: RoomController)
 signal room_completed(room: RoomController)
 
@@ -24,6 +25,19 @@ enum RoomState { IDLE, DIALOGUE, ACTIVE, COMPLETED }
 
 var current_state: RoomState = RoomState.IDLE
 var has_entered: bool = false
+
+
+func _on_area_detect_body_entered(_body: Node2D) -> void:
+	enter_room()
+
+
+func _on_npc_start_talking() -> void:
+	start_dialogue()
+
+
+func _on_npc_ended_talking() -> void:
+	finish_dialogue()
+	on_dialogue_finished()
 
 
 func enter_room() -> void:
@@ -76,3 +90,11 @@ func complete_room() -> void:
 	if progress_indicator:
 		progress_indicator.show()
 	room_completed.emit(self)
+
+
+func request_camera_shake(amount: float) -> void:
+	shake_camera.emit(amount)
+
+
+func on_dialogue_finished() -> void:
+	pass

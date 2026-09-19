@@ -6,10 +6,10 @@ func enter() -> void:
 
 func handle_input(event : InputEvent) -> State:
 	if event.is_action_pressed("jump"):
-		if player.is_coyote_timer_activated():
+		if player.movement_component.is_coyote_active():
 			return get_state(&"jump")
 		
-		player.start_jump_buffer()
+		player.jump_buffer_component.start()
 	if event.is_action_pressed("attack"):
 		return get_state(&"attack")
 	
@@ -17,13 +17,13 @@ func handle_input(event : InputEvent) -> State:
 
 func physics_update(delta: float) -> State:
 	var input_axis : float = Input.get_axis("left", "right")
-	player.move(delta, input_axis)
-	player.flip_sprite(input_axis)
+	player.movement_component.move_horizontal(delta, input_axis)
+	player.movement_component.update_facing(input_axis, player.is_attacking)
 	
 	if player.is_on_floor():
-		player.play_squash_n_stretch()
+		player.movement_component.play_squash_and_stretch()
 		
-		if player.is_jump_buffering():
+		if player.jump_buffer_component.is_active():
 			return get_state(&"jump")
 		
 		if input_axis == 0:

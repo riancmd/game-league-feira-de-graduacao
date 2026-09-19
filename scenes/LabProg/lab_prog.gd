@@ -1,18 +1,12 @@
 extends RoomController
 
-signal shake_camera(amount : float)
-
 @export var bugs_scene : PackedScene
 
 @onready var spawn_points: Node2D = $SpawnPoints
 
 var bugs_counter : int = 0
 
-func _on_area_detect_body_entered(_body: Node2D) -> void:
-	enter_room()
-
-func _on_npc_ended_talking() -> void:
-	finish_dialogue()
+func on_dialogue_finished() -> void:
 	var points := spawn_points.get_children()
 	bugs_counter = points.size()
 
@@ -34,9 +28,6 @@ func _on_npc_ended_talking() -> void:
 
 func _on_mob_death() -> void:
 	bugs_counter -= 1
-	emit_signal("shake_camera", 10.0)
+	request_camera_shake(10.0)
 	if bugs_counter <= 0:
 		complete_room()
-
-func _on_npc_start_talking() -> void:
-	start_dialogue()
