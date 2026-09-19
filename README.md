@@ -8,13 +8,13 @@ jogos, conversa com personagens e enfrenta desafios.
 
 ## Requisitos
 
-- Godot Engine **4.4.1**.
+- Godot Engine **4.7.1**.
 - Renderizador de compatibilidade OpenGL.
 - Windows, Linux ou outro sistema suportado pelo Godot para executar pelo editor.
 
 ## Como executar
 
-1. Abra o Godot 4.4.1.
+1. Abra o Godot 4.7.1.
 2. Importe o arquivo `project.godot`.
 3. Aguarde a importação dos recursos e a ativação do Dialogic.
 4. Pressione **F6** para testar a cena atual ou **F5** para iniciar pelo menu.

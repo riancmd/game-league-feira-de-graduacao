@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://c31uh3spjtbeu"]
+[gd_scene format=4 uid="uid://c31uh3spjtbeu"]
 
 [ext_resource type="Script" uid="uid://dch3d76ov3rio" path="res://scenes/CreativeStudio/creative_studio.gd" id="1_3pk4w"]
 [ext_resource type="PackedScene" uid="uid://bo3l4u1r88umk" path="res://scenes/TileMaps/platforms.tscn" id="1_sht75"]
@@ -37,12 +37,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nexd5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
 
-[node name="creative_studio" type="Node2D" node_paths=PackedStringArray("markers", "progress_indicator", "next_gate", "camera_anchor")]
+[node name="creative_studio" type="Node2D" unique_id=421041789 node_paths=PackedStringArray("markers", "progress_indicator", "next_gate", "camera_anchor")]
 script = ExtResource("1_3pk4w")
 brain_boss_scene = ExtResource("3_xunid")
 markers = [NodePath("Markers/Marker2D"), NodePath("Markers/Marker2D2"), NodePath("Markers/Marker2D3"), NodePath("Markers/Marker2D4"), NodePath("Markers/Marker2D5"), NodePath("Markers/Marker2D6")]
@@ -54,93 +54,93 @@ progress_indicator = NodePath("Arrow_Go")
 next_gate = NodePath("NextWall")
 camera_anchor = NodePath("AreaDetect/CollisionShape2D")
 
-[node name="Props" type="Node2D" parent="."]
+[node name="Props" type="Node2D" parent="." unique_id=427388377]
 
-[node name="StudioBg" type="Sprite2D" parent="Props"]
+[node name="StudioBg" type="Sprite2D" parent="Props" unique_id=1836142897]
 position = Vector2(320, 240)
 texture = ExtResource("5_p1dyx")
 
-[node name="IdeaFrame" type="Sprite2D" parent="Props"]
+[node name="IdeaFrame" type="Sprite2D" parent="Props" unique_id=1911066011]
 position = Vector2(448, 320)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_a0id4")
 
-[node name="IdeaFrame2" type="Sprite2D" parent="Props"]
+[node name="IdeaFrame2" type="Sprite2D" parent="Props" unique_id=1894210687]
 position = Vector2(192, 320)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_a0id4")
 
-[node name="SoloDesk" type="Sprite2D" parent="Props"]
+[node name="SoloDesk" type="Sprite2D" parent="Props" unique_id=2072839945]
 position = Vector2(312, 420)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_ix1y6")
 
-[node name="IdeaMonitor" type="Sprite2D" parent="Props"]
+[node name="IdeaMonitor" type="Sprite2D" parent="Props" unique_id=193734371]
 position = Vector2(310, 358)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_56vj1")
 
-[node name="Chair" type="Sprite2D" parent="Props"]
+[node name="Chair" type="Sprite2D" parent="Props" unique_id=317172118]
 position = Vector2(291, 412)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_nexd5")
 flip_h = true
 
-[node name="Tiles" type="Node2D" parent="."]
+[node name="Tiles" type="Node2D" parent="." unique_id=894395688]
 
-[node name="platforms" parent="Tiles" instance=ExtResource("1_sht75")]
+[node name="platforms" parent="Tiles" unique_id=645724686 instance=ExtResource("1_sht75")]
 tile_map_data = PackedByteArray("AAAAABwACAAAAAAAAAAnABwACAACAAAAAAABABwACAABAAAAAAACABwACAABAAAAAAADABwACAABAAAAAAAEABwACAABAAAAAAAFABwACAABAAAAAAAGABwACAABAAAAAAAHABwACAABAAAAAAAIABwACAABAAAAAAAJABwACAABAAAAAAAKABwACAABAAAAAAALABwACAABAAAAAAAMABwACAABAAAAAAANABwACAABAAAAAAAOABwACAABAAAAAAAPABwACAABAAAAAAAQABwACAABAAAAAAARABwACAABAAAAAAASABwACAABAAAAAAATABwACAABAAAAAAAUABwACAABAAAAAAAVABwACAABAAAAAAAWABwACAABAAAAAAAXABwACAABAAAAAAAYABwACAABAAAAAAAZABwACAABAAAAAAAaABwACAABAAAAAAAbABwACAABAAAAAAAcABwACAABAAAAAAAdABwACAABAAAAAAAeABwACAABAAAAAAAfABwACAABAAAAAAAgABwACAABAAAAAAAhABwACAABAAAAAAAiABwACAABAAAAAAAjABwACAABAAAAAAAkABwACAABAAAAAAAlABwACAABAAAAAAAmABwACAABAAAAAAABAB0ACAABAAEAAAACAB0ACAABAAEAAAADAB0ACAABAAEAAAAEAB0ACAABAAEAAAAFAB0ACAABAAEAAAAGAB0ACAABAAEAAAAHAB0ACAABAAEAAAAIAB0ACAABAAEAAAAJAB0ACAABAAEAAAAKAB0ACAABAAEAAAALAB0ACAABAAEAAAAMAB0ACAABAAEAAAANAB0ACAABAAEAAAAOAB0ACAABAAEAAAAPAB0ACAABAAEAAAAQAB0ACAABAAEAAAARAB0ACAABAAEAAAASAB0ACAABAAEAAAATAB0ACAABAAEAAAAUAB0ACAABAAEAAAAVAB0ACAABAAEAAAAWAB0ACAABAAEAAAAXAB0ACAABAAEAAAAYAB0ACAABAAEAAAAZAB0ACAABAAEAAAAaAB0ACAABAAEAAAAbAB0ACAABAAEAAAAcAB0ACAABAAEAAAAdAB0ACAABAAEAAAAeAB0ACAABAAEAAAAfAB0ACAABAAEAAAAgAB0ACAABAAEAAAAhAB0ACAABAAEAAAAiAB0ACAABAAEAAAAjAB0ACAABAAEAAAAkAB0ACAABAAEAAAAlAB0ACAABAAEAAAAmAB0ACAABAAEAAAAAAB0ACAAAAAEAAAAnAB0ACAACAAEAAAABAB4ACAABAAEAAAACAB4ACAABAAEAAAADAB4ACAABAAEAAAAEAB4ACAABAAEAAAAFAB4ACAABAAEAAAAGAB4ACAABAAEAAAAHAB4ACAABAAEAAAAIAB4ACAABAAEAAAAJAB4ACAABAAEAAAAKAB4ACAABAAEAAAALAB4ACAABAAEAAAAMAB4ACAABAAEAAAANAB4ACAABAAEAAAAOAB4ACAABAAEAAAAPAB4ACAABAAEAAAAQAB4ACAABAAEAAAARAB4ACAABAAEAAAASAB4ACAABAAEAAAATAB4ACAABAAEAAAAUAB4ACAABAAEAAAAVAB4ACAABAAEAAAAWAB4ACAABAAEAAAAXAB4ACAABAAEAAAAYAB4ACAABAAEAAAAZAB4ACAABAAEAAAAaAB4ACAABAAEAAAAbAB4ACAABAAEAAAAcAB4ACAABAAEAAAAdAB4ACAABAAEAAAAeAB4ACAABAAEAAAAfAB4ACAABAAEAAAAgAB4ACAABAAEAAAAhAB4ACAABAAEAAAAiAB4ACAABAAEAAAAjAB4ACAABAAEAAAAkAB4ACAABAAEAAAAlAB4ACAABAAEAAAAmAB4ACAABAAEAAAAAAB4ACAAAAAEAAAAnAB4ACAACAAEAAAABAP//CAABAAIAAAACAP//CAABAAIAAAADAP//CAABAAIAAAAEAP//CAABAAIAAAAFAP//CAABAAIAAAAGAP//CAABAAIAAAAHAP//CAABAAIAAAAIAP//CAABAAIAAAAJAP//CAABAAIAAAAKAP//CAABAAIAAAALAP//CAABAAIAAAAMAP//CAABAAIAAAANAP//CAABAAIAAAAOAP//CAABAAIAAAAPAP//CAABAAIAAAAQAP//CAABAAIAAAARAP//CAABAAIAAAASAP//CAABAAIAAAATAP//CAABAAIAAAAUAP//CAABAAIAAAAVAP//CAABAAIAAAAWAP//CAABAAIAAAAXAP//CAABAAIAAAAYAP//CAABAAIAAAAZAP//CAABAAIAAAAaAP//CAABAAIAAAAbAP//CAABAAIAAAAcAP//CAABAAIAAAAdAP//CAABAAIAAAAeAP//CAABAAIAAAAfAP//CAABAAIAAAAgAP//CAABAAIAAAAhAP//CAABAAIAAAAiAP//CAABAAIAAAAjAP//CAABAAIAAAAkAP//CAABAAIAAAAlAP//CAABAAIAAAAmAP//CAABAAIAAAAnAP//CAAAAAIAAAAAAP//CAACAAIAAAA=")
 
-[node name="NextWall" type="StaticBody2D" parent="." node_paths=PackedStringArray("collision_shape")]
+[node name="NextWall" type="StaticBody2D" parent="." unique_id=293296128 node_paths=PackedStringArray("collision_shape")]
 position = Vector2(656, 0)
 collision_mask = 0
 script = ExtResource("13_gate")
 collision_shape = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextWall" unique_id=11738637]
 position = Vector2(-20, 226)
 shape = SubResource("RectangleShape2D_a6t2k")
 
-[node name="AreaDetect" type="Area2D" parent="."]
+[node name="AreaDetect" type="Area2D" parent="." unique_id=1208288542]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDetect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDetect" unique_id=1061495734]
 position = Vector2(320, 224)
 shape = SubResource("RectangleShape2D_xunid")
 
-[node name="NPC" parent="." instance=ExtResource("2_a6t2k")]
+[node name="NPC" parent="." unique_id=2050969482 instance=ExtResource("2_a6t2k")]
 position = Vector2(192, 448)
 timeline_name = "01_game_design"
 
-[node name="CoolDown_Timer" type="Timer" parent="."]
+[node name="CoolDown_Timer" type="Timer" parent="." unique_id=220976242]
 one_shot = true
 
-[node name="Markers" type="Node2D" parent="."]
+[node name="Markers" type="Node2D" parent="." unique_id=1871980134]
 
-[node name="Marker2D" type="Marker2D" parent="Markers"]
+[node name="Marker2D" type="Marker2D" parent="Markers" unique_id=1342864273]
 position = Vector2(320, 384)
 
-[node name="Marker2D2" type="Marker2D" parent="Markers"]
+[node name="Marker2D2" type="Marker2D" parent="Markers" unique_id=1506843354]
 position = Vector2(128, 320)
 
-[node name="Marker2D3" type="Marker2D" parent="Markers"]
+[node name="Marker2D3" type="Marker2D" parent="Markers" unique_id=1306011647]
 position = Vector2(512, 320)
 
-[node name="Marker2D4" type="Marker2D" parent="Markers"]
+[node name="Marker2D4" type="Marker2D" parent="Markers" unique_id=1616610815]
 position = Vector2(576, 256)
 
-[node name="Marker2D5" type="Marker2D" parent="Markers"]
+[node name="Marker2D5" type="Marker2D" parent="Markers" unique_id=88452899]
 position = Vector2(64, 256)
 
-[node name="Marker2D6" type="Marker2D" parent="Markers"]
+[node name="Marker2D6" type="Marker2D" parent="Markers" unique_id=550501604]
 position = Vector2(320, 205)
 
-[node name="Platformers_Holder" type="Node2D" parent="."]
+[node name="Platformers_Holder" type="Node2D" parent="." unique_id=1089267097]
 
-[node name="Projectiles_Holder" type="Node2D" parent="."]
+[node name="Projectiles_Holder" type="Node2D" parent="." unique_id=297928193]
 
-[node name="Arrow_Go" type="AnimatedSprite2D" parent="."]
+[node name="Arrow_Go" type="AnimatedSprite2D" parent="." unique_id=701592099]
 visible = false
 position = Vector2(544, 208)
 scale = Vector2(0.75, 0.75)
