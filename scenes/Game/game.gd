@@ -34,9 +34,14 @@ func _on_shake_camera(amount: float) -> void:
 	camera.shake(amount)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("esc"):
-		get_viewport().set_input_as_handled()
-		return_to_menu()
+	if not event.is_action_pressed("esc"):
+		return
+
+	if Dialogic.current_timeline != null:
+		return
+
+	get_viewport().set_input_as_handled()
+	return_to_menu()
 
 
 func return_to_menu() -> void:
