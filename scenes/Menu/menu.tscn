@@ -42,7 +42,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fi74l")
-start_button = NodePath("VBoxContainer/Button")
+start_button = NodePath("VBoxContainer/Start")
 
 [node name="BackGround01" parent="." unique_id=1888096131 instance=ExtResource("1_6wcv6")]
 
@@ -88,11 +88,19 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_fi74l")
 layout_mode = 2
 texture = ExtResource("3_4e4iy")
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=2114150520]
+[node name="Start" type="Button" parent="VBoxContainer" unique_id=2114150520]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_fi74l")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_fi74l")
 text = "Apresentar"
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=1191586349]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_fi74l")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_fi74l")
+text = "Sair"
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
