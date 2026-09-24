@@ -4,6 +4,8 @@ extends Node2D
 @export var player : CharacterBody2D
 @export var rooms: Array[RoomController]
 
+var is_returning_to_menu : bool = false
+
 func _ready() -> void:
 	for room in rooms:
 		if not room.room_entered.is_connected(_on_room_entered):
@@ -33,4 +35,22 @@ func _on_shake_camera(amount: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc"):
-		get_tree().change_scene_to_file("res://scenes/Menu/menu.tscn")
+		get_viewport().set_input_as_handled()
+		return_to_menu()
+
+
+func return_to_menu() -> void:
+	if is_returning_to_menu:
+		return
+	
+	is_returning_to_menu = true
+	
+	Dialogic.paused = false
+	
+	if Dialogic.has_subsystem("Voice"):
+		Dialogic.Voice.stop_audio()
+
+	if Dialogic.current_timeline:
+		await Dialogic.end_timeline(true)
+
+	get_tree().change_scene_to_file("res://scenes/Menu/menu.tscn")
