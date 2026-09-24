@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://cvx5keg7xq3il"]
+[gd_scene format=4 uid="uid://cvx5keg7xq3il"]
 
 [ext_resource type="PackedScene" uid="uid://dtiv22fdh4le4" path="res://scenes/BackGround/background.tscn" id="1_6wcv6"]
 [ext_resource type="Script" uid="uid://bsik2kr20tu7" path="res://scenes/Menu/menu.gd" id="1_fi74l"]
@@ -34,7 +34,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" unique_id=1762799546 node_paths=PackedStringArray("start_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,21 +42,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fi74l")
+start_button = NodePath("VBoxContainer/Button")
 
-[node name="BackGround01" parent="." instance=ExtResource("1_6wcv6")]
+[node name="BackGround01" parent="." unique_id=1888096131 instance=ExtResource("1_6wcv6")]
 
-[node name="Tiles" type="Node2D" parent="."]
+[node name="Tiles" type="Node2D" parent="." unique_id=2136974535]
 
-[node name="platforms" parent="Tiles" instance=ExtResource("3_7hiy7")]
+[node name="platforms" parent="Tiles" unique_id=1357670269 instance=ExtResource("3_7hiy7")]
 tile_map_data = PackedByteArray("AAAAABwACAAGAAAAAAABABwACAAHAAAAAAACABwACAAHAAAAAAADABwACAAHAAAAAAAEABwACAAHAAAAAAAFABwACAAHAAAAAAAGABwACAAHAAAAAAAHABwACAAHAAAAAAAIABwACAAHAAAAAAAJABwACAAHAAAAAAAKABwACAAHAAAAAAALABwACAAHAAAAAAAMABwACAAHAAAAAAANABwACAAHAAAAAAAOABwACAAHAAAAAAAPABwACAAHAAAAAAAQABwACAAHAAAAAAARABwACAAHAAAAAAASABwACAAHAAAAAAATABwACAAHAAAAAAAUABwACAAHAAAAAAAVABwACAAHAAAAAAAWABwACAAHAAAAAAAXABwACAAHAAAAAAAYABwACAAHAAAAAAAZABwACAAHAAAAAAAaABwACAAHAAAAAAAbABwACAAHAAAAAAAcABwACAAHAAAAAAAdABwACAAHAAAAAAAeABwACAAHAAAAAAAfABwACAAHAAAAAAAgABwACAAHAAAAAAAhABwACAAHAAAAAAAiABwACAAHAAAAAAAjABwACAAHAAAAAAAkABwACAAHAAAAAAAlABwACAAHAAAAAAAmABwACAAHAAAAAAAnABwACAAIAAAAAAAAAB0ACAAGAAEAAAAAAB4ACAAGAAEAAAAnAB0ACAAIAAEAAAAnAB4ACAAIAAEAAAABAB0ACAAHAAEAAAABAB4ACAAHAAEAAAACAB0ACAAHAAEAAAACAB4ACAAHAAEAAAADAB0ACAAHAAEAAAADAB4ACAAHAAEAAAAEAB0ACAAHAAEAAAAEAB4ACAAHAAEAAAAFAB0ACAAHAAEAAAAFAB4ACAAHAAEAAAAGAB0ACAAHAAEAAAAGAB4ACAAHAAEAAAAHAB0ACAAHAAEAAAAHAB4ACAAHAAEAAAAIAB0ACAAHAAEAAAAIAB4ACAAHAAEAAAAJAB0ACAAHAAEAAAAJAB4ACAAHAAEAAAAKAB0ACAAHAAEAAAAKAB4ACAAHAAEAAAALAB0ACAAHAAEAAAALAB4ACAAHAAEAAAAMAB0ACAAHAAEAAAAMAB4ACAAHAAEAAAANAB0ACAAHAAEAAAANAB4ACAAHAAEAAAAOAB0ACAAHAAEAAAAOAB4ACAAHAAEAAAAPAB0ACAAHAAEAAAAPAB4ACAAHAAEAAAAQAB0ACAAHAAEAAAAQAB4ACAAHAAEAAAARAB0ACAAHAAEAAAARAB4ACAAHAAEAAAASAB0ACAAHAAEAAAASAB4ACAAHAAEAAAATAB0ACAAHAAEAAAATAB4ACAAHAAEAAAAUAB0ACAAHAAEAAAAUAB4ACAAHAAEAAAAVAB0ACAAHAAEAAAAVAB4ACAAHAAEAAAAWAB0ACAAHAAEAAAAWAB4ACAAHAAEAAAAXAB0ACAAHAAEAAAAXAB4ACAAHAAEAAAAYAB0ACAAHAAEAAAAYAB4ACAAHAAEAAAAZAB0ACAAHAAEAAAAZAB4ACAAHAAEAAAAaAB0ACAAHAAEAAAAaAB4ACAAHAAEAAAAbAB0ACAAHAAEAAAAbAB4ACAAHAAEAAAAcAB0ACAAHAAEAAAAcAB4ACAAHAAEAAAAdAB0ACAAHAAEAAAAdAB4ACAAHAAEAAAAeAB0ACAAHAAEAAAAeAB4ACAAHAAEAAAAfAB0ACAAHAAEAAAAfAB4ACAAHAAEAAAAgAB0ACAAHAAEAAAAgAB4ACAAHAAEAAAAhAB0ACAAHAAEAAAAhAB4ACAAHAAEAAAAiAB0ACAAHAAEAAAAiAB4ACAAHAAEAAAAjAB0ACAAHAAEAAAAjAB4ACAAHAAEAAAAkAB0ACAAHAAEAAAAkAB4ACAAHAAEAAAAlAB0ACAAHAAEAAAAlAB4ACAAHAAEAAAAmAB0ACAAHAAEAAAAmAB4ACAAHAAEAAAA=")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1170953562]
 material = SubResource("ShaderMaterial_4e4iy")
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 480.0
 
-[node name="Darkness" type="ColorRect" parent="."]
+[node name="Darkness" type="ColorRect" parent="." unique_id=1536450071]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.635294)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=546400370]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,15 +80,15 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=594697648]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fi74l")
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/PanelContainer" unique_id=999467911]
 layout_mode = 2
 texture = ExtResource("3_4e4iy")
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=2114150520]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_fi74l")
 theme_override_font_sizes/font_size = 32
